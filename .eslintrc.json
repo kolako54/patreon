@@ -1,0 +1,32 @@
+{
+    "extends": [
+        "prettier",
+        "airbnb",
+        "plugin:node/recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "prettier",
+        "react"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "singleQuote": true,
+                "tabWidth": 4
+            }
+        ],
+        "linebreak-style": "off",
+        "no-unused-vars": "warn",
+        "func-names": "off",
+        "object-shorthand": "off",
+        "class-methods-use-this": "off",
+        "no-multiple-empty-lines": "warn",
+        "indent": [
+            "off",
+            "tabs"
+        ]
+    }
+}
