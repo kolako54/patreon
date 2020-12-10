@@ -24,6 +24,8 @@
         "object-shorthand": "off",
         "class-methods-use-this": "off",
         "no-multiple-empty-lines": "warn",
+        "no-console": "off",
+        "no-process-exit": "off",
         "indent": [
             "off",
             "tabs"
