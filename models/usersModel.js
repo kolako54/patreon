@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const validator = require('validatorjs');
+const EmailValidator = require('../plugins/ValidationEmail');
 /* eslint-disable */
+
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
@@ -13,7 +14,7 @@ const UserSchema = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        // validate: [validator.isEmail("test@getMaxListeners.com"), 'یه ایمیل معتبر وارد کن'],
+        validate: [EmailValidator, 'یه ایمیل درست وارد کن'],        
     },
     password: {
         type: String,
@@ -33,6 +34,8 @@ const UserSchema = mongoose.Schema({
     },
 }, // eslint-disable-next-line no-use-before-define);
 );
+
+
 
 /* eslint-enable */
 const User = mongoose.model('User', UserSchema);
