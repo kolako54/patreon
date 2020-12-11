@@ -1,6 +1,6 @@
 const devError = (err, res) => {
     console.log('asdasdasd');
-    res.statusCode(err.statusCode).json({
+    res.status(err.statusCode).json({
         status: err.status,
         message: err.message,
         stack: err.stack,
@@ -14,7 +14,7 @@ module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 400;
     // eslint-disable-next-line
     err.status = err.status || 'error';
-    if (process.env.NODE_ENV === 'developement') {
+    if (process.env.NODE_ENV === 'development') {
         console.log('inside if');
         devError(err, res);
     } else {

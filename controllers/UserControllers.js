@@ -12,7 +12,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-    const users = await User.find();
+    const users = await User.find({});
     res.status(200).json({
         status: 'Ok',
         data: users,
