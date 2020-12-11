@@ -1,15 +1,15 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const app = require('./app');
 
-const app = express();
-dotenv.config({ path: './config.env' });
-app.get('/', (req, res) => {
-    res.status(200).json({
-        status: 200,
-        message: 'Hi',
-    });
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXEPTION: server is shutting down...');
+    console.log(err.name, ': ', err.message);
+    process.exit(1);
 });
+
+dotenv.config({ path: './config.env' });
+
 mongoose
     .connect(process.env.DATABASE_LOCAL, {
         useFindAndModify: false,

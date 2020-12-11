@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validatorjs');
-
-const user = mongoose.Schema({
+/* eslint-disable */
+const UserSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'نکنه بدون وارد کردن اسمت انتظار داری ثبت نام کنی؟'],
@@ -13,7 +13,7 @@ const user = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        validate: [validator.isEmail, 'یه ایمیل معتبر وارد کن'],
+        // validate: [validator.isEmail("test@getMaxListeners.com"), 'یه ایمیل معتبر وارد کن'],
     },
     password: {
         type: String,
@@ -31,6 +31,9 @@ const user = mongoose.Schema({
             message: 'پسوردا مطابقت ندارن دوست عزیز زدی به کاهدون',
         },
     },
-});
-const User = mongoose.Model('User', user);
+}, // eslint-disable-next-line no-use-before-define);
+);
+
+/* eslint-enable */
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

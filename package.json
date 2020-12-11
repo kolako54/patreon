@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "SET NODE_ENV=production&nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "mongoose": "^5.11.6",
+    "morgan": "^1.10.0",
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {
