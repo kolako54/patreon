@@ -19,7 +19,6 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'پسورد پیلیز'],
-        unique: true,
     },
     confirmPassword: {
         type: String,
