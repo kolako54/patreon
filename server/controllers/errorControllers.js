@@ -16,7 +16,6 @@ const ProdError = (err, res) => {
     });
 };
 const handleErrorDuplicate = (error) => {
-    console.log(error.keyValue.email);
     const duplicate = error.keyValue.email;
     const message = ` این ایمیل از قبل وجود داره برادر یکی دیگه وارد کن ${duplicate} `;
     return new AppError(message, 400);
