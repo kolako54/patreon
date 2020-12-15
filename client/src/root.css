@@ -12,9 +12,17 @@
   font-family: 'shabnam-light';
   src: url('./assets/fonts/Shabnam-Light.ttf');
 }
+
+:root {
+  --page-background: #26282b;
+  --navbar-background: #1f2023;
+  --text-color: #707070;
+}
+
 * {
   padding: 0;
   margin: 0;
+  font-size: 1em;
   box-sizing: border-box;
   font-family: 'shabnam';
 }
