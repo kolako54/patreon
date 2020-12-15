@@ -19,6 +19,7 @@
             }
         ],
         "linebreak-style": "off",
+        "comma-dangle": "off",
         "no-unused-vars": "warn",
         "func-names": "off",
         "object-shorthand": "off",
