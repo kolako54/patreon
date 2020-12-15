@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const EmailValidator = require('../plugins/ValidationEmail');
+
 /* eslint-disable */
 
 const UserSchema = mongoose.Schema({
@@ -32,7 +34,9 @@ const UserSchema = mongoose.Schema({
             message: 'پسوردا مطابقت ندارن دوست عزیز زدی به کاهدون',
         },
     },
+    resetTokenExpires: Date,
     passwordChangeAt: Date,
+    hashToken: String,
     role:{
         type: String,
         enum: ['user', 'admin'],
@@ -56,7 +60,13 @@ UserSchema.pre("save", function(next){
 UserSchema.methods.correctPassword = async function(candidatePassword, mainPassword){
     return await bcrypt.compare(candidatePassword, mainPassword);
 }
+UserSchema.methods.createDummyToken = function(){
 
+const resetToken = crypto.randomBytes(32).toString('hex');
+this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+this.resetTokenExpires = Date.now() + (1000 * 60 * 10);
+return resetToken
+}
 /* eslint-enable */
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
