@@ -1,9 +1,27 @@
-.dropdown.dropdown--open {
+.dropdown.dropdown--hidden {
+  visibility: hidden;
+  max-height: 0px;
+}
+.dropdown {
+  transition: max-height 700ms ease-in-out;
+  max-height: 20rem;
+  overflow: hidden;
+  direction: rtl;
   width: 200%;
   filter: none;
-  height: 15rem;
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #212326;
+  background-color: var(--dropdown-background);
+}
+
+.drpodown-item {
+  width: 100%;
+
+  padding: 0.5rem;
+}
+
+.drpodown-item:hover {
+  color: var(--dropdown-background);
+  background-color: var(--text-color);
 }
