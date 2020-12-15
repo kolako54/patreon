@@ -1,0 +1,9 @@
+.dropdown.dropdown--open {
+  width: 200%;
+  filter: none;
+  height: 15rem;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #212326;
+}
