@@ -12,16 +12,15 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: var(--dropdown-background);
+  background-color: var(--primary-dark);
 }
 
 .drpodown-item {
   width: 100%;
-
   padding: 0.5rem;
 }
 
 .drpodown-item:hover {
-  color: var(--dropdown-background);
-  background-color: var(--text-color);
+  color: var(--primary-darkest);
+  background-color: var(--primary-lightest);
 }

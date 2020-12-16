@@ -1,5 +1,5 @@
 .nav-item {
-  color: var(--text-color);
+  color: var(--primary-lighter);
   position: relative;
   padding: 0 1.5rem;
   cursor: pointer;
@@ -15,5 +15,5 @@
 
 .nav-item:hover,
 .nav-item.nav-item--open {
-  color: white;
+  color: var(--primary-lightest);
 }
