@@ -55,6 +55,7 @@ UserSchema.pre('save', async function(next){
 UserSchema.pre("save", function(next){
     if(!this.isModified('password') || this.isNew) return next();
     this.passwordChangeAt = Date.now() - 1000;
+    next();
 })
 
 UserSchema.methods.correctPassword = async function(candidatePassword, mainPassword){
@@ -63,9 +64,11 @@ UserSchema.methods.correctPassword = async function(candidatePassword, mainPassw
 UserSchema.methods.createDummyToken = function(){
 
 const resetToken = crypto.randomBytes(32).toString('hex');
-this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 this.resetTokenExpires = Date.now() + (1000 * 60 * 10);
-return resetToken
+console.log('reset token user model: ', resetToken);
+console.log('hash token user model: ', this.hashToken);
+return resetToken;
 }
 /* eslint-enable */
 const User = mongoose.model('User', UserSchema);

@@ -77,14 +77,24 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 /* eslint-disable */
 exports.resetPassword = catchAsync(async (req, res, next) => {
     const getDummyToken = req.params.resetToken;
+    console.log('reset token inside authcontroller: ', getDummyToken);
+   
+
+   
     const hash = crypto.createHash('sha256').update(getDummyToken).digest('hex');
+    console.log('hash token inside authcontroller: ', hash)
     const user = await User.findOne({ hashToken: hash, resetTokenExpires: {$gt: Date.now(), }});
+
     if(!user) return next(new AppError('This token was not find!', 401));
+   
+
     user.resetTokenExpires = undefined;
     user.hashToken = undefined;
     user.password = req.body.password;
-    user.confirmPassword = req.body.confirmPassword;
+    // user.confirmPassword = req.body.confirmPassword;
+    // console.log('user..............',user);
     await user.save();
+    console.log('user..............',user);
     createSendToken(user, 200, res);
 });
 /* eslint-enable */
