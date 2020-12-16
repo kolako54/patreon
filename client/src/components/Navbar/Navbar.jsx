@@ -13,9 +13,8 @@ const Navbar = () => {
   const navItemsEl = useRef(null);
   useEffect(() => {
     document.addEventListener('mousedown', (e) => {
-      const isNavOpen = openNavName !== '';
       const isClickInsideNav = navItemsEl.current.contains(e.target);
-      if (isNavOpen && !isClickInsideNav) {
+      if (!isClickInsideNav) {
         setOpenNavName('');
       }
     });
