@@ -12,7 +12,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: var(--primary-dark);
+  background-color: var(--primary-darkest);
 }
 
 .drpodown-item {
@@ -22,5 +22,5 @@
 
 .drpodown-item:hover {
   color: var(--primary-darkest);
-  background-color: var(--primary-lightest);
+  background-color: var(--primary-lighter);
 }
