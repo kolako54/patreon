@@ -11,4 +11,9 @@
     var(--secondary-light) 50%,
     var(--secondary-main) 50%
   );
+  transition: box-shadow 200ms ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 0.6rem 0.01rem var(--secondary-main);
 }
