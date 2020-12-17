@@ -1,0 +1,19 @@
+.nav-item {
+  color: var(--text-color);
+  position: relative;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transition: color 400ms ease-in-out;
+}
+.nav-item:first-child {
+  padding-right: 0;
+}
+
+.nav-item:hover,
+.nav-item.nav-item--open {
+  color: white;
+}
