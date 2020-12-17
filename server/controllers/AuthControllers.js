@@ -74,19 +74,20 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
         );
     }
 });
+
 /* eslint-disable */
 exports.resetPassword = catchAsync(async (req, res, next) => {
     const getDummyToken = req.params.resetToken;
     console.log('reset token inside authcontroller: ', getDummyToken);
-   
 
-   
+
+
     const hash = crypto.createHash('sha256').update(getDummyToken).digest('hex');
     console.log('hash token inside authcontroller: ', hash)
-    const user = await User.findOne({ hashToken: hash, resetTokenExpires: {$gt: Date.now(), }});
+    const user = await User.findOne({ hashToken: hash, resetTokenExpires: { $gt: Date.now(), } });
 
-    if(!user) return next(new AppError('This token was not find!', 401));
-   
+    if (!user) return next(new AppError('This token was not find!', 401));
+
 
     user.resetTokenExpires = undefined;
     user.hashToken = undefined;
@@ -94,7 +95,37 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     // user.confirmPassword = req.body.confirmPassword;
     // console.log('user..............',user);
     await user.save();
-    console.log('user..............',user);
+    console.log('user..............', user);
     createSendToken(user, 200, res);
 });
+/* eslint-enable */
+/* eslint-disable */
+exports.protect = catchAsync(async (req, res, next) => {
+    let token;
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    const existedUser = await User.findById(decoded.id);
+    if (!existedUser) {
+        return next(new AppError('کاربر یافت نشد', 400));
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (existedUser.checkChangePassword(decoded.iat)) return next(new AppError('پسورد تغییر داده شده', 400));
+    req.user = existedUser;
+    next();
+});
+/* eslint-enable */
+/* eslint-disable */
+exports.updatePassword = catchAsync(async (req, res, next) => {
+    const user = User.findById(req.user._id).select('+password');
+    const checkPass = await user.correctPassword(req.password, user.password);
+    if(!check) return next(new AppError('پسورد ها مطابقت ندارند',400));
+    req.password = req.body.password;
+    req.confirmPassword = req.body.confirmPassword;
+    await user.save();
+    createSendToken(user, 200, res);
+})
 /* eslint-enable */

@@ -70,6 +70,12 @@ console.log('reset token user model: ', resetToken);
 console.log('hash token user model: ', this.hashToken);
 return resetToken;
 }
+
+UserSchema.methods.checkChangePassword = function(JWTTimestamp){
+    return JWTTimestamp < this.passwordChangeAt;
+}
+
+
 /* eslint-enable */
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
