@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Landing.module.css';
 import dummyVideoPlaceholder from '../../assets/images/dummy/dummyVideoPlaceholder.png';
 import Button from '../../components/Button/Button';
+import SearchInput from '../../components/SearchInput/SearchInput';
 
 const Landing = () => {
   return (
@@ -16,7 +17,7 @@ const Landing = () => {
           <div className={classes.board}>
             <p>راه ارزش گذاری هنر را تغییر بده و کسب درامد کن!</p>
           </div>
-          <Button>شروع کن</Button>
+          <Button classname={classes['board_btn']}>شروع کن</Button>
         </div>
       </section>
       <section className={classes['middle-content']}></section>
