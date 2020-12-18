@@ -1,0 +1,14 @@
+.searh {
+  padding: 0.5rem;
+  display: flex;
+  border: 0.2rem solid var(--primary-light);
+}
+.search-input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.5em;
+  color: var(--primary-lightest);
+}
+.search-icon {
+}
