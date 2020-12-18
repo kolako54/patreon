@@ -1,14 +1,21 @@
 .searh {
   padding: 0.5rem;
   display: flex;
+  align-items: center;
   border: 0.2rem solid var(--primary-light);
 }
 .search-input {
+  caret-color: var(--primary-lightest);
   background-color: transparent;
   border: none;
+  direction: rtl;
+  height: 100%;
   outline: none;
   font-size: 1.5em;
   color: var(--primary-lightest);
 }
 .search-icon {
+  margin-left: 0.75rem;
+  height: 2.5rem;
+  width: 2.5rem;
 }

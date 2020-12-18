@@ -1,16 +1,22 @@
 import React from 'react';
 import classes from './SearchInput.module.css';
+import searchIcon from '../../assets/icons/search.png';
 
 const SearchInput = ({ value, setValue }) => {
   return (
     <div className={classes.searh}>
       <input
         type="text"
-        name="srach"
+        name="search"
+        spellCheck={false}
         value={value}
         className={classes['search-input']}
       />
-      <i className={classes['search-icon']}></i>
+      <img
+        src={searchIcon}
+        alt="searchIcon"
+        className={classes['search-icon']}
+      />
     </div>
   );
 };
