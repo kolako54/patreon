@@ -20,7 +20,21 @@ const Landing = () => {
           <Button classname={classes['board_btn']}>شروع کن</Button>
         </div>
       </section>
-      <section className={classes['middle-content']}></section>
+      <section className={classes['middle-content']}>
+        <h1 className={classes['middle-content__header']}>
+          میان <span className={classes['header-important']}>یک میلیون</span>{' '}
+          نفر پاترئونی جستجو کنید
+        </h1>
+        <form>
+          <div className={classes['search-bar']}>
+            <SearchInput></SearchInput>
+
+            <div className={classes['search-btn']}>
+              <Button>جستجو</Button>
+            </div>
+          </div>
+        </form>
+      </section>
       <footer className={classes['footer']}></footer>
     </div>
   );

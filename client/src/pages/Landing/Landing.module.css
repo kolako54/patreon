@@ -79,3 +79,36 @@
   bottom: 109%;
   transform: rotate(-10deg);
 }
+
+.board_btn {
+  margin-top: 2rem;
+}
+
+.middle-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-dark);
+  padding: 3rem;
+}
+
+.middle-content__header {
+  text-align: center;
+  font-size: 1.75em;
+  color: var(--primary-lighter);
+  margin-bottom: 2.5rem;
+}
+
+.header-important {
+  color: var(--primary-lightest);
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-btn {
+  margin-right: 1.25rem;
+}
