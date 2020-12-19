@@ -66,7 +66,7 @@
 .board::before {
   content: url('../../assets/images/arrowLine.png');
   position: absolute;
-  right: 100%;
+  right: 98%;
   bottom: 10%;
   transform: rotate(-10deg) scaleX(0.8);
 }
@@ -74,7 +74,7 @@
 .board::after {
   content: url('../../assets/images/arrowHead.png');
   position: absolute;
-  right: 142%;
+  right: 140%;
   bottom: 109%;
   transform: rotate(-10deg);
 }
