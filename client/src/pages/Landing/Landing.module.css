@@ -108,7 +108,70 @@
 }
 
 .about-patreon {
+  position: relative;
+  margin: 0 17rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .about-patreon__heading {
+  position: absolute;
+  top: 0;
+  color: var(--primary-lightest);
   font-size: 2em;
+}
+.about-patreon__text {
+  position: relative;
+  border: 0.2rem solid var(--primary-main);
+  border-top: none;
+  line-height: 2rem;
+  text-align: center;
+  padding: 1.5rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.about-patreon__text::before {
+  content: '';
+  position: absolute;
+  text-align: right;
+  top: 0;
+  left: 0;
+  width: 27%;
+  border-top: 0.2rem solid var(--primary-main);
+}
+
+.about-patreon__text::after {
+  content: '';
+  position: absolute;
+  text-align: right;
+  top: 0;
+  right: 0;
+  width: 27%;
+  border-top: 0.2rem solid var(--primary-main);
+}
+
+.pseudo-element {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.pseudo-element::before {
+  content: url('../../assets/icons/dotPrimaryMain.png');
+  position: absolute;
+  left: 25%;
+  top: -0.2rem;
+  transform: translateY(-25%) scale(0.6);
+}
+.pseudo-element::after {
+  content: url('../../assets/icons/dotPrimaryMain.png');
+  position: absolute;
+  right: 25%;
+  top: -0.2rem;
+  transform: translateY(-25%) scale(0.6);
 }
