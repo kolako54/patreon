@@ -163,14 +163,14 @@
 .pseudo-element::before {
   content: url('../../assets/icons/dotPrimaryMain.png');
   position: absolute;
-  left: 25%;
+  left: 27%;
   top: -0.2rem;
-  transform: translateY(-25%) scale(0.6);
+  transform: translate(-1rem, -25%) scale(0.6);
 }
 .pseudo-element::after {
   content: url('../../assets/icons/dotPrimaryMain.png');
   position: absolute;
-  right: 25%;
+  right: 27%;
   top: -0.2rem;
-  transform: translateY(-25%) scale(0.6);
+  transform: translate(1rem, -25%) scale(0.6);
 }
