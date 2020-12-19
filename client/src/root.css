@@ -15,6 +15,7 @@
   src: url('./assets/fonts/Shabnam-Light.ttf');
 }
 :root {
+  color: var(--primary-lighter);
   caret-color: var(--primary-lightest);
 }
 * {
