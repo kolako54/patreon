@@ -6,7 +6,7 @@ import Navitem from './Navitem/Navitem';
 import MainLogo from '../../assets/icons/mainLogo.png';
 import NavDropdown from './NavDropdown/NavDropdown';
 
-import navItems from './navItems';
+import navItems from '../../data/navItems';
 
 const Navbar = () => {
   const [openNavName, setOpenNavName] = useState('');
