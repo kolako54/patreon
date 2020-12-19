@@ -20,8 +20,10 @@ const Navbar = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const navItemClickHandler = (event, name) => {
-    setOpenNavName(name);
+  const navItemClickHandler = (event, newName) => {
+    setOpenNavName((prevName) => {
+      return prevName === newName ? '' : newName;
+    });
   };
   return (
     <nav className={classes.navbar}>
