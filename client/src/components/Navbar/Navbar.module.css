@@ -9,6 +9,7 @@
 
 .nav-logo {
   transform: scale(0.5);
+  transform-origin: left center;
   margin-right: auto;
 }
 
