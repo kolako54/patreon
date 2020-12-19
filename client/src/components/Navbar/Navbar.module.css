@@ -19,3 +19,7 @@
   align-items: center;
   height: 100%;
 }
+
+.first-nav {
+  right: -0.5rem;
+}

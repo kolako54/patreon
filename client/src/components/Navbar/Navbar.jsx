@@ -27,7 +27,8 @@ const Navbar = () => {
     <nav className={classes.navbar}>
       <img className={classes['nav-logo']} src={MainLogo} alt="MainLogo" />
       <div className={classes['nav-items']} ref={navItemsEl}>
-        {navItems.map(({ name, items }) => {
+        {navItems.map(({ name, items }, index) => {
+          const isFirstNav = index === 0;
           const isOpen = name === openNavName;
           return (
             <Navitem
@@ -36,7 +37,11 @@ const Navbar = () => {
               onClick={(e) => navItemClickHandler(e, name)}
             >
               <p>{name}</p>
-              <NavDropdown items={items} isOpen={isOpen} />
+              <NavDropdown
+                items={items}
+                isOpen={isOpen}
+                className={isFirstNav ? classes['first-nav'] : ''}
+              />
             </Navitem>
           );
         })}

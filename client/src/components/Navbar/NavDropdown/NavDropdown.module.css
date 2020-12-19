@@ -7,11 +7,11 @@
   max-height: 20rem;
   overflow: hidden;
   direction: rtl;
-  width: 200%;
+  width: 12rem;
   filter: none;
   position: absolute;
   top: 100%;
-  right: 0;
+  right: 1.5rem;
   background-color: var(--primary-darkest);
 }
 
