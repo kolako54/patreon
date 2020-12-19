@@ -8,6 +8,7 @@ const SearchInput = ({ value, setValue }) => {
       <input
         type="text"
         name="search"
+        placeholder="گیتاریست..."
         spellCheck={false}
         value={value}
         className={classes['search-input']}
