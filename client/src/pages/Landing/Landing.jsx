@@ -28,7 +28,7 @@ const Landing = () => {
         </h1>
         <form>
           <div className={classes['search-bar']}>
-            <SearchInput></SearchInput>
+            <SearchInput placeholder="گیتاریست..." />
 
             <div className={classes['search-btn']}>
               <Button>جستجو</Button>

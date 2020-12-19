@@ -2,13 +2,13 @@ import React from 'react';
 import classes from './SearchInput.module.css';
 import searchIcon from '../../assets/icons/search.png';
 
-const SearchInput = ({ value, setValue }) => {
+const SearchInput = ({ value, setValue, ...props }) => {
   return (
     <div className={classes.searh}>
       <input
+        {...props}
         type="text"
         name="search"
-        placeholder="گیتاریست..."
         spellCheck={false}
         value={value}
         className={classes['search-input']}
