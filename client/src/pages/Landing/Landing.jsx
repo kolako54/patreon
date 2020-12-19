@@ -16,7 +16,7 @@ const Landing = () => {
         </div>
         <div className={classes.right}>
           <div className={classes.board}>
-            <p>راه ارزش گذاری هنر را تغییر بده و کسب درامد کن!</p>
+            <p>!راه ارزش گذاری هنر را تغییر بده و کسب درامد کن</p>
           </div>
           <Button classname={classes['board__btn']}>شروع کن</Button>
         </div>
