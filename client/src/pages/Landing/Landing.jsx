@@ -3,6 +3,7 @@ import classes from './Landing.module.css';
 import dummyVideoPlaceholder from '../../assets/images/dummy/dummyVideoPlaceholder.png';
 import Button from '../../components/Button/Button';
 import SearchInput from '../../components/SearchInput/SearchInput';
+import ImportantPart from '../../components/ImportantPart/ImportantPart';
 
 const Landing = () => {
   return (
@@ -22,7 +23,7 @@ const Landing = () => {
       </section>
       <section className={classes['middle-content']}>
         <h1 className={classes['middle-content__header']}>
-          میان <span className={classes['header-important']}>یک میلیون</span>{' '}
+          میان <ImportantPart>یک میلیون </ImportantPart>
           نفر پاترئونی جستجو کنید
         </h1>
         <form>

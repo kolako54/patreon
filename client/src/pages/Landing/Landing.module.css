@@ -98,10 +98,6 @@
   margin-bottom: 2.5rem;
 }
 
-.header-important {
-  color: var(--primary-lightest);
-}
-
 .search-bar {
   display: flex;
   flex-direction: row-reverse;
