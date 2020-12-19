@@ -18,6 +18,10 @@
   color: var(--primary-lighter);
   caret-color: var(--primary-lightest);
 }
+::selection {
+  background-color: var(--secondary-main);
+  color: white;
+}
 * {
   padding: 0;
   margin: 0;
