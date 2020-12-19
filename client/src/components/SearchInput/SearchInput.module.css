@@ -2,7 +2,7 @@
   padding: 0.5rem;
   display: flex;
   align-items: center;
-  border: 0.2rem solid var(--primary-light);
+  border: 0.2rem solid var(--primary-main);
 }
 .search-input {
   caret-color: var(--primary-lightest);
