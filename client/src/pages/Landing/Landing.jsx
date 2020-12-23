@@ -4,6 +4,8 @@ import dummyVideoPlaceholder from '../../assets/images/dummy/dummyVideoPlacehold
 import Button from '../../components/Button/Button';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import ImportantPart from '../../components/ImportantPart/ImportantPart';
+import comments from '../../data/dummy/comments';
+import Comment from './Comment/Comment';
 
 const Landing = () => {
   return (
@@ -51,6 +53,11 @@ const Landing = () => {
             طراحی اساسا مورد استفاده قرار گیرد.
             <i className={classes['pseudo-element']} />
           </p>
+        </div>
+        <div className={classes.comments}>
+          {comments.map((comment, index) => (
+            <Comment comment={comment} isRtl={index % 2 === 0} />
+          ))}
         </div>
       </section>
       <footer className={classes['footer']}></footer>

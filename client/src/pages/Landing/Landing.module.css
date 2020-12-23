@@ -174,3 +174,7 @@
   top: -0.2rem;
   transform: translate(1rem, -25%) scale(0.6);
 }
+
+.comments {
+  padding: 0.5rem 10rem;
+}
