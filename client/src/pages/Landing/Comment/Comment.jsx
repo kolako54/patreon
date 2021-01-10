@@ -11,12 +11,12 @@ const Comment = ({ comment, isRtl }) => {
       </div>
       <div className={classes['comment-text']}>
         <h1 className={classes['comment-text__header']}>{title}</h1>
-        <p className={classes['comment-text__body']}>
-          {textBody}
+        <div className={classes['comment-text__body']}>
+          <p> {textBody}</p>
           <p className={classes['author-info']}>
             {author.name} - {author.job}
           </p>
-        </p>
+        </div>
       </div>
     </div>
   );
