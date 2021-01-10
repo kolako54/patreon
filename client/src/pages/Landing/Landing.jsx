@@ -116,6 +116,12 @@ const Landing = () => {
             </div>
           </section>
         </div>
+        <section className={classes['join-now']}>
+          <h1 className={classes['join-now__heading']}>
+            آماده ای برای اینکه عضو بشی
+          </h1>
+          <Button classname={classes['join-now__btn']}>شروع کن</Button>
+        </section>
       </section>
       <footer className={classes['footer']}></footer>
     </div>
