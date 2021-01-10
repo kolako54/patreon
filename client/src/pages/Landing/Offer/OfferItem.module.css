@@ -1,0 +1,7 @@
+.offer-item {
+  margin: 1.5rem 0;
+  direction: rtl;
+  text-align: right;
+  list-style-position: inside;
+  list-style-image: url('../../../assets/icons/listItemIcon.png');
+}
