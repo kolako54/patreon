@@ -129,7 +129,50 @@ const Landing = () => {
           <Button classname={classes['join-now__btn']}>شروع کن</Button>
         </section>
       </section>
-      <footer className={classes['footer']}></footer>
+      <footer className={classes.footer}>
+        <div className={classes['footer-items']}>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+        </div>
+        <div className={classes['footer-items']}>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+        </div>
+        <div className={classes['footer-items']}>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+          <a href="/" className={classes['footer-item']}>
+            لورم ایپسون
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };

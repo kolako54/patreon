@@ -242,3 +242,28 @@
 .join-now__btn {
   margin-top: 2rem;
 }
+.footer {
+  display: flex;
+  padding: 3rem;
+  box-shadow: 0 1.5rem 1rem 1rem var(--black);
+  background-color: var(--primary-darkest);
+}
+.footer-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 3rem;
+  width: 100%;
+  border-left: 0.1rem solid var(--primary-lighter);
+}
+.footer-items:first-child {
+  border-left: none;
+}
+.footer-item:first-child {
+  margin-top: 0;
+}
+.footer-item {
+  color: var(--primary-lighter);
+  text-decoration: none;
+  margin-top: 1.5rem;
+}
