@@ -86,6 +86,8 @@
 .middle-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--primary-dark);
   padding: 3rem;
 }
@@ -177,4 +179,47 @@
 
 .comments {
   padding: 0.5rem 10rem;
+}
+
+.patreon-usage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.patreon-usage__title {
+  color: var(--primary-lightest);
+  font-size: 2em;
+}
+.patreon-usage__body {
+  margin-top: 1rem;
+}
+
+.patreon-usage__body p {
+  font-size: 1.2em;
+}
+
+.payment {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.payment__title {
+  color: var(--primary-lightest);
+  font-size: 2em;
+}
+.payment__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 0.5rem;
+  line-height: 2rem;
+}
+.payment__explanation {
+  font-size: 1.2em;
+}
+.payment__samples {
+  display: flex;
+  margin-top: 3rem;
 }

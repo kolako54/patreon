@@ -6,6 +6,11 @@ import SearchInput from '../../components/SearchInput/SearchInput';
 import ImportantPart from '../../components/ImportantPart/ImportantPart';
 import comments from '../../data/dummy/comments';
 import Comment from './Comment/Comment';
+import PaginationSwiper from '../../components/PaginationSwiper/PaginationSwiper';
+import Offer from './Offer/Offer';
+import OfferItems from './Offer/OfferItems';
+import OfferItem from './Offer/OfferItem';
+import offers from '../../data/dummy/offers';
 
 const Landing = () => {
   return (
@@ -58,6 +63,58 @@ const Landing = () => {
           {comments.map((comment, index) => (
             <Comment comment={comment} isRtl={index % 2 === 0} />
           ))}
+        </div>
+        <div className={classes['patreon-usage']}>
+          <h1 className={classes['patreon-usage__title']}>
+            چه کسانی از پاترئون استفاده کنن؟
+          </h1>
+          <p className={classes['patreon-usage__body']}>
+            <p>
+              .اگر میخواهی بدونی این سایت مناسب کیاست فقط کافیه به
+              <ImportantPart> آیکن</ImportantPart> های سایت نگاه کنی
+            </p>
+
+            <p>درسته! فرقی نمیکنه از چه صنفی وارد پاترئون میشوی یا شغلت چیه</p>
+
+            <p>
+              تو میتونی با یاددادن مهارتی که داری کابر جذب کنی و کسب دارمد کنی
+            </p>
+
+            <p>
+              <ImportantPart>!به همین راحتی</ImportantPart>
+            </p>
+          </p>
+        </div>
+        <PaginationSwiper />
+        <div className={classes.payment}>
+          <h1 className={classes['payment__title']}>
+            آسون تر از چیزی که فکرشو میکنی
+          </h1>
+          <section className={classes['payment__body']}>
+            <section className={classes['payment__explanation']}>
+              <p>روش های مختلفی برای امتیاز گرفتن از ظرفدارات وجود داره </p>
+              <p>تو میتونی امتیاز خودتو همونطوری که میخوای دریافت کنی</p>
+              <p>
+                مثال زیر رو مثلا برای یک
+                <ImportantPart> گیتاریست </ImportantPart>
+                میزنیم
+              </p>
+            </section>
+            <div className={classes['payment__samples']}>
+              {offers.map(({ price, items, starsCount }) => (
+                <Offer price={price} starsCount={starsCount}>
+                  <OfferItems>
+                    {items.map((item) => (
+                      <OfferItem>{item}</OfferItem>
+                    ))}
+                  </OfferItems>
+                  <Button style={{ marginTop: '2rem', marginBottom: '1.5rem' }}>
+                    عضویت
+                  </Button>
+                </Offer>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
       <footer className={classes['footer']}></footer>
