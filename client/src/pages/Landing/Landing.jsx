@@ -108,9 +108,7 @@ const Landing = () => {
                       <OfferItem>{item}</OfferItem>
                     ))}
                   </OfferItems>
-                  <Button style={{ marginTop: '2rem', marginBottom: '1.5rem' }}>
-                    عضویت
-                  </Button>
+                  <Button classname={classes['payment__btn']}>عضویت</Button>
                 </Offer>
               ))}
             </div>

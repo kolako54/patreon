@@ -224,6 +224,10 @@
   display: flex;
   margin-top: 3rem;
 }
+.payment__btn {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
 
 .join-now {
   margin-top: 10rem;
