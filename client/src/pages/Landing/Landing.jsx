@@ -61,7 +61,11 @@ const Landing = () => {
         </div>
         <div className={classes.comments}>
           {comments.map((comment, index) => (
-            <Comment comment={comment} isRtl={index % 2 === 0} />
+            <Comment
+              key={comment.title}
+              comment={comment}
+              isRtl={index % 2 === 0}
+            />
           ))}
         </div>
         <div className={classes['patreon-usage']}>
@@ -102,10 +106,14 @@ const Landing = () => {
             </section>
             <div className={classes['payment__samples']}>
               {offers.map(({ price, items, starsCount }) => (
-                <Offer price={price} starsCount={starsCount}>
+                <Offer
+                  key={`${price}${starsCount}`}
+                  price={price}
+                  starsCount={starsCount}
+                >
                   <OfferItems>
                     {items.map((item) => (
-                      <OfferItem>{item}</OfferItem>
+                      <OfferItem key={item}>{item}</OfferItem>
                     ))}
                   </OfferItems>
                   <Button classname={classes['payment__btn']}>عضویت</Button>
