@@ -1,15 +1,14 @@
 import React from 'react';
-import clasess from './styles.module.css';
 import GuitarImage from '../../assets/images/guitar.jpeg';
 
-const SliderC = () => {
+const PaginationSwiper = () => {
   return (
     <img
       src={GuitarImage}
       alt="GuitarImage"
-      className={clasess.paginationSwiper}
+      style={{ width: '35rem', marginTop: '2rem' }}
     />
   );
 };
 
-export default SliderC;
+export default PaginationSwiper;
