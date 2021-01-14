@@ -1,0 +1,59 @@
+.register__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.register {
+  margin: 3rem 0;
+}
+.register__heading {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.register__heading h1 {
+  font-weight: initial;
+  text-align: right;
+  font-size: 1.5em;
+  white-space: nowrap;
+}
+.register__heading span {
+  background-color: var(--primary-main);
+  height: 0.2rem;
+  position: relative;
+  width: 80%;
+}
+
+.register__heading span::after {
+  position: absolute;
+  transform: translateY(-40%) scale(0.6);
+  transform-origin: center right;
+  top: 50%;
+  right: 0;
+  content: url('../../assets/icons/dotPrimaryMain.png');
+}
+
+.register__icon {
+  transform: scale(0.7);
+  transform-origin: center;
+  filter: brightness(0.5);
+  margin: auto;
+}
+.register__form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 5rem;
+  background-color: var(--primary-darkest);
+}
+.register__btn {
+  margin: 2rem 0;
+}
+.register__OAuth {
+}
+.register__login {
+}
