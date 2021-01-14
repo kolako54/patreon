@@ -8,7 +8,7 @@
 .input {
   direction: ltr;
   width: 100%;
-  background-color: var(--primary-dark);
+  background-color: var(--primary-darker);
   color: var(--primary-lighter);
   border: none;
   outline: none;
