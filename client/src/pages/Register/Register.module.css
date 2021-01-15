@@ -54,6 +54,31 @@
   margin: 2rem 0;
 }
 .register__OAuth {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  background-color: var(--primary-darkest);
 }
+
+.register__OAuth p {
+  margin-left: 1rem;
+}
+
+.googleIcon {
+  width: 4rem;
+}
+
+.register__OAuth:hover {
+  filter: brightness(1.1);
+}
+
 .register__login {
+  margin: 1rem 0;
+  text-align: right;
 }

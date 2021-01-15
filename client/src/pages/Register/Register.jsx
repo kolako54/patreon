@@ -1,9 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import mainLogo from '../../assets/icons/mainLogo.png';
+import googleIcon from '../../assets/icons/googleIcon.png';
 import Button from '../../components/Button/Button';
 import classes from './Register.module.css';
 import Input from '../../Input/Input';
+import GlowingText from '../../components/GlowingText/GlowingText';
+
 const Register = () => {
   const { register, handleSubmit, errors } = useForm();
   console.log(errors);
@@ -15,7 +18,6 @@ const Register = () => {
           <h1>ثبت نام</h1>
           <span></span>
         </div>
-
         <form
           onSubmit={handleSubmit(onSubmit)}
           className={classes.register__form}
@@ -59,8 +61,20 @@ const Register = () => {
           />
           <Button classname={classes.register__btn}>ثبت نام</Button>
         </form>
-        <section className={classes.register__OAuth}></section>
-        <section className={classes.register__login}></section>
+        <button className={classes.register__OAuth}>
+          <img
+            src={googleIcon}
+            className={classes.googleIcon}
+            alt="googleIcon"
+          />
+          <p>ثبت نام با گوگل</p>
+        </button>
+        <section className={classes.register__login}>
+          از قبل اکانت دارید؟
+          <a href="/login">
+            <GlowingText glowOnHover={true}> ورود </GlowingText>
+          </a>
+        </section>
       </div>
     </div>
   );
