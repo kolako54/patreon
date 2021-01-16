@@ -4,7 +4,7 @@ import mainLogo from '../../assets/icons/mainLogo.png';
 import googleIcon from '../../assets/icons/googleIcon.png';
 import Button from '../../components/Button/Button';
 import classes from './Register.module.css';
-import Input from '../../Input/Input';
+import Input from '../../components/Input/Input';
 import GlowingText from '../../components/GlowingText/GlowingText';
 
 const Register = () => {
