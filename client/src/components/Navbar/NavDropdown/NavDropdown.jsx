@@ -9,7 +9,7 @@ const NavDropdown = ({ isOpen, items, className }) => {
       {items.map((item) => {
         return (
           <section key={item} className={classes['drpodown-item']}>
-            {item}
+            <p className={classes['item-dropmenu']}>{item}</p>
           </section>
         );
       })}

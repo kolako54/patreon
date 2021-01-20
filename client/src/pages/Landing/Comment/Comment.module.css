@@ -10,10 +10,22 @@
   justify-content: center;
 }
 .thumbnail {
+  transition: 600ms;
   width: 12rem;
   filter: brightness(0.6);
   border-radius: 10rem;
   border: 0.5rem solid var(--primary-darkest);
+  box-shadow: -2px 2px 15px 2px rgba(33,36,39,0.99);
+
+}
+
+.comment:hover > .comment-text{
+  transition: 600ms;
+  color: var(--primary-lightest);
+}
+.comment:hover .thumbnail {
+  transition: 600ms;
+  filter: brightness(1); 
 }
 
 .comment.rtl .thumbnail-container {
@@ -60,6 +72,7 @@
   transform-origin: left center;
 } */
 .comment-text {
+  transition: 600ms;
   position: relative;
   direction: rtl;
   display: flex;
@@ -77,4 +90,6 @@
 }
 .author-info {
   direction: ltr;
+  font-family: 'shabnam-light';
+  font-size: 13px;
 }

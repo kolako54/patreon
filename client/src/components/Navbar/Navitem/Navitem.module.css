@@ -1,6 +1,6 @@
 .nav-item {
   position: relative;
-  padding: 0 2rem;
+  padding: 0 3.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -14,5 +14,6 @@
 
 .nav-item:hover,
 .nav-item.nav-item--open {
+  
   color: var(--primary-lightest);
 }
