@@ -1,0 +1,42 @@
+mutation SIGN_UP($name: String! $email: String! $password: String! $confirmPassword: String! ){
+  signUp(UserInput: { name: $name email: $email password: $password confirmPassword: $confirmPassword}){
+	user{
+    id
+    name
+    email
+    profile_pic
+  }
+    token
+  }
+}
+mutation UPDATE_PASSWORD($password:String! $confirmPassword: String!){
+  resetPassword(password: $password confirmPassword: $confirmPassword){
+    user{
+      email
+    }
+    token
+  }
+}
+query FORGOT_PASSWORD($email: String!){
+  forgotPassword(email: $email){
+    status
+    message
+  }
+}
+query LOGIN( $email: String! $password: String!) {
+  loginUser(email: $email password:$password){
+    user{
+      email
+    }
+    token
+  }
+}
+query GET_ME{
+  get_me{
+    id
+    email
+    password
+    name
+    profile_pic   
+  }
+}

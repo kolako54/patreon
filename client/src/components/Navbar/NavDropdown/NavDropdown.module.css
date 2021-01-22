@@ -1,4 +1,5 @@
 .dropdown.dropdown--hidden {
+  transition: 300ms ease-out;
   visibility: hidden;
   max-height: 0px;
 }
@@ -7,17 +8,26 @@
   max-height: 20rem;
   overflow: hidden;
   direction: rtl;
-  width: 12rem;
+  width: 10rem;
   filter: none;
   position: absolute;
   top: 100%;
-  right: 1.5rem;
+
   background-color: var(--primary-darkest);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .drpodown-item {
+  display: flex;
+  justify-content: center;
+  align-self: center;
   width: 100%;
-  padding: 0.5rem;
+}
+.item-dropmenu{
+  padding: 0.8rem 0.8rem;
+  width: 100%;
 }
 
 .drpodown-item:hover {

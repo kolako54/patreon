@@ -12,7 +12,7 @@ const Navbar = () => {
   const [openNavName, setOpenNavName] = useState('');
   const navItemsEl = useRef(null);
   useEffect(() => {
-    document.addEventListener('mousedown', (e) => {
+    document.addEventListener('mouseover', (e) => {
       const isClickInsideNav = navItemsEl.current?.contains(e.target);
       if (!isClickInsideNav) {
         setOpenNavName('');
@@ -30,7 +30,6 @@ const Navbar = () => {
       <img className={classes['nav-logo']} src={MainLogo} alt="MainLogo" />
       <div className={classes['nav-items']} ref={navItemsEl}>
         {navItems.map(({ name, items }, index) => {
-          const isFirstNav = index === 0;
           const isOpen = name === openNavName;
           return (
             <Navitem
@@ -42,7 +41,6 @@ const Navbar = () => {
               <NavDropdown
                 items={items}
                 isOpen={isOpen}
-                className={isFirstNav ? classes['first-nav'] : ''}
               />
             </Navitem>
           );
