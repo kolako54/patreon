@@ -85,13 +85,26 @@
 
 .middle-content {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+  z-index: 1;
   justify-content: center;
-  background-color: var(--primary-dark);
+  background: transparent url('../../assets/images/background-image.png')
+    no-repeat 3% 55%;
+  background-size: 10%;
   padding: 3rem;
 }
-
+.middle-content::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background: transparent url('../../assets/images/background-image.png')
+    no-repeat 97% 55%;
+  background-size: 10%;
+}
 .middle-content__heading {
   text-align: center;
   font-size: 1.75em;
