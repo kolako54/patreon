@@ -79,6 +79,11 @@
 }
 
 .register__login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   margin: 1rem 0;
-  text-align: right;
+  /* text-align: right; */
 }
+
