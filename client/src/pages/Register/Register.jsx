@@ -1,16 +1,18 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import mainLogo from '../../assets/icons/mainLogo.png';
-import googleIcon from '../../assets/icons/googleIcon.png';
 import Button from '../../components/Button/Button';
 import classes from './Register.module.css';
 import Input from '../../components/Input/Input';
 import GlowingText from '../../components/GlowingText/GlowingText';
 import { useMutation } from '@apollo/client';
-import {REGISTER} from '../../queries/queries'
+import { REGISTER } from '../../queries/queries'
+import { Link } from 'react-router-dom'
+import { GoogleLogin } from 'react-google-login'
 
 
-
+//! clientId: 624819086472-rh9oug572klhcg969mbvlhmthr984lno.apps.googleusercontent.com
+//! client secret: 7R3zuGYEnrfyPTnZyupDDyhf
 const Register = () => {
   const { register, handleSubmit, errors, watch } = useForm();
   const password = useRef({});
@@ -19,7 +21,7 @@ const Register = () => {
   const [someError, setSomeError] = useState('');
   const onSubmit = async (data) => {
     try {
-       await signUp({
+      await signUp({
         variables: {
           name: data.name,
           email: data.email,
@@ -27,10 +29,14 @@ const Register = () => {
           confirmPassword: data.passwordConfirmation
         }
       })
-    } catch (err) { 
+    } catch (err) {
       setSomeError(err.message);
     }
   };
+  const responseGoogle = (response) => {
+    console.log(response);
+    console.log(response.profileObj)
+  }
   return (
     <div className={classes.register__container}>
       <div className={classes.register}>
@@ -83,23 +89,21 @@ const Register = () => {
           />
           <Button classname={classes.register__btn}>ثبت نام</Button>
         </form>
-        <button className={classes.register__OAuth}>
-          <img
-            src={googleIcon}
-            className={classes.googleIcon}
-            alt="googleIcon"
-          />
+        <GoogleLogin className={classes.register__OAuth} clientId="624819086472-rh9oug572klhcg969mbvlhmthr984lno.apps.googleusercontent.com"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy='single_host_origin'>
           <p>ثبت نام با گوگل</p>
-        </button>
+        </GoogleLogin>
         <section className={classes.register__login}>
-        <p style={{color: 'tomato'}}>{someError}</p> 
-        <div>
-          از قبل اکانت دارید؟
-          <a href="/login">
-            <GlowingText glowOnHover={true}> ورود </GlowingText>
-          </a>
+          <p style={{ color: 'tomato' }}>{someError}</p>
+          <div>
+            از قبل اکانت دارید؟
+          <Link to="/login">
+              <GlowingText glowOnHover={true}> ورود </GlowingText>
+            </Link>
           </div>
-        </section>   
+        </section>
       </div>
     </div>
   );

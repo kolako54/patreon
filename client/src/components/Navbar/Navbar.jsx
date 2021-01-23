@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import {Link} from 'react-router-dom'
 import classes from './Navbar.module.css';
 
 import Navitem from './Navitem/Navitem';
@@ -27,7 +27,9 @@ const Navbar = () => {
   };
   return (
     <nav className={classes.navbar}>
-      <img className={classes['nav-logo']} src={MainLogo} alt="MainLogo" />
+    <Link to='/' className={classes['nav-logo']}>
+      <img src={MainLogo} alt="MainLogo" />
+      </Link>
       <div className={classes['nav-items']} ref={navItemsEl}>
         {navItems.map(({ name, items }, index) => {
           const isOpen = name === openNavName;

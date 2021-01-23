@@ -1,13 +1,20 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import mainLogo from '../../assets/icons/mainLogo.png';
-import googleIcon from '../../assets/icons/googleIcon.png';
 import Button from '../../components/Button/Button';
 import classes from './Login.module.css';
 import Input from '../../components/Input/Input';
 import GlowingText from '../../components/GlowingText/GlowingText';
+import { Link } from 'react-router-dom'
+import { GoogleLogin } from 'react-google-login'
+
+
 
 const Login = () => {
+  const responseGoogle = (response) => {
+    console.log(response);
+    console.log(response.profileObj)
+  }
   const { register, handleSubmit, errors } = useForm();
   console.log(errors);
   const onSubmit = (data) => alert(JSON.stringify(data));
@@ -40,19 +47,17 @@ const Login = () => {
           />
           <Button classname={classes.login__btn}>ورود</Button>
         </form>
-        <button className={classes.login__OAuth}>
-          <img
-            src={googleIcon}
-            className={classes.googleIcon}
-            alt="googleIcon"
-          />
-          <p>ورود با گوگل</p>
-        </button>
+        <GoogleLogin className={classes.login__OAuth} clientId="624819086472-rh9oug572klhcg969mbvlhmthr984lno.apps.googleusercontent.com"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy='single_host_origin'>
+          <p>ثبت نام با گوگل</p>
+        </GoogleLogin>
         <section className={classes.login__login}>
           هنوز ثبت نام نکرده اید؟
-          <a href="/register">
+          <Link to="/register">
             <GlowingText glowOnHover={true}> ثبت نام </GlowingText>
-          </a>
+          </Link>
         </section>
       </div>
     </div>
