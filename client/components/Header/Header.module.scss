@@ -1,5 +1,29 @@
 @use "styles/breakpoints" as bkp;
 
+@keyframes fadeInButton {
+  from {
+    display: none;
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+  to {
+    display: block;
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    display: none;
+    opacity: 0;
+  }
+  to {
+    display: flex;
+    opacity: 1;
+  }
+}
+
 .container {
   background-color: var(--primary-darker);
   padding: 0 1.5rem;
@@ -73,30 +97,40 @@
   align-items: center;
   display: flex;
   justify-content: flex-end;
+
   button {
+
     outline: none;
     background: transparent;
     border: 1px solid transparent;
+
+    svg {
+      animation: fadeInButton .5s ease;
+    }
   }
+
   @include bkp.for-tablet-landscape-up {
     display: none;
   }
 }
 
-.subMenu{
+.subMenu {
   flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: calc(100vh - 3.5rem);
   background: var(--primary-darker);
-  a{
-    color:white;
+  animation: fadeIn .3s ease;
+
+  a {
+    color: white;
     padding: 1rem;
     text-align: center;
     width: 100%;
   }
-  @include bkp.for-tablet-landscape-up{
+
+  @include bkp.for-tablet-landscape-up {
     display: none;
   }
 }
