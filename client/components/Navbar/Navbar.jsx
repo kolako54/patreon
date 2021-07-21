@@ -6,7 +6,7 @@ import styles from './Navbar.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
-    <Link key={el} href={el.toLowerCase()}>
+    <Link key={el} href={'/' + el.replace(' ', '').toLowerCase()}>
         <a className={styles.link}>
             {el}
         </a>
