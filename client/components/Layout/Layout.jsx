@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "$components/Header";
+import styles from './Layout.module.scss'
 
 export default function Layout({title, keywords, description, children}) {
     return (
@@ -11,7 +12,9 @@ export default function Layout({title, keywords, description, children}) {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <Header/>
-            <main>{children}</main>
+            <main className={styles.container}>
+                {children}
+            </main>
         </div>
     )
 }

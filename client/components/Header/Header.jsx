@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useState} from "react";
+import {motion, AnimatePresence} from "framer-motion"
 import logo from 'public/favicon.png'
 import styles from './Header.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
@@ -28,6 +29,15 @@ const registerLinks = (
         </Link>
     </div>
 )
+
+const subMenuVariants = {
+    close: {
+        opacity: 0
+    },
+    open: {
+        opacity: 1
+    }
+}
 export default function Header() {
     const [open, setOpen] = useState(false)
     const handleMenu = () => {
@@ -56,21 +66,38 @@ export default function Header() {
                     </div>
                     {registerLinks}
                     {!open ?
-                        <button onClick={handleMenu}>
+                        <motion.button
+                            animate={{
+                                rotateZ: 0
+                            }}
+                            onClick={handleMenu}>
                             <IoMenu color="#fff" size={40}/>
-                        </button>
+                        </motion.button>
                         :
-                        <button onClick={handleMenu}>
+                        <motion.button
+                            animate={{
+                                rotateZ: '-90deg'
+                            }}
+                            onClick={handleMenu}>
                             <IoClose color="#fff" size={40}/>
-                        </button>
+                        </motion.button>
                     }
                 </div>
             </div>
-            {open &&
-            <div className={styles.subMenu}>
-                {links}
-            </div>
-            }
+
+
+            <AnimatePresence>
+                {open &&
+                <motion.div
+                    variants={subMenuVariants}
+                    exit="close"
+                    initial="close"
+                    animate="open"
+                    className={styles.subMenu}>
+                    {links}
+                </motion.div>
+                }
+            </AnimatePresence>
         </>
     )
 }

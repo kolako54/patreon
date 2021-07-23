@@ -1,35 +1,13 @@
 @use "styles/breakpoints" as bkp;
 
-@keyframes fadeInButton {
-  from {
-    display: none;
-    opacity: 0;
-    transform: rotate(90deg);
-  }
-  to {
-    display: block;
-    opacity: 1;
-    transform: rotate(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    display: none;
-    opacity: 0;
-  }
-  to {
-    display: flex;
-    opacity: 1;
-  }
-}
+$phone-header-height: 3.5rem;
 
 .container {
   background-color: var(--primary-darker);
   padding: 0 1.5rem;
   display: flex;
   justify-content: flex-end;
-  height: 3.5rem;
+  height: $phone-header-height;
   @include bkp.for-tablet-landscape-up {
     padding: 0 2.5rem;
     height: 4.2rem;
@@ -103,10 +81,6 @@
     outline: none;
     background: transparent;
     border: 1px solid transparent;
-
-    svg {
-      animation: fadeInButton .5s ease;
-    }
   }
 
   @include bkp.for-tablet-landscape-up {
@@ -119,9 +93,10 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: calc(100vh - 3.5rem);
+  height: calc(100vh - #{$phone-header-height});
   background: var(--primary-darker);
-  animation: fadeIn .3s ease;
+  position: absolute;
+  width: 100%;
 
   a {
     color: white;

@@ -1,0 +1,9 @@
+@use "styles/breakpoints" as bkp;
+
+.container{
+  margin: 0 auto;
+  padding: 1.5rem;
+  @include bkp.for-tablet-landscape-up{
+    padding:1.5rem 3.5rem;
+  }
+}
