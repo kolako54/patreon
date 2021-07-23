@@ -1,9 +1,11 @@
 @use "styles/breakpoints" as bkp;
 
-.container{
-  margin: 0 auto;
+.container {
   padding: 1.5rem;
-  @include bkp.for-tablet-landscape-up{
-    padding:1.5rem 3.5rem;
+  margin: 3.5rem auto 0;
+  min-height: calc(100vh - 3.5rem);
+  background-color: var(--primary-main);
+  @include bkp.for-tablet-landscape-up {
+    padding: 1.5rem 3.5rem;
   }
 }

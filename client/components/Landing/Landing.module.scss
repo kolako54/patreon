@@ -1,0 +1,82 @@
+@use "styles/breakpoints" as bkp;
+
+.container {
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 7rem;
+  @include bkp.for-tablet-landscape-up {
+    flex-direction: row;
+  }
+  @include bkp.for-desktop-up {
+    padding: 0 4rem;
+  }
+}
+.headers {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+
+}
+
+.heading {
+  color: var(--secondary-main);
+  font-size: 36px;
+  @include bkp.for-tablet-landscape-up {
+    font-size: 46px;
+  }
+}
+
+.image {
+  margin: auto;
+  @include bkp.for-tablet-portrait-only {
+    padding: 2rem;
+  }
+}
+
+.caption {
+  font-weight: 400;
+  padding-bottom: 1rem;
+  color: white;
+  max-width: 400px;
+}
+.search {
+  text-align: center;
+  margin-bottom: 7rem;
+  h1{
+    color: white;
+    font-size: 36px;
+  }
+  input{
+    width: 70%;
+    border-radius: 50px;
+    height: 3rem;
+    outline: none;
+    border:none;
+    font-size: 20px;
+    padding: 0 2rem;
+  }
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.about{
+  text-align: center;
+  color: white;
+  h1{
+    font-size: 36px;
+  }
+  p{
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 2;
+  }
+}

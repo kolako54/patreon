@@ -6,6 +6,10 @@ $phone-header-height: 3.5rem;
   background-color: var(--primary-darker);
   padding: 0 1.5rem;
   display: flex;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
   justify-content: flex-end;
   height: $phone-header-height;
   @include bkp.for-tablet-landscape-up {
@@ -91,12 +95,15 @@ $phone-header-height: 3.5rem;
 .subMenu {
   flex-direction: column;
   display: flex;
+  z-index: 1;
   align-items: center;
   justify-content: space-around;
+  margin-top: $phone-header-height;
   height: calc(100vh - #{$phone-header-height});
   background: var(--primary-darker);
-  position: absolute;
+  position: fixed;
   width: 100%;
+  top: 0;
 
   a {
     color: white;
