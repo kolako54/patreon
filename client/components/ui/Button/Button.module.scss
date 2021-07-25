@@ -1,4 +1,6 @@
-.button{
+@use "styles/breakpoints" as bkp;
+
+.button {
   font-weight: 500;
   background-color: var(--secondary-main);
   transition: .2s all ease;
@@ -6,9 +8,11 @@
   padding: .6rem 2rem;
   border-radius: 50px;
   color: #fff;
-  display: block;
-  width: 10rem;
-  margin: auto;
+  @include bkp.for-phone-only {
+    display: block;
+    width: 10rem;
+    margin: auto;
+  }
 }
 
 .primaryColor {
