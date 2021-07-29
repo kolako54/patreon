@@ -58,12 +58,16 @@
   }
 
   input {
-    width: 70%;
+    @include bkp.for-tablet-portrait-up {
+      font-size: 20px;
+      width: 70%;
+    }
+    width: 90%;
+    font-size: 18px;
     border-radius: 50px;
     height: 3rem;
     outline: none;
     border: none;
-    font-size: 20px;
     padding: 0 2rem;
   }
 
@@ -167,8 +171,13 @@
 
   h1 {
     margin-bottom: 3rem;
-    @include bkp.for-phone-only{
+    @include bkp.for-phone-only {
       font-size: 26px;
     }
+  }
+
+  a {
+    width: 10rem;
+    display: block;
   }
 }

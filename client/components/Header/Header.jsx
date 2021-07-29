@@ -20,9 +20,9 @@ const registerLinks = (
                 Log In
             </a>
         </Link>
-        <Link href="/signin">
+        <Link href="/signup">
             <a className={styles.signIn}>
-                Sign In
+                Sign Up
             </a>
         </Link>
     </div>

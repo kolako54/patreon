@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Button from "$components/ui/Button";
-import Comment from "$components/ui/Comment";
+import Comment from "./Comment";
 import Customer from './Customer'
 import Blog from './Blog'
 import SwiperCore, {Autoplay, Pagination} from 'swiper';
@@ -161,7 +161,7 @@ export default function Landing() {
                         Let your most passionate fans support your creative work via monthly
                         membership.
                     </h3>
-                    <Button href="/signin">
+                    <Button href="/signup">
                         Get Started
                     </Button>
                 </div>
@@ -174,15 +174,17 @@ export default function Landing() {
                 <h1>
                     Search the 200,000+ creators on Patreon
                 </h1>
-                <div>
+                <form>
+                    <div>
                     <span style={{marginRight: '-1.6rem', zIndex: 1}}>
                       <IoSearchOutline/>
                     </span>
-                    <input placeholder="Find a creator you love" type="text"/>
-                </div>
-                <Button href="/search">
-                    Search
-                </Button>
+                        <input placeholder="Find a creator you love" type="text"/>
+                    </div>
+                    <Button href="/search">
+                        Search
+                    </Button>
+                </form>
             </div>
 
             <div className={styles.about}>
@@ -221,10 +223,10 @@ export default function Landing() {
 
             <div>
                 <Swiper
-                    // autoplay={{
-                    //     delay: 2500,
-                    //     disableOnInteraction: false,
-                    // }}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
                     grabCursor
                     pagination={{
                         clickable: true
@@ -258,7 +260,7 @@ export default function Landing() {
                 <h1>
                     Are you ready to take back control?
                 </h1>
-                <Button href="/signin">
+                <Button href="/signup">
                     Get Started
                 </Button>
             </div>

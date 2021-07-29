@@ -1,8 +1,22 @@
 import Link from "next/link";
 import styles from "./Button.module.scss";
 
-export default function Button({variant, color, href, style,children, cb}) {
+export default function Button(props) {
+    const {
+        variant,
+        link,
+        color,
+        href,
+        style,
+        children,
+        onClick,
+        disabled,
+        fullWidth
+    } = props
+
     let classes = styles.button
+
+
     if (variant === 'contained') {
         if (color === 'primary') {
             classes = [styles.button, styles.primaryColor].join(' ')
@@ -12,11 +26,21 @@ export default function Button({variant, color, href, style,children, cb}) {
         }
     }
 
+    if (fullWidth) {
+        classes = [styles.button, styles.fullWidth].join(' ')
+        if (disabled) {
+            classes = [styles.button, styles.fullWidth, styles.disabled].join(' ')
+        }
+    }
+
     return (
-        <Link href={href || ''}>
-            <a className={classes} style={style} onClick={cb}>
+        <button disabled={!!disabled} onClick={onClick} className={classes} style={style}>
+            {link &&
+            <Link href={href}>
                 {children}
-            </a>
-        </Link>
+            </Link>
+            }
+            {!link && children}
+        </button>
     )
 }
