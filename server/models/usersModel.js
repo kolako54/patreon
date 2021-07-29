@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+
 const EmailValidator = require('../plugins/ValidationEmail');
 
 /* eslint-disable */
@@ -17,7 +18,7 @@ const UserSchema = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        validate: [EmailValidator, 'یه ایمیل درست وارد کن'],        
+        validate: [EmailValidator, 'یه ایمیل درست وارد کن'],
     },
     password: {
         type: String,
@@ -34,35 +35,60 @@ const UserSchema = mongoose.Schema({
             message: 'پسوردا مطابقت ندارن دوست عزیز زدی به کاهدون',
         },
     },
+    profile_pic: {
+        type: String,
+        default: 'https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png',
+    },
     resetTokenExpires: Date,
     passwordChangeAt: Date,
     hashToken: String,
-    role:{
+    role: {
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
     }
-}, // eslint-disable-next-line no-use-before-define);
+},{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+} // eslint-disable-next-line no-use-before-define);
 );
 
-UserSchema.pre('save', async function(next){
-    if(!this.isModified('password')) return next();
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 12);
     this.confirmPassword = undefined;
     next();
 });
 
-UserSchema.pre("save", function(next){
-    if(!this.isModified('password') || this.isNew) return next();
+UserSchema.pre("save", function (next) {
+    if (!this.isModified('password') || this.isNew) return next();
     this.passwordChangeAt = Date.now() - 1000;
     next();
-})
+<<<<<<< HEAD
+});
 
-UserSchema.methods.correctPassword = async function(candidatePassword, mainPassword){
+UserSchema.methods.checkPasswordChangeAt = function (JWTTimeStamp){
+    if(passwordChangeAt){
+        const formatTimeChange = this.passwordChangeAt.getTime() / 1000;
+        return formatTimeChange < JWTTimeStamp;
+    }
+    return true
+}
+=======
+})
+>>>>>>> master
+
+UserSchema.methods.correctPassword = async function (candidatePassword, mainPassword) {
     return await bcrypt.compare(candidatePassword, mainPassword);
 }
-UserSchema.methods.createDummyToken = function(){
+UserSchema.methods.createDummyToken = function () {
 
+<<<<<<< HEAD
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.resetTokenExpires = Date.now() + (1000 * 60 * 10);
+    return resetToken
+=======
 const resetToken = crypto.randomBytes(32).toString('hex');
 this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 this.resetTokenExpires = Date.now() + (1000 * 60 * 10);
@@ -73,6 +99,7 @@ return resetToken;
 
 UserSchema.methods.checkChangePassword = function(JWTTimestamp){
     return JWTTimestamp < this.passwordChangeAt;
+>>>>>>> master
 }
 
 

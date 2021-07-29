@@ -1,0 +1,69 @@
+@use "../../../styles/breakpoints" as bkp;
+
+.container {
+  color: white;
+  display: flex;
+  margin-bottom: 5rem;
+  @include bkp.for-phone-only {
+    flex-direction: column !important;
+    text-align: center;
+
+  }
+  @include bkp.for-tablet-landscape-up {
+    text-align: left;
+    padding: 0 5rem;
+  }
+  @include bkp.for-desktop-up {
+  }
+}
+
+.title {
+  color: var(--secondary-main);
+  @include bkp.for-tablet-portrait-up {
+    font-size: 40px;
+  }
+  @include bkp.for-desktop-up{
+    min-width: 600px;
+  }
+}
+
+.name {
+  margin-bottom: .4rem;
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.job {
+  margin: 0 0 1.5rem;
+  font-size: 15px;
+  color: aliceblue;
+}
+
+.link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  @include bkp.for-tablet-landscape-up {
+    justify-content: flex-start;
+  }
+}
+
+.info {
+  @include bkp.for-tablet-landscape-up {
+    max-width: 80%;
+  }
+}
+
+.image {
+  //text-align: center;
+  @include bkp.for-phone-only {
+  }
+}
+
+.body {
+  @include bkp.for-phone-only {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+}

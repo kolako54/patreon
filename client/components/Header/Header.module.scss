@@ -1,0 +1,122 @@
+@use "styles/breakpoints" as bkp;
+
+$phone-header-height: 3.5rem;
+
+.container {
+  background-color: var(--primary-darker);
+  padding: 0 1.5rem;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  justify-content: flex-end;
+  height: $phone-header-height;
+  @include bkp.for-tablet-landscape-up {
+    padding: 0 2.5rem;
+    height: 4.2rem;
+  }
+}
+
+.navbar {
+  display: none;
+  @include bkp.for-tablet-landscape-up {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+}
+
+.navButtons {
+  a {
+    margin: 0 .5rem;
+  }
+
+  min-width: 13rem;
+}
+
+.logIn {
+  color: #fff;
+
+  &:hover {
+    border-bottom: 1px solid #fff;
+  }
+}
+
+.signIn {
+  font-weight: 500;
+  background-color: var(--secondary-main);
+  transition: .2s all ease;
+  border: 2px solid var(--secondary-main);
+  padding: .6rem 2rem;
+  border-radius: 50px;
+
+  &:hover {
+    color: var(--secondary-main);
+    border: 2px solid var(--secondary-main);
+    background-color: var(--primary-darker);
+  }
+}
+
+.link {
+  color: var(--primary-lighter);
+  transition: .2s color ease;
+  margin: 0 2rem;
+
+  &:hover {
+    color: var(--primary-lightest);
+  }
+
+  @include bkp.for-tablet-portrait-only {
+    margin: 0 1rem;
+  }
+}
+
+.buttons {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+
+    outline: none;
+    background: transparent;
+    border: 1px solid transparent;
+  }
+
+  @include bkp.for-tablet-landscape-up {
+    display: none;
+  }
+}
+
+.subMenu {
+  flex-direction: column;
+  display: flex;
+  z-index: 2;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: $phone-header-height;
+  height: calc(100vh - #{$phone-header-height});
+  background: var(--primary-darker);
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  a {
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  @include bkp.for-tablet-landscape-up {
+    display: none;
+  }
+}

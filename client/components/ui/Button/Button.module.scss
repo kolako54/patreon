@@ -1,0 +1,33 @@
+@use "styles/breakpoints" as bkp;
+
+.button {
+  font-weight: 500;
+  background-color: var(--secondary-main);
+  transition: .2s all ease;
+  border: 2px solid var(--secondary-main);
+  padding: .6rem 2rem;
+  border-radius: 50px;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.primaryColor {
+  background-color: var(--primary-main);
+}
+
+.secondaryColor {
+  background-color: var(--secondary-main);
+}
+
+.disabled {
+  background-color: rgb(210, 206, 206);
+  border: 2px solid rgb(210, 206, 206);
+  color: #33363a;
+  cursor: default;
+}
+.fullWidth{
+  display: block;
+  width: 100%;
+  margin: auto;
+}

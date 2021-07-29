@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+  p {
+    color: var(--gray);
+  }
+}
+
+.link{
+  color: #e2e2e2;
+  text-decoration: underline;
+}
