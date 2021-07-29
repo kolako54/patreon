@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Button from "$components/ui/Button";
+import {gql, useQuery} from "@apollo/client";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -15,7 +16,12 @@ export default function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = data => console.log(data);
+
+
+    const onSubmit = data => {
+        console.log(data)
+
+    }
 
     return (
         <div className={styles.container}>
@@ -33,7 +39,7 @@ export default function Login() {
                     </div>
                     <div className={styles.inputDiv}>
                         <label htmlFor="password">Password</label>
-                        <input {...register("password", {min: 8, max: 64})}
+                        <input autoComplete="password" {...register("password", {min: 8, max: 64})}
                                name="password"
                                type="password"/>
                         {errors.password &&
@@ -44,7 +50,7 @@ export default function Login() {
                             <a>Forgot password?</a>
                         </Link>
                     </div>
-                    <div className={styles.submit}>
+                    <div>
                         <Button fullWidth disabled={errors.password || errors.email}>
                             Log in
                         </Button>
@@ -53,7 +59,10 @@ export default function Login() {
                         <p>or</p>
                     </div>
                     <div className={styles.google}>
-                        <Button onClick={e => {alert('todo');e.preventDefault()}}>
+                        <Button onClick={e => {
+                            alert('todo');
+                            e.preventDefault()
+                        }}>
                             Continue with
                             {" ⁩ "}
                             <span>G</span>

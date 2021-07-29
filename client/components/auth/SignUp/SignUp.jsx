@@ -72,7 +72,7 @@ export default function SignUp() {
 
                     <div className={styles.inputDiv}>
                         <label htmlFor="password">Password</label>
-                        <input {...register("password")} name="password" type="password"/>
+                        <input autoComplete="password" {...register("password")} name="password" type="password"/>
                         {errors.password &&
                         <p className={styles.error}>{errors.password.message} </p>}
                     </div>
