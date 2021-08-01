@@ -1,0 +1,17 @@
+.google {
+  font-size: 16px;
+  padding: .5rem 2rem;
+  border-radius: 50px;
+  border: 1px solid var(--light);
+  display: flex;
+  align-items: center;
+  margin: auto;
+  transition: .2s background-color ease;
+  cursor: pointer;
+  p {
+    margin: 0 0 0 .5rem;
+  }
+  &:hover{
+    background-color: #d4d4d4;
+  }
+}

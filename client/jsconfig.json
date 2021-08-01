@@ -5,7 +5,8 @@
             "$components/*": ["components/*"],
             "$styles/*": ["styles/*"],
             "$assets/*": ["assets/*"],
-            "$hooks/*": ["utility/hooks/*"]
+            "$hooks/*": ["utility/hooks/*"],
+            "$apollo/*": ["apollo-client/*"]
         }
     }
 }

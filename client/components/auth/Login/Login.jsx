@@ -1,16 +1,21 @@
 import Link from 'next/link'
 import Button from "$components/ui/Button";
+import {useEffect} from "react";
 import {gql, useQuery} from "@apollo/client";
+import {useSession} from 'next-auth/client'
+import GoogleLoginButton from "$components/auth/GoogleLogin";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 import styles from './Login.module.scss'
+import {useRouter} from "next/router";
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(8).max(64).required(),
 });
+
 
 export default function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -22,6 +27,16 @@ export default function Login() {
         console.log(data)
 
     }
+
+    const [session] = useSession()
+
+    const router = useRouter()
+    useEffect(() => {
+        if (session) {
+            router.push('/home')
+        }
+    })
+
 
     return (
         <div className={styles.container}>
@@ -58,21 +73,7 @@ export default function Login() {
                     <div>
                         <p>or</p>
                     </div>
-                    <div className={styles.google}>
-                        <Button onClick={e => {
-                            alert('todo');
-                            e.preventDefault()
-                        }}>
-                            Continue with
-                            {" ⁩ "}
-                            <span>G</span>
-                            <span>o</span>
-                            <span>o</span>
-                            <span>g</span>
-                            <span>l</span>
-                            <span>e</span>
-                        </Button>
-                    </div>
+                    <GoogleLoginButton buttonText="Continue with Google"/>
 
                 </form>
             </div>

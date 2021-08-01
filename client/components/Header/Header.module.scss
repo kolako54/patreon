@@ -120,3 +120,12 @@ $phone-header-height: 3.5rem;
     display: none;
   }
 }
+
+.googleLogout {
+  background: var(--primary-darker) !important;
+  border: 2px solid white !important;
+  padding: .5rem 2rem;
+  cursor: pointer;
+  border-radius: 3px;
+  color: white !important;
+}

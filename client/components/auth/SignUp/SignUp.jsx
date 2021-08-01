@@ -1,9 +1,13 @@
 import Link from 'next/link'
 import Button from "$components/ui/Button";
+import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
+import GoogleLoginButton from "$components/auth/GoogleLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import styles from './SignUp.module.scss'
+import {useRouter} from "next/router";
+import {useEffect} from "react";
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -17,12 +21,23 @@ const schema = yup.object().shape({
 yup.mixed().test('match', 'Emails do not match', function (email) {
     return email === this.options.context.confirmEmail
 })
+
+
 export default function SignUp() {
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
     const onSubmit = data => console.log(data);
+
+    const router = useRouter()
+    const [session] = useSession()
+
+    useEffect(() => {
+        if (session) {
+            router.push('/home')
+        }
+    })
 
 
     return (
@@ -33,21 +48,9 @@ export default function SignUp() {
 
             <div className={styles.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={styles.google}>
-                        <Button onClick={e => {
-                            alert("todo");
-                            e.preventDefault()
-                        }}>
-                            Sign up with
-                            {" ⁩ "}
-                            <span>G</span>
-                            <span>o</span>
-                            <span>o</span>
-                            <span>g</span>
-                            <span>l</span>
-                            <span>e</span>
-                        </Button>
-                    </div>
+
+                    <GoogleLoginButton buttonText="Sign up with Google"/>
+
                     <div>
                         <p>or</p>
                     </div>
@@ -72,7 +75,8 @@ export default function SignUp() {
 
                     <div className={styles.inputDiv}>
                         <label htmlFor="password">Password</label>
-                        <input autoComplete="password" {...register("password")} name="password" type="password"/>
+                        <input autoComplete="password" {...register("password")} name="password"
+                               type="password"/>
                         {errors.password &&
                         <p className={styles.error}>{errors.password.message} </p>}
                     </div>

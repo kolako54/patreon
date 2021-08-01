@@ -1,9 +1,12 @@
 import Link from 'next/link'
+import {useSession, signOut} from 'next-auth/client'
 import {useState} from "react";
 import Logo from "./Logo";
 import {motion, AnimatePresence} from "framer-motion"
 import styles from './Header.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
+import {useRouter} from "next/router";
+
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
     <Link key={el} href={'/' + el.replace(' ', '').toLowerCase()}>
@@ -13,20 +16,6 @@ const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el =>
     </Link>
 ))
 
-const registerLinks = (
-    <div className={styles.navButtons}>
-        <Link href="/login">
-            <a className={styles.logIn}>
-                Log In
-            </a>
-        </Link>
-        <Link href="/signup">
-            <a className={styles.signIn}>
-                Sign Up
-            </a>
-        </Link>
-    </div>
-)
 
 const subMenuVariants = {
     close: {
@@ -43,6 +32,31 @@ export default function Header() {
     const handleMenu = () => {
         setOpen(!open)
     }
+
+    const router = useRouter()
+    const [session, loading] = useSession()
+
+    // console.log(session)
+    const registerLinks = (
+        session ?
+            <button className={styles.googleLogout} onClick={() => signOut()}>Logout</button>
+            :
+            loading ? <p style={{color:'white'}} >Loading...</p> :
+                <div className={styles.navButtons}>
+                    <Link href="/login">
+                        <a className={styles.logIn}>
+                            Log In
+                        </a>
+                    </Link>
+                    <Link href="/signup">
+                        <a className={styles.signIn}>
+                            Sign Up
+                        </a>
+                    </Link>
+                </div>
+
+    )
+
     return (
         <>
             <div className={styles.container}>

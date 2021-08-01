@@ -60,48 +60,6 @@
 }
 
 
-.google {
-  button {
-    display: flex;
-    color: #1f2023;
-    border: 1px solid #999999;
-    background-color: #efefef;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    transition: .3s ease background-color;
-
-    &:hover {
-      background-color: #d4d4d4;
-    }
-  }
-
-  span:first-of-type {
-    color: #4285F4;
-  }
-
-  span:nth-child(2) {
-    color: #DB4437;
-  }
-
-  span:nth-child(3) {
-    color: #F4B400;
-  }
-
-  span:nth-child(4) {
-    color: #4285F4;
-  }
-
-  span:nth-child(5) {
-    color: #0F9D58;
-  }
-
-  span:nth-child(6) {
-    color: #DB4437;
-  }
-
-}
-
 .cta {
   display: flex;
   justify-content: center;
@@ -119,7 +77,7 @@
   }
 }
 
-.error{
+.error {
   color: red;
   padding-left: .1rem;;
 }
