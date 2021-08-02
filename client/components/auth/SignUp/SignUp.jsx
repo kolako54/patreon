@@ -37,7 +37,7 @@ export default function SignUp() {
         if (session) {
             router.push('/home')
         }
-    })
+    }, [router,session])
 
 
     return (
