@@ -15,6 +15,12 @@ function createApolloClient() {
             // },
         }),
         cache,
+        credentials: 'include',
+        // headers: {
+        //     authorization: localStorage.getItem('token'),
+        //     'client-name': 'Patreon Web',
+        //     'client-version': '1.0.0'
+        // }
     });
 }
 

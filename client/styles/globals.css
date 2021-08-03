@@ -36,3 +36,6 @@ a {
 h1, h2, h3 {
     color: var(--secondary-main);
 }
+p{
+    color: var(--primary-lightest);
+}

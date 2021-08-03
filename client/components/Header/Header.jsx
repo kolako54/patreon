@@ -36,12 +36,14 @@ export default function Header() {
     const router = useRouter()
     const [session, loading] = useSession()
 
-    // console.log(session)
+    if (session)
+        console.log('Session Info: ', session)
+
     const registerLinks = (
         session ?
             <button className={styles.googleLogout} onClick={() => signOut()}>Logout</button>
             :
-            loading ? <p style={{color:'white'}} >Loading...</p> :
+            loading ? <p style={{color: 'white'}}>Loading...</p> :
                 <div className={styles.navButtons}>
                     <Link href="/login">
                         <a className={styles.logIn}>
