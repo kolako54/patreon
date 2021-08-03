@@ -5,8 +5,9 @@ import {useSession} from "next-auth/client";
 export default function Home() {
     const router = useRouter()
     const [session] = useSession()
+
     useEffect(() => {
-        if (!session)
+        if (session === null)
             router.push('/login')
     }, [router, session])
 
