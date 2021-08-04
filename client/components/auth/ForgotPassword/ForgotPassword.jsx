@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {useSession} from 'next-auth/client'
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
+import formStyles from '../form.module.scss'
 import * as yup from "yup";
 
 import {useRouter} from "next/router";
@@ -36,7 +37,7 @@ export default function Login() {
     return (
         <div style={{textAlign: 'center'}}>
 
-            <div className="form">
+            <div className={formStyles.form}>
                 <div style={{textAlign: 'left'}}>
                     <h3 style={{marginBottom: '1.5rem'}}>
                         Forgot Password
@@ -46,11 +47,11 @@ export default function Login() {
                     </p>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
                         <input style={{marginBottom: '1rem'}} {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className="error">{errors.email.message} </p>}
+                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
                     <div>
