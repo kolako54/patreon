@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import formStyles from '../form.module.scss'
 import styles from './SignUp.module.scss'
 import {useRouter} from "next/router";
 import {useEffect} from "react";
@@ -41,12 +42,12 @@ export default function SignUp() {
 
 
     return (
-        <div className={styles.container}>
+        <div className={formStyles.container}>
             <h2>
                 Sign up
             </h2>
 
-            <div className="form">
+            <div className={formStyles.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <GoogleLoginButton buttonText="Sign up with Google"/>
@@ -54,31 +55,31 @@ export default function SignUp() {
                     <div>
                         <p>or</p>
                     </div>
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="name">Name</label>
                         <input {...register(("name"))} name="name" type="text"/>
-                        {errors.name && <p className="error">{errors.name.message} </p>}
+                        {errors.name && <p className={formStyles.error}>{errors.name.message} </p>}
                     </div>
 
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email" type="text"/>
-                        {errors.email && <p className="error">{errors.email.message} </p>}
+                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="confirmEmail">Confirm Email</label>
                         <input {...register("confirmEmail")} name="confirmEmail" type="text"/>
                         {errors.confirmEmail &&
-                        <p className="error">{errors.confirmEmail.message} </p>}
+                        <p className={formStyles.error}>{errors.confirmEmail.message} </p>}
                     </div>
 
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>
                         <input autoComplete="password" {...register("password")} name="password"
                                type="password"/>
                         {errors.password &&
-                        <p className="error">{errors.password.message} </p>}
+                        <p className={formStyles.error}>{errors.password.message} </p>}
                     </div>
 
                     <div className={styles.submit}>

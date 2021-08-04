@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Button from "$components/ui/Button";
 import {useEffect} from "react";
-import {gql, useQuery} from "@apollo/client";
 import {useSession} from 'next-auth/client'
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
+import formStyles from '../form.module.scss'
 import styles from './Login.module.scss'
 import {useRouter} from "next/router";
 
@@ -39,26 +39,26 @@ export default function Login() {
 
 
     return (
-        <div className={styles.container}>
+        <div className={formStyles.container}>
             <h2>
                 Log in
             </h2>
 
-            <div className="form">
+            <div className={formStyles.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className="error">{errors.email.message} </p>}
+                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
-                    <div className="inputDiv">
+                    <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>
                         <input autoComplete="password" {...register("password", {min: 8, max: 64})}
                                name="password"
                                type="password"/>
                         {errors.password &&
-                        <p className="error">{errors.password.message} </p>}
+                        <p className={formStyles.error}>{errors.password.message} </p>}
                     </div>
                     <div className={styles.forgetPassword}>
                         <Link href="/forgot-password">
