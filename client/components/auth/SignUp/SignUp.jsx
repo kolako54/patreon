@@ -46,7 +46,7 @@ export default function SignUp() {
                 Sign up
             </h2>
 
-            <div className={styles.form}>
+            <div className="form">
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <GoogleLoginButton buttonText="Sign up with Google"/>
@@ -54,31 +54,31 @@ export default function SignUp() {
                     <div>
                         <p>or</p>
                     </div>
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="name">Name</label>
                         <input {...register(("name"))} name="name" type="text"/>
-                        {errors.name && <p className={styles.error}>{errors.name.message} </p>}
+                        {errors.name && <p className="error">{errors.name.message} </p>}
                     </div>
 
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email" type="text"/>
-                        {errors.email && <p className={styles.error}>{errors.email.message} </p>}
+                        {errors.email && <p className="error">{errors.email.message} </p>}
                     </div>
 
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="confirmEmail">Confirm Email</label>
                         <input {...register("confirmEmail")} name="confirmEmail" type="text"/>
                         {errors.confirmEmail &&
-                        <p className={styles.error}>{errors.confirmEmail.message} </p>}
+                        <p className="error">{errors.confirmEmail.message} </p>}
                     </div>
 
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="password">Password</label>
                         <input autoComplete="password" {...register("password")} name="password"
                                type="password"/>
                         {errors.password &&
-                        <p className={styles.error}>{errors.password.message} </p>}
+                        <p className="error">{errors.password.message} </p>}
                     </div>
 
                     <div className={styles.submit}>

@@ -44,24 +44,24 @@ export default function Login() {
                 Log in
             </h2>
 
-            <div className={styles.form}>
+            <div className="form">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className={styles.error}>{errors.email.message} </p>}
+                        {errors.email && <p className="error">{errors.email.message} </p>}
                     </div>
-                    <div className={styles.inputDiv}>
+                    <div className="inputDiv">
                         <label htmlFor="password">Password</label>
                         <input autoComplete="password" {...register("password", {min: 8, max: 64})}
                                name="password"
                                type="password"/>
                         {errors.password &&
-                        <p className={styles.error}>{errors.password.message} </p>}
+                        <p className="error">{errors.password.message} </p>}
                     </div>
                     <div className={styles.forgetPassword}>
-                        <Link href="/forgetpassword">
+                        <Link href="/forgot-password">
                             <a>Forgot password?</a>
                         </Link>
                     </div>
