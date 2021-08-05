@@ -1,6 +1,6 @@
 @use "styles/breakpoints" as bkp;
 
-$phone-header-height: 3.5rem;
+$phone-header-height: 4.2rem;
 
 .container {
   background-color: var(--primary-darker);
@@ -14,7 +14,6 @@ $phone-header-height: 3.5rem;
   height: $phone-header-height;
   @include bkp.for-tablet-landscape-up {
     padding: 0 2.5rem;
-    height: 4.2rem;
   }
 }
 
