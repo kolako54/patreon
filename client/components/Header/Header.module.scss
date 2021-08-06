@@ -109,7 +109,7 @@ $phone-header-height: 4.2rem;
   top: 0;
 
   a {
-    color: white;
+    color: var(--primary-lightest);
     padding: 1rem;
     text-align: center;
     width: 100%;
@@ -121,10 +121,12 @@ $phone-header-height: 4.2rem;
 }
 
 .googleLogout {
-  background: var(--primary-darker) !important;
-  border: 2px solid white !important;
-  padding: .5rem 2rem;
+  text-align: left;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  background-color: var(--primary-darker);
+  color: var(--primary-lightest);
   cursor: pointer;
-  border-radius: 3px;
-  color: white !important;
+  padding: 1rem;
 }

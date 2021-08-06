@@ -6,4 +6,10 @@ module.exports = {
     //     includePaths: [path.join(__dirname, 'styles/breakpoints;')],
     //     prependData: '@import "styles/breakpoints.scss";'
     // },
+    images: {
+        // add google auth pictures domain
+        domains: [
+            'lh3.googleusercontent.com'
+        ]
+    }
 }

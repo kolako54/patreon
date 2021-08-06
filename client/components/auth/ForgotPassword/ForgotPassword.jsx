@@ -49,12 +49,12 @@ export default function Login() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
-                        <input style={{marginBottom: '1rem'}} {...register("email")} name="email"
+                        <input {...register("email")} name="email"
                                type="text"/>
                         {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
-                    <div>
+                    <div  style={{marginTop: '1rem'}}>
                         <Button fullWidth disabled={errors.password || errors.email}>
                             Reset Password
                         </Button>

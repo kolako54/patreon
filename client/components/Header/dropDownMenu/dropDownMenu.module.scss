@@ -1,0 +1,48 @@
+@use "styles/breakpoints" as bkp;
+
+.container {
+  img {
+    border-radius: 50px;
+  }
+
+  @include bkp.for-tablet-landscape-up {
+    display: block;
+  }
+
+  display: none;
+  cursor: pointer;
+
+  a, button {
+    padding: 1rem .7rem;
+
+    &:hover {
+      background-color: var(--primary-light);
+    }
+  }
+
+  button {
+    text-align: left;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: var(--primary-darker);
+    color: var(--primary-lightest);
+    cursor: pointer;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.dropdown {
+  position: fixed;
+  right: 2.5rem;
+  background-color: var(--primary-darker);
+  color: var(--primary-lightest);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  width: 10rem;
+  justify-content: space-between;
+}
