@@ -5,9 +5,7 @@ import Logo from "./Logo";
 import {motion, AnimatePresence} from "framer-motion"
 import styles from './Header.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
-import {useRouter} from "next/router";
-import dropDownMenu from './dropDownMenu'
-import DropDownMenu from "./dropDownMenu";
+import DropDownMenu from "./DropDownMenu";
 
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
@@ -23,7 +21,9 @@ const registeredLinks = [
     {title: "Explore creators", href: "/explore"},
     {title: "Create on Patreon", href: "/create"},
     {title: "Help center & FAQ", href: "/FAQ"},
-]
+].map(({title, href}) => (
+    <Link key={title} href={href}>{title}</Link>
+))
 
 const subMenuVariants = {
     close: {
@@ -41,11 +41,10 @@ export default function Header() {
         setOpen(!open)
     }
 
-    const router = useRouter()
     const [session, loading] = useSession()
 
-    if (session)
-        console.log('Session Info: ', session)
+    // if (session)
+    //     console.log('Session Info: ', session)
 
 
     const registerLinks = (
@@ -118,10 +117,9 @@ export default function Header() {
                     initial="close"
                     animate="open"
                     className={styles.subMenu}>
-                    {session ? registeredLinks.map(({title, href}) => <Link key={title}
-                                                                            href={href}>{title}</Link>) : links}
+                    {session ? registeredLinks : links}
                     {session && <button className={styles.googleLogout}
-                                        onClick={() => signOut()}>Logout</button>}
+                                        onClick={() => signOut({callbackUrl: 'http://localhost:3000/'})}>Logout</button>}
                 </motion.div>
                 }
             </AnimatePresence>

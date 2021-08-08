@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from 'next/link'
 import {signOut} from "next-auth/client";
 import {useSession} from "next-auth/client";
-import styles from './dropDownMenu.module.scss'
+import styles from './DropDownMenu.module.scss'
 import {useState} from "react";
 
 // const links = [
@@ -21,8 +21,9 @@ export default function DropDownMenu({registeredLinks}) {
              className={styles.container}>
             <Image src={session.user.image} alt="user" width={45} height={45}/>
             {isHover && <div className={styles.dropdown}>
-                {registeredLinks.map(({title, href}) => <Link key={title} href={href}>{title}</Link>)}
-                <button onClick={() => signOut()}>Logout</button>
+                {registeredLinks}
+                <button onClick={() => signOut({callbackUrl: 'http://localhost:3000/'})}>Logout
+                </button>
             </div>
             }
         </div>

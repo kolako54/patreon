@@ -1,0 +1,62 @@
+@use 'styles/breakpoints' as bkp;
+
+.container {
+  @include bkp.for-desktop-up {
+    margin: 0 16rem;
+  }
+  @include bkp.for-tablet-landscape-only {
+    margin: 0 8rem;
+  }
+  @include bkp.for-phone-only{
+    margin: 0 .5rem;
+  }
+  padding: 2rem;
+  border: solid 1px rgb(229, 227, 221);
+  border-radius: 5px;
+  margin: 0 3rem;
+}
+
+.logInWith {
+  margin-bottom: 3rem;
+}
+
+.information {
+  h4 {
+    color: var(--primary-lightest);
+  }
+
+  .userPhoto {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 4rem;
+    flex-direction: column;
+    height: 15rem;
+    @include bkp.for-tablet-landscape-up {
+      height: unset;
+      flex-direction: row;
+    }
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .removeBtn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--light);
+  }
+}
+.file{
+  color: white;
+  background-color: var(--secondary-main);
+  padding: .5rem 1rem;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 50px;
+}

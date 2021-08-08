@@ -12,7 +12,8 @@ const pathVariants = {
         fill: "rgba(136,136,136, 1)",
         transition: {
             duration: 2,
-            ease: "easeInOut",
+            ease: "circIn",
+            repeat: Infinity
         }
     }
 };
