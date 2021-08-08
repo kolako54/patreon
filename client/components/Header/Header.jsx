@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import {motion, AnimatePresence} from "framer-motion"
 import styles from './Header.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
-import {useRouter} from "next/router";
+import DropDownMenu from "./DropDownMenu";
 
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
@@ -15,7 +15,15 @@ const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el =>
         </a>
     </Link>
 ))
-
+const registeredLinks = [
+    {title: "My profile", href: "/profile"},
+    {title: "Setting", href: "/profile/setting"},
+    {title: "Explore creators", href: "/explore"},
+    {title: "Create on Patreon", href: "/create"},
+    {title: "Help center & FAQ", href: "/FAQ"},
+].map(({title, href}) => (
+    <Link key={title} href={href}>{title}</Link>
+))
 
 const subMenuVariants = {
     close: {
@@ -33,15 +41,16 @@ export default function Header() {
         setOpen(!open)
     }
 
-    const router = useRouter()
     const [session, loading] = useSession()
 
-    if (session)
-        console.log('Session Info: ', session)
+    // if (session)
+    //     console.log('Session Info: ', session)
+
 
     const registerLinks = (
-        session ?
-            <button className={styles.googleLogout} onClick={() => signOut()}>Logout</button>
+        session
+            ?
+            <DropDownMenu registeredLinks={registeredLinks}/>
             :
             loading ? <p style={{color: 'white'}}>Loading...</p> :
                 <div className={styles.navButtons}>
@@ -67,7 +76,9 @@ export default function Header() {
                         <div style={{cursor: 'pointer'}}>
                             <Logo/>
                         </div>
-                        {links}
+                        <div>
+                            {session ? null : links}
+                        </div>
                     </div>
                     {registerLinks}
                 </div>
@@ -106,7 +117,9 @@ export default function Header() {
                     initial="close"
                     animate="open"
                     className={styles.subMenu}>
-                    {links}
+                    {session ? registeredLinks : links}
+                    {session && <button className={styles.googleLogout}
+                                        onClick={() => signOut({callbackUrl: 'http://localhost:3000/'})}>Logout</button>}
                 </motion.div>
                 }
             </AnimatePresence>

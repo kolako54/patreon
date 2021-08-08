@@ -11,30 +11,37 @@ export default function Button(props) {
         children,
         onClick,
         disabled,
-        fullWidth
+        fullWidth,
+        type,
+        sm
     } = props
 
     let classes = styles.button
 
 
-    if (variant === 'contained') {
-        if (color === 'primary') {
-            classes = [styles.button, styles.primaryColor].join(' ')
-        }
-        if (color === 'secondary') {
-            classes = [styles.button, styles.secondaryColor].join(' ')
-        }
+    // if (variant === 'contained') {
+    if (color === 'primary') {
+        classes = [styles.button, styles.primaryColor].join(' ')
     }
+    if (color === 'secondary') {
+        classes = [styles.button, styles.secondaryColor].join(' ')
+    }
+
+    // }
 
     if (fullWidth) {
         classes = [styles.button, styles.fullWidth].join(' ')
         if (disabled) {
             classes = [styles.button, styles.fullWidth, styles.disabled].join(' ')
         }
-    }
 
+    }
+    if (sm) {
+        classes = [styles.button, styles.sm].join(' ')
+    }
     return (
-        <button disabled={!!disabled} onClick={onClick} className={classes} style={style}>
+        <button type={type} disabled={!!disabled} onClick={onClick} className={classes}
+                style={style}>
             {link &&
             <Link href={href}>
                 {children}

@@ -17,8 +17,11 @@ import blog2 from '$assets/images/blogs/2.jpg'
 import blog3 from '$assets/images/blogs/3.jpg'
 import plans from '$assets/images/plans.png'
 import {IoSearchOutline} from 'react-icons/io5'
+import {useSession} from "next-auth/client";
+import {useRouter} from "next/router";
 import styles from './Landing.module.scss'
 import "swiper/components/pagination/pagination.min.css"
+import {useEffect} from "react";
 
 
 SwiperCore.use([Autoplay, Pagination]);
@@ -149,7 +152,13 @@ const blogs = [
 
 
 export default function Landing() {
-
+    const router = useRouter()
+    const [session] = useSession()
+    useEffect(() => {
+        if (session) {
+            router.push('/home')
+        }
+    })
     return (
         <div className={styles.container}>
             <div className={styles.header}>

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import {useSession} from "next-auth/client";
 import {motion} from "framer-motion";
 
 const pathVariants = {
@@ -11,13 +12,15 @@ const pathVariants = {
         fill: "rgba(136,136,136, 1)",
         transition: {
             duration: 2,
-            ease: "easeInOut",
+            ease: "circIn",
+            repeat: Infinity
         }
     }
 };
 export default function Logo() {
+    const [session] = useSession()
     return (
-        <Link href="/" passHref>
+        <Link href={session ? '/home' : '/'} passHref>
             <svg
                 xmlns="http://www.w3.org/2000/svg" version="1.0" width="40.000000pt"
                 height="40.000000pt" viewBox="0 0 66.000000 79.000000"
