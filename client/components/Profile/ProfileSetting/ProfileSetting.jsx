@@ -4,11 +4,10 @@ import googleLogo from 'public/google.png'
 import styles from './ProfileSetting.module.scss'
 import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
-// import GoogleLoginButton from "$components/auth/GoogleLogin";
+import defaultUserPicture from '$assets/images/defaultUserPicture.png'
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useRouter} from "next/router";
-// import {useRouter} from "next/router";
 import {useEffect, useState} from "react"
 
 import formStyles from "$components/auth/form.module.scss";
@@ -48,30 +47,30 @@ export default function ProfileSetting() {
         handleSubmit: emailAndNameHandleSubmit,
         formState: {errors: emailAndNameErrors},
         reset,
-        watch
     } = useForm({resolver: yupResolver(emailAndNameSchema)});
-    // const files = watch('picture')
+
     const onPasswordChangeSubmit = data => console.log(data);
     const onEmailAndNameChangSubmit = data => {
-        // setProfilePhoto(data.picture)
-        // console.log(data.picture)
         console.log(data)
 
     }
-
     const router = useRouter()
-
 
     useEffect(() => {
         if (session) {
             const {user: {name, email}} = session
-            reset({name, email})
-            setProfilePhoto(session.user.image)
+            const nameAndEmail = {name, email}
+            reset(nameAndEmail)
+
+            if (!profilePhoto)
+                setProfilePhoto(session.user.image)
+            else if (profilePhoto.src)
+                reset({...nameAndEmail, picture: null})
+
         } else if (session === null) {
             router.push('/login')
         }
-        emailAndNameRegister('picutre')
-    }, [session, reset, router, emailAndNameRegister]);
+    }, [session, reset, router, profilePhoto]);
 
 
     const handlePicture = e => {
@@ -81,9 +80,15 @@ export default function ProfileSetting() {
                 setProfilePhoto(reader.result)
             }
         }
-        reader.readAsDataURL(e.target.files[0])
+        if (e && e.target.files[0])
+            reader.readAsDataURL(e.target.files[0])
     }
-
+    const handleImageRemove = () => {
+        // imageInput.current.files[0] = null
+        // imageInput.current.value = null
+        setProfilePhoto(defaultUserPicture)
+        handlePicture()
+    }
     if (loading) return <p>Loading...</p>
 
     return (
@@ -147,7 +152,7 @@ export default function ProfileSetting() {
                             onChange={handlePicture}
                             style={{display: 'none'}}
                             type="file" name="photo" id="photo"/>
-                        <button onClick={() => setProfilePhoto(null)}
+                        <button onClick={handleImageRemove}
                                 className={styles.removeBtn}>Remove Image
                         </button>
                     </div>
