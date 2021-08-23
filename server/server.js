@@ -38,7 +38,7 @@ const server = new ApolloServer({
 });
 
 // eslint-disable-next-line
-(async function () {
+(async () => {
     try {
         await mongoose
             .connect(process.env.DATABASE_LOCAL, {

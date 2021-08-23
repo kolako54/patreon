@@ -16,14 +16,20 @@ module.exports = gql`
         name: String!
         profile_pic: String
         confirmPassword: String!
+        role: role
     }
     type User {
         id: ID!
         email: String!
+        role: role
         password: String!
         name: String!
         profile_pic: String
         confirmPassword: String!
+    }
+    enum role {
+        admin
+        user
     }
     type AuthUser {
         user: User!

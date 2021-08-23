@@ -35,7 +35,7 @@ export default function Login() {
 
 
     return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center', marginTop: '4rem'}}>
 
             <div className={formStyles.form}>
                 <div style={{textAlign: 'left'}}>
@@ -51,10 +51,11 @@ export default function Login() {
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
+                        {errors.email &&
+                        <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
-                    <div  style={{marginTop: '1rem'}}>
+                    <div style={{marginTop: '1.5rem'}}>
                         <Button fullWidth disabled={errors.password || errors.email}>
                             Reset Password
                         </Button>

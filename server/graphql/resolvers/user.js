@@ -30,6 +30,7 @@ module.exports = {
     Query: {
         loginUser: catchAsync(
             async (_, { email, password }, { UserModel, res }) => {
+                console.log("I'm loginUser resolver");
                 const User = await UserModel.findOne({ email }).select(
                     '+password'
                 );
@@ -43,9 +44,10 @@ module.exports = {
             }
         ),
         // eslint-disable-next-line no-empty-pattern
-        get_me: (_, {}, { user }) => user,
+        get_me: catchAsync(async (_, __, { UserModel, req }) => req.user),
         forgotPassword: catchAsync(
             async (_, { email }, { UserModel, protocol, hostname }) => {
+                console.log("I'm forgotPassword resolver");
                 const user = await UserModel.findOne({ email });
                 if (!user) throw new AuthenticationError('این یوزر وجود ندارد');
                 const dummyToken = user.createDummyToken();
@@ -75,6 +77,7 @@ module.exports = {
     },
     Mutation: {
         signUp: catchAsync(async (_, { UserInput }, { UserModel, res }) => {
+            console.log("I'm signUp resolver");
             // eslint-disable-next-line node/no-unsupported-features/es-syntax
             const User = await UserModel.create({ ...UserInput });
             return createSendToken(User, res);
@@ -85,6 +88,7 @@ module.exports = {
                 { password, confirmPassword },
                 { UserModel, req, res }
             ) => {
+                console.log("I'm resetPassword resolver");
                 const getDummyToken = req.get('Authorization');
                 const hash = crypto
                     .createHash('sha256')
