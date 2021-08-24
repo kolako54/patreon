@@ -62,10 +62,8 @@ export default function ProfileSetting() {
             const nameAndEmail = {name, email}
             reset(nameAndEmail)
 
-            // if a picture has been set, then don't set image to google image
             if (!profilePhoto)
                 setProfilePhoto(session.user.image)
-            // if user removed image
             else if (profilePhoto.src)
                 reset({...nameAndEmail, picture: null})
 
@@ -73,6 +71,7 @@ export default function ProfileSetting() {
             router.push('/login')
         }
     }, [session, reset, router, profilePhoto]);
+
 
     const handlePicture = e => {
         const reader = new FileReader()
@@ -85,6 +84,8 @@ export default function ProfileSetting() {
             reader.readAsDataURL(e.target.files[0])
     }
     const handleImageRemove = () => {
+        // imageInput.current.files[0] = null
+        // imageInput.current.value = null
         setProfilePhoto(defaultUserPicture)
         handlePicture()
     }

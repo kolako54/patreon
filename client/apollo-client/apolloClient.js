@@ -8,8 +8,9 @@ function createApolloClient() {
     return new ApolloClient({
         ssrMode: typeof window === "undefined", // set to true for SSR
         link: new createHttpLink({
-            uri: "https://countries.trevorblades.com",
+            uri: "http://localhost:4000/graphql",
             credentials: 'same-origin',
+            // catch: new InMemoryCache(),
             // headers: {
             //     cookie: req.header('Cookie'),
             // },

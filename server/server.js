@@ -55,7 +55,7 @@ const server = new ApolloServer({
                 });
             });
         server.applyMiddleware({ app });
-        const port = 3000;
+        const port = 4000;
         app.listen(port, () => {
             success({
                 message: `App is runnig in ${port}...`,
