@@ -107,8 +107,6 @@ export default function Header() {
                     }
                 </div>
             </div>
-
-
             <AnimatePresence>
                 {open &&
                 <motion.div

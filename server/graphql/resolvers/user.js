@@ -29,13 +29,14 @@ const createSendToken = (user, res) => {
 module.exports = {
     Query: {
         loginUser: catchAsync(
-            async (_, { email, password }, { UserModel, res }) => {
+            async (_, { UserLoginInput }, { UserModel, res }) => {
+                console.log(UserLoginInput);
                 console.log("I'm loginUser resolver");
-                const User = await UserModel.findOne({ email }).select(
-                    '+password'
-                );
+                const User = await UserModel.findOne({
+                    email: UserLoginInput.email,
+                }).select('+password');
                 // eslint-disable-next-line prettier/prettier
-            if (!User || !await User.correctPassword(password, User.password)) {
+            if (!User || !await User.correctPassword(UserLoginInput.password, User.password)) {
                     throw new AuthenticationError(
                         'ایمیل و یا پسورد اشتباه وارد شده است'
                     );
