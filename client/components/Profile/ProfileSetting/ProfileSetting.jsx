@@ -62,8 +62,10 @@ export default function ProfileSetting() {
             const nameAndEmail = {name, email}
             reset(nameAndEmail)
 
+            // if a picture has been set, then don't set image to google image
             if (!profilePhoto)
                 setProfilePhoto(session.user.image)
+            // if user removed image
             else if (profilePhoto.src)
                 reset({...nameAndEmail, picture: null})
 

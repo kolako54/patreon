@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import Button from "$components/ui/Button";
-import { useSession } from "next-auth/client";
-import { useForm } from "react-hook-form";
+import Button from "$ui/Button";
+import {useSession} from "next-auth/client";
+import {useForm} from "react-hook-form";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
