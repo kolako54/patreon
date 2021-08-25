@@ -74,6 +74,7 @@ export default function ProfileSetting() {
         }
     }, [session, reset, router, profilePhoto]);
 
+
     const handlePicture = e => {
         const reader = new FileReader()
         reader.onload = () => {
@@ -85,6 +86,8 @@ export default function ProfileSetting() {
             reader.readAsDataURL(e.target.files[0])
     }
     const handleImageRemove = () => {
+        // imageInput.current.files[0] = null
+        // imageInput.current.value = null
         setProfilePhoto(defaultUserPicture)
         handlePicture()
     }
