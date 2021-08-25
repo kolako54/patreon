@@ -1,4 +1,4 @@
-import {InMemoryCache,useReactiveVar} from "@apollo/client";
+import {InMemoryCache} from "@apollo/client";
 
 export const cache = new InMemoryCache(
 //     {

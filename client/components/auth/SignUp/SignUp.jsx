@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Button from "$components/ui/Button";
+import Button from "$ui/Button";
 import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
@@ -29,7 +29,7 @@ export default function SignUp() {
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => console.log(data)
 
     const router = useRouter()
     const [session] = useSession()

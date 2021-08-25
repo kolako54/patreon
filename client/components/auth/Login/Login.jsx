@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Button from "$components/ui/Button";
+import Button from "$ui/Button";
 import {useEffect} from "react";
 import {useSession} from 'next-auth/client'
 import GoogleLoginButton from "$components/auth/GoogleLogin";
@@ -50,7 +50,8 @@ export default function Login() {
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
+                        {errors.email &&
+                        <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>

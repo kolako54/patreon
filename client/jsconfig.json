@@ -6,7 +6,8 @@
             "$styles/*": ["styles/*"],
             "$assets/*": ["assets/*"],
             "$hooks/*": ["utility/hooks/*"],
-            "$apollo/*": ["apollo-client/*"]
+            "$apollo/*": ["apollo-client/*"],
+            "$ui/*": ["components/ui/*"]
         }
     }
 }
