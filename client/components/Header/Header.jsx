@@ -18,6 +18,7 @@ const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el =>
 const registeredLinks = [
     {title: "My profile", href: "/profile"},
     {title: "Setting", href: "/profile/setting"},
+    {title: "Bookmarks", href: "/bookmarks"},
     {title: "Explore creators", href: "/explore"},
     {title: "Create on Patreon", href: "/create"},
     {title: "Help center & FAQ", href: "/FAQ"},

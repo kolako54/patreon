@@ -14,7 +14,7 @@ export default function Post({image}) {
     const [isLiked, setIsLiked] = useState(false)
     const [isBookmarked, setIsBookmarked] = useState(false)
     return (
-        <div style={{margin: '1rem 0'}}>
+        <div className={styles.post}>
             <div className={styles.info}>
                 <div>
                     {image && <Image src={image} width={45} height={45} alt="user image"/>}

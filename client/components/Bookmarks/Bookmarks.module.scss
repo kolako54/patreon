@@ -1,0 +1,20 @@
+@use "styles/breakpoints" as bkp;
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.tabs {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  @include bkp.for-tablet-landscape-up {
+    width: 60%;
+  }
+  p {
+    margin: 0.5rem;
+  }
+}
+

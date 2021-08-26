@@ -1,3 +1,16 @@
+.post {
+  margin: 1rem 0;
+
+  button {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 25px;
+    color: var(--light);
+    cursor: pointer;
+  }
+}
+
 .info {
   display: flex;
   align-items: center;
@@ -23,6 +36,7 @@
   img {
     border-radius: 50%;
   }
+
 }
 
 .content {
@@ -49,7 +63,7 @@
   p {
     font-size: 15px;
     position: absolute;
-    bottom:2px;
+    bottom: 2px;
     left: 35px;
   }
 }
