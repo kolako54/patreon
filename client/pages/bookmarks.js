@@ -3,7 +3,7 @@ import Bookmarks from "$components/Bookmarks"
 
 export default function BookmarksPage() {
     return (
-        <Layout title="bookmarks">
+        <Layout title="Bookmarks">
             <Bookmarks/>
         </Layout>
     )

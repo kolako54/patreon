@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     ).required(),
 });
 
-yup.mixed().test('match', 'passwords do not match', function (email) {
+yup.mixed().test('match', 'passwords do not match', function (password) {
     return password === this.options.context.confirmPassword
 })
 
