@@ -7,7 +7,7 @@ const Post = gql`
         getPost(id: ID!, showComments: Boolean): File!
     }
     extend type Mutation {
-        singleUpload(file: Upload!, text: String!): File! @isAuth
+        singleUpload(file: Upload!, text: String!, user: ID!): File! @isAuth
         deletePost(id: ID!): File @isAuth
         updatePost(id: ID!, text: String): File @isAuth
     }
@@ -18,6 +18,7 @@ const Post = gql`
         filename: String!
         filelocation: String!
         comments: [comment]
+        user: ObjectID
     }
 `;
 

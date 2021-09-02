@@ -9,6 +9,11 @@ module.exports = gql`
     extend type Mutation {
         signUp(UserInput: UserInput!): AuthUser!
         resetPassword(password: String!, confirmPassword: String!): AuthUser!
+        updatePassword(
+            currentPassword: String!
+            password: String!
+            confirmPassword: String!
+        ): AuthUser! @isAuth
     }
     input UserInput {
         email: String!
@@ -31,6 +36,8 @@ module.exports = gql`
         name: String!
         profile_pic: String
         confirmPassword: String!
+        comments: [comment]
+        posts: [File]
     }
     enum role {
         admin

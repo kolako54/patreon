@@ -9,7 +9,8 @@ module.exports = {
     images: {
         // add google auth pictures domain
         domains: [
-            'lh3.googleusercontent.com'
+            'lh3.googleusercontent.com',
+            'cdn4.iconfinder.com',
         ]
     }
 }

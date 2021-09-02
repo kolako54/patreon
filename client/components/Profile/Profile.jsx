@@ -4,16 +4,18 @@ import styles from './Profile.module.scss'
 import Button from "$components/ui/Button";
 import {useEffect} from "react";
 import {useRouter} from 'next/router'
+import { GET_ME } from '../../pages/api/queries';
+import {useQuery} from '@apollo/client';
 
 export default function Profile() {
-    const [session, loading] = useSession()
+    // const [session, loading] = useSession()
+    const {data, error, loading} = useQuery(GET_ME);
 
     const router = useRouter()
 
     useEffect(() => {
-        if (session === null)
-            router.push('/login')
-    }, [router, session])
+        if (data === null) router.push('/login'); 
+    }, [router, data])
 
 
     if (loading) {
@@ -23,11 +25,11 @@ export default function Profile() {
         <div className={styles.container}>
             <div className={styles.profile}>
                 <div>
-                    {session &&
-                    <Image src={session.user.image} alt="user pic" width={110} height={110}/>}
+                    {data &&
+                    <Image src={data.get_me.profile_pic} alt="user pic" width={110} height={110}/>}
                 </div>
                 <div>
-                    <p>{session && session.user.name}</p>
+                    <p>{data && data.get_me.name}</p>
                 </div>
                 <div>
                     <Button link href="/profile/setting">
