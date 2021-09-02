@@ -5,6 +5,7 @@ import { useSession } from "next-auth/client";
 import styles from './Home.module.scss'
 import { useQuery } from '@apollo/client';
 import { GET_ME } from 'pages/api/queries';
+import Post from '../ui/Post'
 
 export default function Home() {
     const router = useRouter()
