@@ -1,0 +1,55 @@
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  h4 {
+    padding: 0;
+    color: #f5f5f5;
+    margin: .5rem;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.content {
+  max-width: 78%;
+  margin: 0 auto 1rem;
+
+  p {
+    text-align: left;
+  }
+}
+
+.icons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-content: center;
+
+  p {
+    font-size: 15px;
+    position: absolute;
+    bottom:2px;
+    left: 35px;
+  }
+}

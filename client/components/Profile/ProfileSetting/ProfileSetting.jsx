@@ -84,6 +84,7 @@ export default function ProfileSetting() {
             const nameAndEmail = { name, email };
             reset(nameAndEmail);
 
+            // if a picture has been set, then don't set image to google image
             if (!profilePhoto)
                 setProfilePhoto(data.get_me.profile_pic)
             else if (profilePhoto.src)
