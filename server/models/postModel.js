@@ -4,7 +4,7 @@ const PostSchema = mongoose.Schema(
     {
         text: {
             type: String,
-            required: ["You didn't enter anything!", true],
+            required: [true, "You didn't enter anything!"],
         },
         filelocation: String,
         filename: String,
@@ -13,6 +13,11 @@ const PostSchema = mongoose.Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
+        },
+        user: {
+            required: [true, 'fuck'],
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
         },
     },
     {

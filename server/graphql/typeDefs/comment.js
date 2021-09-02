@@ -11,7 +11,7 @@ module.exports = gql`
     }
     type comment {
         id: ID
-        post: ID
+        post: ObjectID
         user: ObjectID!
         text: String
     }

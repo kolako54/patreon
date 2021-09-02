@@ -16,39 +16,42 @@ module.exports = {
         }),
     },
     Mutation: {
-        singleUpload: catchAsync(async (_, { file, text }, { PostModel }) => {
-            console.log("I'm singleUpload resolver");
+        singleUpload: catchAsync(
+            async (_, { file, text, user }, { PostModel }) => {
+                console.log("I'm singleUpload resolver");
 
-            const {
-                createReadStream,
-                filename,
-                mimetype,
-                encoding,
-            } = await file;
-            const stream = createReadStream();
-            // eslint-disable-next-line prefer-const
-            let { ext, name } = parse(filename);
-            name = name.replace(/([^a-z0-9 ]+)/gi, '-').replace(' ', '_');
-            let serverFile = join(__dirname, `../../uploads/${name}${ext}`);
-            const writeStream = await createWriteStream(serverFile);
-            await stream.pipe(writeStream);
-            serverFile = `${process.env.BASE_URL}${process.env.PORT}${
-                serverFile.split('uploads')[1]
-            }`;
-            const Post = await PostModel.create({
-                text: text,
-                filelocation: serverFile,
-                filename: filename,
-            });
-            return Post;
+                const {
+                    createReadStream,
+                    filename,
+                    mimetype,
+                    encoding,
+                } = await file;
+                const stream = createReadStream();
+                // eslint-disable-next-line prefer-const
+                let { ext, name } = parse(filename);
+                name = name.replace(/([^a-z0-9 ]+)/gi, '-').replace(' ', '_');
+                let serverFile = join(__dirname, `../../uploads/${name}${ext}`);
+                const writeStream = await createWriteStream(serverFile);
+                await stream.pipe(writeStream);
+                serverFile = `${process.env.BASE_URL}${process.env.PORT}${
+                    serverFile.split('uploads')[1]
+                }`;
+                const Post = await PostModel.create({
+                    text: text,
+                    filelocation: serverFile,
+                    filename: filename,
+                    user: user,
+                });
+                return Post;
 
-            // const out = fs.createWriteStream('local-file-output.txt');
-            // stream.pipe(out);
-            // console.log(out);
-            // await stream.finished(out);
+                // const out = fs.createWriteStream('local-file-output.txt');
+                // stream.pipe(out);
+                // console.log(out);
+                // await stream.finished(out);
 
-            // return { filename, mimetype, encoding };
-        }),
+                // return { filename, mimetype, encoding };
+            }
+        ),
         deletePost: catchAsync(async (_, { id }, { PostModel }) => {
             console.log("I'm deletePost resolver");
             const Post = await PostModel.findByIdAndDelete(id);

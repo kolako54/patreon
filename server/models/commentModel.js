@@ -20,12 +20,12 @@ const CommentSchema = mongoose.Schema({
         required: [true, 'this comment belong to a post'],
     },
 });
-CommentSchema.pre(/^find/, function (next) {
-    this.populate({
-        path: 'user',
-        select: 'name role',
-    });
-    next();
-});
+// CommentSchema.pre(/^find/, function (next) {
+//     this.populate({
+//         path: 'user',
+//         select: 'name role',
+//     });
+//     next();
+// });
 const Comments = mongoose.model('Comment', CommentSchema);
 module.exports = Comments;

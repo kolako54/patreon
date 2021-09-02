@@ -5,15 +5,15 @@ import {useSession} from 'next-auth/client'
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { GET_USER } from "../../../pages/api/queries"
+import { LOGIN_USER } from "../../../pages/api/queries"
 import * as yup from "yup";
 
 
 import formStyles from '../form.module.scss'
 import styles from './Login.module.scss'
 import { useRouter } from "next/router";
-import { useLazyQuery } from '@apollo/client';
-
+import { useLazyQuery, useQuery } from '@apollo/client';
+import isLoggedInVar from './../../../apollo-client/cache';
 const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(8).max(64).required(),
@@ -24,7 +24,14 @@ export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    const [get_user, { data, error }] = useLazyQuery(GET_USER);
+    const [get_user, {
+        data,
+        error, }] = useLazyQuery(LOGIN_USER, {
+            onCompleted: (d) => {
+                localStorage.setItem('token', 'Bearer ' + d.loginUser.token);
+                isLoggedInVar(true)
+            }
+        });
 
     const onSubmit = async data => {
         try {
@@ -34,14 +41,14 @@ export default function Login() {
         }
     }
 
-    const [session] = useSession()
+    // const [session] = useSession()
 
     const router = useRouter()
     useEffect(() => {
-        if (session) {
+        if (data) {
             router.push('/home')
         }
-    }, [router, session])
+    }, [router, data])
 
 
     return (
@@ -83,7 +90,7 @@ export default function Login() {
                     <GoogleLoginButton buttonText="Continue with Google" />
 
                 </form>
-                <h4 style={{color: "red"}}>{error?.message}</h4>
+                <h4 style={{ color: "red" }}>{error?.message}</h4>
             </div>
             <div className={styles.cta}>
                 <p>New to Patreon?</p>

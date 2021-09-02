@@ -30,13 +30,19 @@ module.exports = {
     Query: {
         loginUser: catchAsync(
             async (_, { UserLoginInput }, { UserModel, res }) => {
-                console.log(UserLoginInput);
                 console.log("I'm loginUser resolver");
+                const { email, password } = UserLoginInput;
+                if (!email || !password) {
+                    throw new ApolloError(
+                        "You didn't enter password or email",
+                        400
+                    );
+                }
                 const User = await UserModel.findOne({
-                    email: UserLoginInput.email,
+                    email,
                 }).select('+password');
                 // eslint-disable-next-line prettier/prettier
-            if (!User || !await User.correctPassword(UserLoginInput.password, User.password)) {
+                if (!User || !await User.correctPassword(password, User.password)) {
                     throw new AuthenticationError(
                         'ایمیل و یا پسورد اشتباه وارد شده است'
                     );
@@ -45,7 +51,13 @@ module.exports = {
             }
         ),
         // eslint-disable-next-line no-empty-pattern
-        get_me: catchAsync(async (_, __, { UserModel, req }) => req.user),
+        get_me: catchAsync(async (_, __, { UserModel, req }) => {
+            const User = await UserModel.findById(req.user.id)
+                .populate('comments')
+                .populate('posts');
+            return User;
+        }),
+
         forgotPassword: catchAsync(
             async (_, { email }, { UserModel, protocol, hostname }) => {
                 console.log("I'm forgotPassword resolver");
@@ -90,7 +102,7 @@ module.exports = {
                 { UserModel, req, res }
             ) => {
                 console.log("I'm resetPassword resolver");
-                const getDummyToken = req.get('Authorization');
+                const getDummyToken = req.get('authorization');
                 const hash = crypto
                     .createHash('sha256')
                     .update(getDummyToken)
@@ -108,5 +120,50 @@ module.exports = {
                 return createSendToken(user, res);
             }
         ),
+        // eslint-disable-next-line consistent-return
+        updatePassword: catchAsync(async (_, ins, { UserModel, req, res }) => {
+            console.log("i'm updatePassword");
+            const { currentPassword, password, confirmPassword } = ins;
+            //! 1) Get user from collection.
+            const user = await UserModel.findById(req.user.id).select(
+                '+password'
+            );
+            //! 2) Check if POSTed current password is correct.
+            if (!(await user.correctPassword(currentPassword, user.password))) {
+                throw new ApolloError(
+                    'Password entered was incorrect, please try again!',
+                    400
+                );
+            }
+            //! 3) If so, update password.
+            user.password = password;
+            user.confirmPassword = confirmPassword;
+            await user.save();
+
+            //! 4) Log the user in, send JWT.
+            return createSendToken(user, res);
+        }),
     },
 };
+
+// catchAsync(async (_, ins, { UserModel, req }) => {
+//     // const ctx = { password, confirmPassword };
+//     // console.log('req.user', req)
+//     console.log('ctx', ins);
+//     console.log('req.user.id', req.user.id);
+//     const doc = await UserModel.findByIdAndUpdate(req.user.id, ins, {
+//         new: true,
+//         runValidators: true, // each time we update data, model schema run again.
+//     });
+//     console.log('doccccccccc', doc);
+//     if (!doc) {
+//         return {
+//             status: false,
+//             message: 'the password does not change',
+//         };
+//     }
+//     return {
+//         status: true,
+//         message: 'the password sucessfully changed!',
+//     };
+// }),

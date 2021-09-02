@@ -3,12 +3,14 @@ const { UserModel } = require('../models');
 
 const protect = async (req, res, next) => {
     try {
-        const getToken = req.get('Authorization');
+        const getToken = req.get('authorization');
+        console.log('back', getToken);
         let token;
         if (getToken) {
             // eslint-disable-next-line prefer-destructuring
             token = getToken.split(' ')[1];
         }
+        console.log(token);
         if (!token) {
             req.isAuth = false;
             return next();
