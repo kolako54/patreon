@@ -1,4 +1,4 @@
-import {cache} from "./cach";
+import {cache} from "./cache";
 import {useMemo} from "react";
 import {ApolloClient, createHttpLink} from "@apollo/client";
 

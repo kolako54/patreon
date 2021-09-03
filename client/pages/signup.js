@@ -8,3 +8,8 @@ export default function SignUpPage() {
         </Layout>
     )
 }
+
+SignUpPage.authOptions = {
+    auth:false,
+    redirect: '/home'
+}

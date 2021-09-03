@@ -1,17 +1,17 @@
-import {useRouter} from "next/router";
-import {useEffect} from "react";
+// import {useRouter} from "next/router";
+// import {useEffect} from "react";
 import {useSession} from "next-auth/client";
 import Post from '$ui/Post'
 import styles from './Bookmarks.module.scss'
 
 export default function Bookmarks() {
-    const router = useRouter()
+    // const router = useRouter()
     const [session, loading] = useSession()
-
-    useEffect(() => {
-        if (session === null)
-            router.push('/login')
-    }, [router, session])
+    //
+    // useEffect(() => {
+    //     if (session === null)
+    //         router.push('/login')
+    // }, [router, session])
 
     if (loading) return <p>Loading...</p>
     return (

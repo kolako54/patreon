@@ -7,7 +7,7 @@ import {useForm} from "react-hook-form";
 import defaultUserPicture from '$assets/images/defaultUserPicture.png'
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {useRouter} from "next/router";
+// import {useRouter} from "next/router";
 import {useEffect, useState} from "react"
 
 import formStyles from "$components/auth/form.module.scss";
@@ -54,7 +54,7 @@ export default function ProfileSetting() {
         console.log(data)
 
     }
-    const router = useRouter()
+    // const router = useRouter()
 
     useEffect(() => {
         if (session) {
@@ -69,10 +69,11 @@ export default function ProfileSetting() {
             else if (profilePhoto.src)
                 reset({...nameAndEmail, picture: null})
 
-        } else if (session === null) {
-            router.push('/login')
         }
-    }, [session, reset, router, profilePhoto]);
+        // else if (session === null) {
+        //     router.push('/login')
+        // }
+    }, [session, reset,  profilePhoto]);
 
 
     const handlePicture = e => {

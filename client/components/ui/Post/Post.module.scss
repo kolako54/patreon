@@ -1,20 +1,14 @@
+@use "styles/breakpoints" as bkp;
+
 .post {
   margin: 1rem 0;
 
-  button {
-    background: transparent;
-    outline: none;
-    border: none;
-    font-size: 25px;
-    color: var(--light);
-    cursor: pointer;
-  }
+
 }
 
 .info {
   display: flex;
   align-items: center;
-  justify-content: space-around;
 
   div {
     display: flex;
@@ -25,7 +19,10 @@
   h4 {
     padding: 0;
     color: #f5f5f5;
-    margin: .5rem;
+
+    @include bkp.for-tablet-portrait-up {
+      margin: .5rem;
+    }
   }
 
   p {
@@ -41,16 +38,17 @@
 
 .content {
   max-width: 78%;
-  margin: 0 auto 1rem;
 
   p {
     text-align: left;
+    @include bkp.for-tablet-landscape-up {
+      min-width: 30rem;
+    }
   }
 }
 
 .icons {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -63,7 +61,13 @@
   p {
     font-size: 15px;
     position: absolute;
-    bottom: 2px;
-    left: 35px;
+  }
+}
+
+.usernameAndTime {
+  flex-direction: column;
+
+  @include bkp.for-tablet-portrait-up {
+    flex-direction: row;
   }
 }

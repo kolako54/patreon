@@ -8,3 +8,8 @@ export default function ProfileSettingPage() {
         </Layout>
     )
 }
+
+ProfileSettingPage.authConfig = {
+    auth: true,
+    autoLogin: true
+}

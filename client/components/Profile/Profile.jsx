@@ -2,18 +2,18 @@ import Image from 'next/image'
 import {useSession} from "next-auth/client";
 import styles from './Profile.module.scss'
 import Button from "$components/ui/Button";
-import {useEffect} from "react";
-import {useRouter} from 'next/router'
+// import {useEffect} from "react";
+// import {useRouter} from 'next/router'
 
 export default function Profile() {
     const [session, loading] = useSession()
 
-    const router = useRouter()
-
-    useEffect(() => {
-        if (session === null)
-            router.push('/login')
-    }, [router, session])
+    // const router = useRouter()
+    //
+    // useEffect(() => {
+    //     if (session === null)
+    //         router.push('/login')
+    // }, [router, session])
 
 
     if (loading) {

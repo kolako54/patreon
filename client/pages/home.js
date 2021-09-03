@@ -8,3 +8,13 @@ export default function HomePage() {
         </Layout>
     )
 }
+
+HomePage.authOptions = {
+    auth: true,
+    redirect: '/login'
+}
+// HomePage.auth = {
+//     role: "admin",
+//     loading: <AdminLoadingSkeleton />,
+//     unauthorized: "/login-with-different-user", // redirect to this url
+// }

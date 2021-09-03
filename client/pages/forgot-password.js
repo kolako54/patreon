@@ -8,3 +8,8 @@ export default function ForgotPasswordPage() {
         </Layout>
     )
 }
+
+ForgotPasswordPage.authOptions = {
+    auth: false,
+    redirect: '/home'
+}

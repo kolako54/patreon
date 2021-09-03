@@ -8,3 +8,7 @@ export default function PasswordResetPage() {
         </Layout>
     )
 }
+
+// PasswordResetPage.authOptions = {
+//     auth:false
+// }

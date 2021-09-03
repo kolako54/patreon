@@ -8,3 +8,7 @@ export default function BookmarksPage() {
         </Layout>
     )
 }
+
+BookmarksPage.authOptions = {
+    auth: true
+}

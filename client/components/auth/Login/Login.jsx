@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Button from "$ui/Button";
-import {useEffect} from "react";
-import {useSession} from 'next-auth/client'
+// import {useLayoutEffect} from "react";
+// import {useSession} from 'next-auth/client'
+// import {useRouter} from "next/router";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,7 +12,6 @@ import * as yup from "yup";
 
 import formStyles from '../form.module.scss'
 import styles from './Login.module.scss'
-import { useRouter } from "next/router";
 import { useLazyQuery } from '@apollo/client';
 
 const schema = yup.object().shape({
@@ -34,14 +34,14 @@ export default function Login() {
         }
     }
 
-    const [session] = useSession()
-
-    const router = useRouter()
-    useEffect(() => {
-        if (session) {
-            router.push('/home')
-        }
-    }, [router, session])
+    // const [session] = useSession()
+    //
+    // const router = useRouter()
+    // useEffect(() => {
+    //     if (session) {
+    //         router.push('/home')
+    //     }
+    // }, [router, session])
 
 
     return (
