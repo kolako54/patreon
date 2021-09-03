@@ -1,11 +1,13 @@
 import Link from 'next/link'
-import {useSession, signOut} from 'next-auth/client'
+import {signOut} from 'next-auth/client'
 import {useState} from "react";
 import Logo from "./Logo";
 import {motion, AnimatePresence} from "framer-motion"
 import styles from './Header.module.scss'
 import {IoMenu, IoClose} from 'react-icons/io5'
 import DropDownMenu from "./DropDownMenu";
+import {GET_ME} from 'pages/api/queries';
+import {useQuery} from '@apollo/client';
 
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
@@ -18,7 +20,6 @@ const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el =>
 const registeredLinks = [
     {title: "My profile", href: "/profile"},
     {title: "Setting", href: "/profile/setting"},
-    {title: "Bookmarks", href: "/bookmarks"},
     {title: "Explore creators", href: "/explore"},
     {title: "Create on Patreon", href: "/create"},
     {title: "Help center & FAQ", href: "/FAQ"},
@@ -34,6 +35,10 @@ const subMenuVariants = {
         opacity: 1
     }
 }
+const sign_out = () => {
+    localStorage.removeItem('token');
+    signOut({callbackUrl: 'http://localhost:3000/'});
+}
 export default function Header() {
     const [open, setOpen] = useState(false)
 
@@ -42,14 +47,10 @@ export default function Header() {
         setOpen(!open)
     }
 
-    const [session, loading] = useSession()
-
-    // if (session)
-    //     console.log('Session Info: ', session)
-
+    const {data, loading} = useQuery(GET_ME)
 
     const registerLinks = (
-        session
+        data
             ?
             <DropDownMenu registeredLinks={registeredLinks}/>
             :
@@ -78,7 +79,7 @@ export default function Header() {
                             <Logo/>
                         </div>
                         <div>
-                            {session ? null : links}
+                            {data ? null : links}
                         </div>
                     </div>
                     {registerLinks}
@@ -116,9 +117,9 @@ export default function Header() {
                     initial="close"
                     animate="open"
                     className={styles.subMenu}>
-                    {session ? registeredLinks : links}
-                    {session && <button className={styles.googleLogout}
-                                        onClick={() => signOut({callbackUrl: 'http://localhost:3000/'})}>Logout</button>}
+                    {data ? registeredLinks : links}
+                    {data && <button className={styles.googleLogout}
+                                     onClick={sign_out}>Logout</button>}
                 </motion.div>
                 }
             </AnimatePresence>

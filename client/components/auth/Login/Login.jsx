@@ -1,18 +1,16 @@
 import Link from 'next/link'
 import Button from "$ui/Button";
-// import {useLayoutEffect} from "react";
-// import {useSession} from 'next-auth/client'
-// import {useRouter} from "next/router";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { GET_USER } from "../../../pages/api/queries"
+import {useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import {LOGIN_USER} from "../../../pages/api/queries"
 import * as yup from "yup";
 
 
 import formStyles from '../form.module.scss'
 import styles from './Login.module.scss'
-import { useLazyQuery } from '@apollo/client';
+import {useLazyQuery} from '@apollo/client';
+import {isLoggedInVar} from "$apollo/store";
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -21,27 +19,25 @@ const schema = yup.object().shape({
 
 
 export default function Login() {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
-    const [get_user, { data, error }] = useLazyQuery(GET_USER);
+    const [get_user, {
+        error,
+    }] = useLazyQuery(LOGIN_USER, {
+        onCompleted: (d) => {
+            localStorage.setItem('token', 'Bearer ' + d.loginUser.token);
+            isLoggedInVar(true)
+        }
+    });
 
     const onSubmit = async data => {
         try {
-            await get_user({ variables: { email: data.email, password: data.password } });
+            await get_user({variables: {email: data.email, password: data.password}});
         } catch (err) {
             console.error(err.message);
         }
     }
-
-    // const [session] = useSession()
-    //
-    // const router = useRouter()
-    // useEffect(() => {
-    //     if (session) {
-    //         router.push('/home')
-    //     }
-    // }, [router, session])
 
 
     return (
@@ -61,11 +57,11 @@ export default function Login() {
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>
-                        <input autoComplete="password" {...register("password", { min: 8, max: 64 })}
-                            name="password"
-                            type="password" />
+                        <input autoComplete="password" {...register("password", {min: 8, max: 64})}
+                               name="password"
+                               type="password"/>
                         {errors.password &&
-                            <p className={formStyles.error}>{errors.password.message} </p>}
+                        <p className={formStyles.error}>{errors.password.message} </p>}
                     </div>
                     <div className={styles.forgetPassword}>
                         <Link href="/forgot-password">
@@ -80,7 +76,7 @@ export default function Login() {
                     <div>
                         <p>or</p>
                     </div>
-                    <GoogleLoginButton buttonText="Continue with Google" />
+                    <GoogleLoginButton buttonText="Continue with Google"/>
 
                 </form>
                 <h4 style={{color: "red"}}>{error?.message}</h4>

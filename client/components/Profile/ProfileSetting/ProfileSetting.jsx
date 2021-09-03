@@ -2,18 +2,19 @@ import Image from 'next/image'
 import Button from "$components/ui/Button";
 import googleLogo from 'public/google.png'
 import styles from './ProfileSetting.module.scss'
-import {useSession} from "next-auth/client";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import defaultUserPicture from '$assets/images/defaultUserPicture.png'
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-// import {useRouter} from "next/router";
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
+import { GET_ME, UPDATE_PASSWORD } from '../../../pages/api/queries'
+import { useQuery, useMutation } from '@apollo/client';
 
 import formStyles from "$components/auth/form.module.scss";
 
 
 const passwordSchema = yup.object().shape({
+    currentPassword: yup.string().min(8).max(64).required(),
     password: yup.string().min(8).max(64).required(),
     confirmPassword: yup.string().oneOf(
         [yup.ref('password'), null], 'passwords must match').required()
@@ -30,13 +31,23 @@ const emailAndNameSchema = yup.object().shape({
 
 
 export default function ProfileSetting() {
-    const [session, loading] = useSession()
+
+    const { data, loading, error } = useQuery(GET_ME);
+    const [updatepass, { data: d, error: err, loading: ld }] = useMutation(UPDATE_PASSWORD, {
+        onCompleted: (ctx) => {
+            localStorage.removeItem('token');
+            localStorage.setItem('token', 'Bearer ' + ctx.updatePassword.token);
+        },
+        onError(errs) {
+            console.error(errs);
+        },
+    });
     const [profilePhoto, setProfilePhoto] = useState(null)
     // password validation
     const {
         register: passwordRegister,
         handleSubmit: passwordHandleSubmit,
-        formState: {errors: passwordErrors}
+        formState: { errors: passwordErrors }
     } = useForm({
         resolver: yupResolver(passwordSchema)
     });
@@ -45,11 +56,19 @@ export default function ProfileSetting() {
     const {
         register: emailAndNameRegister,
         handleSubmit: emailAndNameHandleSubmit,
-        formState: {errors: emailAndNameErrors},
+        formState: { errors: emailAndNameErrors },
         reset,
-    } = useForm({resolver: yupResolver(emailAndNameSchema)});
+    } = useForm({ resolver: yupResolver(emailAndNameSchema) });
 
-    const onPasswordChangeSubmit = data => console.log(data);
+    const onPasswordChangeSubmit = async data => {
+        await updatepass({
+            variables: {
+                currentPassword: data.currentPassword,
+                password: data.password,
+                confirmPassword: data.confirmPassword,
+            }
+        });
+    };
     const onEmailAndNameChangSubmit = data => {
         console.log(data)
 
@@ -57,23 +76,19 @@ export default function ProfileSetting() {
     // const router = useRouter()
 
     useEffect(() => {
-        if (session) {
-            const {user: {name, email}} = session
-            const nameAndEmail = {name, email}
-            reset(nameAndEmail)
+        if (data) {
+            const { get_me: { name, email } } = data;
+            const nameAndEmail = { name, email };
+            reset(nameAndEmail);
 
             // if a picture has been set, then don't set image to google image
             if (!profilePhoto)
-                setProfilePhoto(session.user.image)
-            // if user removed image
+                setProfilePhoto(data.get_me.profile_pic)
             else if (profilePhoto.src)
-                reset({...nameAndEmail, picture: null})
+                reset({ ...nameAndEmail, picture: null })
 
         }
-        // else if (session === null) {
-        //     router.push('/login')
-        // }
-    }, [session, reset,  profilePhoto]);
+    }, [data, reset, profilePhoto]);
 
 
     const handlePicture = e => {
@@ -100,9 +115,9 @@ export default function ProfileSetting() {
                 <div className={styles.logInWith}>
                     <h2>Log in with</h2>
 
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Image src={googleLogo} alt="google" width={25} height={25}/>
-                        <p style={{paddingLeft: '.5rem'}}>Google</p>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Image src={googleLogo} alt="google" width={25} height={25} />
+                        <p style={{ paddingLeft: '.5rem' }}>Google</p>
                     </div>
                     <Button color="primary">
                         Disconnect
@@ -112,29 +127,43 @@ export default function ProfileSetting() {
 
                 <div>
                     <div>
-                        <h2 style={{marginBottom: '5px'}}>Password</h2>
-                        <p style={{fontSize: '15px', marginTop: 0}}>Change your password </p>
+                        <h2 style={{ marginBottom: '5px' }}>Password</h2>
+                        <p style={{ fontSize: '15px', marginTop: 0 }}>Change your password </p>
                     </div>
                     <form onSubmit={passwordHandleSubmit(onPasswordChangeSubmit)}>
                         <div className={formStyles.inputDiv}>
+                            <label htmlFor="currentPassword">Current Password</label>
+                            <input {...passwordRegister(("currentPassword"))} name="currentPassword" type="password" />
+                            {passwordErrors.currentPassword &&
+                                <p className={formStyles.error}>{passwordErrors.currentPassword.message} </p>}
+                        </div>
+                        <div className={formStyles.inputDiv}>
                             <label htmlFor="password">Password</label>
-                            <input {...passwordRegister(("password"))} name="password" type="text"/>
+                            <input {...passwordRegister(("password"))} name="password" type="password" />
                             {passwordErrors.password &&
-                            <p className={formStyles.error}>{passwordErrors.password.message} </p>}
+                                <p className={formStyles.error}>{passwordErrors.password.message} </p>}
                         </div>
 
                         <div className={formStyles.inputDiv}>
                             <label htmlFor="confirmPassword">Confirm password</label>
                             <input {...passwordRegister("confirmPassword")} name="confirmPassword"
-                                   type="text"/>
+                                type="password" />
                             {passwordErrors.confirmPassword &&
-                            <p className={formStyles.error}>{passwordErrors.confirmPassword.message} </p>}
+                                <p className={formStyles.error}>{passwordErrors.confirmPassword.message} </p>}
                         </div>
-                        <div style={{textAlign: 'right', marginTop: '1rem'}}>
+                        <div style={{ textAlign: 'right', marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                                {err && <span style={{ color: 'red' }}>{err.message}</span>}
+                                {ld && <span style={{ color: '#39ddc9', }}>Loading...</span>}
+                                {d && <span style={{ color: '#39ddc9', marginTop: '20px' }}>password successfully changed</span>}
+                            </div>
                             <Button>
                                 Set password
                             </Button>
                         </div>
+
+
+
                     </form>
 
                 </div>
@@ -146,37 +175,37 @@ export default function ProfileSetting() {
                     <div className={styles.userPhoto}>
                         <h4>User profile photo</h4>
                         {profilePhoto &&
-                        <Image src={profilePhoto} alt="user" width={70} height={70}/>}
+                            <Image src={profilePhoto} alt="user" width={70} height={70} />}
                         <label
                             className={styles.file}
                             htmlFor="photo">Choose new image</label>
                         <input
                             {...emailAndNameRegister('picture')}
                             onChange={handlePicture}
-                            style={{display: 'none'}}
-                            type="file" name="photo" id="photo"/>
+                            style={{ display: 'none' }}
+                            type="file" name="photo" id="photo" />
                         <button onClick={handleImageRemove}
-                                className={styles.removeBtn}>Remove Image
+                            className={styles.removeBtn}>Remove Image
                         </button>
                     </div>
 
                     <form onSubmit={emailAndNameHandleSubmit(onEmailAndNameChangSubmit)}>
                         <div className={formStyles.inputDiv}>
                             <label htmlFor="name">User profile name</label>
-                            <input {...emailAndNameRegister(("name"))} name="name" type="text"/>
+                            <input {...emailAndNameRegister(("name"))} name="name" type="text" />
                             {emailAndNameErrors.name &&
-                            <p className={formStyles.error}>{emailAndNameErrors.name.message} </p>}
+                                <p className={formStyles.error}>{emailAndNameErrors.name.message} </p>}
                         </div>
 
                         <div className={formStyles.inputDiv}>
                             <label onChange={e => console.log(e)} htmlFor="email">Email</label>
                             <input  {...emailAndNameRegister("email")} name="email"
-                                    type="text"/>
+                                type="text" />
                             {emailAndNameErrors.email &&
-                            <p className={formStyles.error}>{emailAndNameErrors.email.message} </p>}
+                                <p className={formStyles.error}>{emailAndNameErrors.email.message} </p>}
                         </div>
-                        <hr style={{margin: '2rem 0'}}/>
-                        <div style={{textAlign: 'right', marginTop: '1rem'}}>
+                        <hr style={{ margin: '2rem 0' }} />
+                        <div style={{ textAlign: 'right', marginTop: '1rem' }}>
                             <Button>
                                 Save changes
                             </Button>

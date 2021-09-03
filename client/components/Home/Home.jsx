@@ -1,13 +1,18 @@
 import Image from 'next/image'
-import {useState} from "react";
 import {useRouter} from "next/router";
-import {useSession} from "next-auth/client";
-import Post from '$ui/Post'
+import Post from "$ui/Post"
 import styles from './Home.module.scss'
+import {useQuery} from '@apollo/client';
+import {GET_ME} from 'pages/api/queries';
 
 export default function Home() {
     const router = useRouter()
-    const [session, loading] = useSession()
+
+    const {data, loading} = useQuery(GET_ME);
+
+    // useEffect(() => {
+    //     if (data === null) router.push('/login');
+    // }, [router, data])
 
     const goToProfile = () => router.push('/profile')
 
@@ -15,13 +20,14 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.profile}>
-                <div onClick={goToProfile}>
-                    {session && <Image src={session.user.image} alt="user" width={90} height={90}/>}
+            <div onClick={goToProfile} className={styles.profile}>
+                <div>
+                    {data &&
+                    <Image src={data.get_me.profile_pic} alt="user" width={90} height={90}/>}
                 </div>
                 <div>
-                    <p onClick={goToProfile}
-                       style={{textAlign: 'center'}}>{session && session.user.name}</p>
+                    <p style={{textAlign: 'center'}}
+                       onClick={goToProfile}>{data && data.get_me.name}</p>
                     <hr/>
                     <h3>Supporting</h3>
                     <hr/>
@@ -58,6 +64,10 @@ export default function Home() {
                     {/*        content: 'this some dummy god damned text'*/}
                     {/*    }}*/}
                     {/*/>*/}
+                    =======
+                    <Post image={data && data.get_me.profile_pic}/>
+                    <Post image={data && data.get_me.profile_pic}/>
+                    <Post image={data && data.get_me.profile_pic}/>
                 </div>
             </div>
         </div>

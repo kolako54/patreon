@@ -7,7 +7,7 @@ export const cache = new InMemoryCache(
         typePolicies: {
             Query: {
                 fields: {
-                    isSignedIn: {
+                    dummyData: {
                         read() {
                             return dummyDataVar();
                         }
@@ -17,3 +17,5 @@ export const cache = new InMemoryCache(
         }
     }
 );
+
+

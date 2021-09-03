@@ -8,7 +8,7 @@ import * as yup from "yup";
 import formStyles from '../form.module.scss'
 import styles from './SignUp.module.scss'
 // import {useRouter} from "next/router";
-// import {useLayoutEffect} from "react";
+import {useEffect} from "react";
 import {REGISTER} from "../../../pages/api/queries"
 import {useMutation} from '@apollo/client';
 
@@ -27,7 +27,12 @@ yup.mixed().test('match', 'passwords do not match', function (password) {
 
 
 export default function SignUp() {
-    const [registers, {data, error}] = useMutation(REGISTER);
+    const router = useRouter()
+    const [session] = useSession();
+
+    const [registers, { data, error }] = useMutation(REGISTER, {
+        onCompleted: (d) => localStorage.setItem('token', 'Bearer ' + d.signUp.token)
+    });
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
@@ -47,15 +52,26 @@ export default function SignUp() {
         }
     }
 
-    // const router = useRouter()
-    // const [session] = useSession()
 
-    // useLayoutEffect(() => {
-    //     if (session) {
-    //         router.push('/home')
-    //     }
-    //
-    // }, [router, session])
+
+    useEffect(() => {
+        const rndPass = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        if (session) {
+            registers({
+                variables: {
+                    name: session.user.name,
+                    email: session.user.email,
+                    profile_pic: session.user.image,
+                    password: rndPass,
+                    confirmPassword: rndPass,
+                }
+            });
+            router.push('/home')
+        }
+    }, [session, router]);
+    useEffect(() => {
+        if (data) router.push('/home');
+    }, [data])
 
 
     return (
@@ -65,9 +81,8 @@ export default function SignUp() {
             </h2>
 
             <div className={formStyles.form}>
+                <GoogleLoginButton buttonText="Sign up with Google" />
                 <form onSubmit={handleSubmit(onSubmit)}>
-
-                    <GoogleLoginButton buttonText="Sign up with Google"/>
 
                     <div>
                         <p>or</p>
@@ -106,7 +121,7 @@ export default function SignUp() {
                             Sign up
                         </Button>
                     </div>
-                    {error && <h3 style={{color: "red"}}>{error.message}</h3>}
+                    {error && <h3 style={{ color: "red" }}>{error.message}</h3>}
                     {/* {err && <h3 style={{ color: "red" }}>{err.message}</h3>} */}
                     <div className={styles.termOfUse}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}

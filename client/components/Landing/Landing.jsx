@@ -3,8 +3,8 @@ import Button from "$components/ui/Button";
 import Comment from "./Comment";
 import Customer from './Customer'
 import Blog from './Blog'
-import SwiperCore, {Autoplay, Pagination} from 'swiper';
-import {Swiper, SwiperSlide} from 'swiper/react'
+import SwiperCore, { Autoplay, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react'
 import comment1 from '$assets/images/comments/comment1.jpg'
 import comment2 from '$assets/images/comments/comment2.jpg'
 import comment3 from '$assets/images/comments/comment3.jpg'
@@ -16,12 +16,14 @@ import blog1 from '$assets/images/blogs/1.jpg'
 import blog2 from '$assets/images/blogs/2.jpg'
 import blog3 from '$assets/images/blogs/3.jpg'
 import plans from '$assets/images/plans.png'
-import {IoSearchOutline} from 'react-icons/io5'
-import {useSession} from "next-auth/client";
-import {useRouter} from "next/router";
+import { IoSearchOutline } from 'react-icons/io5'
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 import styles from './Landing.module.scss'
 import "swiper/components/pagination/pagination.min.css"
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { GET_ME } from '../../pages/api/queries';
+import {useQuery} from '@apollo/client';
 
 
 SwiperCore.use([Autoplay, Pagination]);
@@ -153,9 +155,9 @@ const blogs = [
 
 export default function Landing() {
     const router = useRouter()
-    const [session] = useSession()
+    const {data, error, loading} = useQuery(GET_ME);
     useEffect(() => {
-        if (session) {
+        if (data) {
             router.push('/home')
         }
     })
@@ -175,7 +177,7 @@ export default function Landing() {
                     </Button>
                 </div>
                 <div className={styles.image}>
-                    <Image src={dummyImg} alt="dummy img"/>
+                    <Image src={dummyImg} alt="dummy img" />
                 </div>
             </div>
 
@@ -185,10 +187,10 @@ export default function Landing() {
                 </h1>
                 <form>
                     <div>
-                    <span style={{marginRight: '-1.6rem', zIndex: 1}}>
-                      <IoSearchOutline/>
-                    </span>
-                        <input placeholder="Find a creator you love" type="text"/>
+                        <span style={{ marginRight: '-1.6rem', zIndex: 1 }}>
+                            <IoSearchOutline />
+                        </span>
+                        <input placeholder="Find a creator you love" type="text" />
                     </div>
                     <Button href="/search">
                         Search
@@ -216,7 +218,7 @@ export default function Landing() {
 
             <div>
                 {comments.map(comment => (
-                    <Comment key={comment.name} {...comment}/>
+                    <Comment key={comment.name} {...comment} />
                 ))}
             </div>
 
@@ -243,14 +245,14 @@ export default function Landing() {
 
                     {customers.map(customer => (
                         <SwiperSlide key={customer.title}>
-                            <Customer {...customer}/>
+                            <Customer {...customer} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
 
             <div className={styles.plans}>
-                <Image src={plans} width={960} height={543.25} alt="plans"/>
+                <Image src={plans} width={960} height={543.25} alt="plans" />
             </div>
 
             <div className={styles.blogs}>
@@ -259,7 +261,7 @@ export default function Landing() {
                 </h1>
                 <div className={styles.blogContainer}>
                     {blogs.map(blog => (
-                        <Blog key={blog.title} {...blog}/>
+                        <Blog key={blog.title} {...blog} />
                     ))}
                 </div>
             </div>

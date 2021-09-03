@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const validator = require('validatorjs');
 
+const { ApolloError } = require('apollo-server-express');
 const EmailValidator = require('../plugins/ValidationEmail');
 
 /* eslint-disable */
@@ -26,14 +28,13 @@ const UserSchema = mongoose.Schema({
     },
     confirmPassword: {
         type: String,
-        require: [true, 'نمیتونی بدون تایید کردن پسوردت ثبت نام کنی'],
-        trim: true,
-        validate: {
-            validator: function (el) {
-                return this.password === el;
-            },
-            message: 'پسوردا مطابقت ندارن دوست عزیز زدی به کاهدون',
-        },
+        required: [true, 'نمیتونی بدون تایید کردن پسوردت ثبت نام کنی'],
+        // validate: {
+        //     validator: function (el) {
+        //         return this.password === el;
+        //     },
+        //     message: 'Passwords are not same!',
+        // },
     },
     profile_pic: {
         type: String,
@@ -52,9 +53,19 @@ const UserSchema = mongoose.Schema({
     toObject: { virtuals: true },
 } // eslint-disable-next-line no-use-before-define);
 );
-
+UserSchema.virtual('comments', {
+    ref: 'Comment',
+    foreignField: 'user',
+    localField: '_id',
+});
+UserSchema.virtual('posts', {
+    ref: 'Post',
+    foreignField: 'user',
+    localField: '_id',
+});
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
+    if(this.password !== this.confirmPassword) throw new ApolloError('Passwords are not same!', 400);
     this.password = await bcrypt.hash(this.password, 12);
     this.confirmPassword = undefined;
     next();
@@ -90,7 +101,11 @@ UserSchema.methods.createDummyToken = function () {
 }
 
 UserSchema.methods.checkChangePassword = function(JWTTimestamp){
-    return JWTTimestamp < this.passwordChangeAt;
+    if (this.passwordChangedAt) {
+        const timePassChange = this.passwordChangedAt.getTime() / 1000;
+        return JWTTimestamp < timePassChange; //200 300
+      }
+      return false;
 }
 
 
