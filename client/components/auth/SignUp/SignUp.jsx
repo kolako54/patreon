@@ -1,13 +1,12 @@
 import Link from 'next/link'
 import Button from "$ui/Button";
-// import {useSession} from "next-auth/client";
+import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import formStyles from '../form.module.scss'
 import styles from './SignUp.module.scss'
-// import {useRouter} from "next/router";
 import {useEffect} from "react";
 import {REGISTER} from "../../../pages/api/queries"
 import {useMutation} from '@apollo/client';
@@ -27,10 +26,8 @@ yup.mixed().test('match', 'passwords do not match', function (password) {
 
 
 export default function SignUp() {
-    const router = useRouter()
-    const [session] = useSession();
-
-    const [registers, { data, error }] = useMutation(REGISTER, {
+    const [session] = useSession()
+    const [registers, { error}] = useMutation(REGISTER, {
         onCompleted: (d) => localStorage.setItem('token', 'Bearer ' + d.signUp.token)
     });
 
@@ -53,7 +50,6 @@ export default function SignUp() {
     }
 
 
-
     useEffect(() => {
         const rndPass = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         if (session) {
@@ -66,12 +62,8 @@ export default function SignUp() {
                     confirmPassword: rndPass,
                 }
             });
-            router.push('/home')
         }
-    }, [session, router]);
-    useEffect(() => {
-        if (data) router.push('/home');
-    }, [data])
+    }, [session, registers]);
 
 
     return (
@@ -81,7 +73,7 @@ export default function SignUp() {
             </h2>
 
             <div className={formStyles.form}>
-                <GoogleLoginButton buttonText="Sign up with Google" />
+                <GoogleLoginButton buttonText="Sign up with Google"/>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div>
@@ -109,7 +101,8 @@ export default function SignUp() {
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="confirmPassword">Confirm password</label>
-                        <input autoComplete="confirm-password" {...register("confirmPassword")} name="confirmPassword"
+                        <input autoComplete="confirm-password" {...register("confirmPassword")}
+                               name="confirmPassword"
                                type="password"/>
                         {errors.confirmPassword &&
                         <p className={formStyles.error}>{errors.confirmPassword.message} </p>}
@@ -121,7 +114,7 @@ export default function SignUp() {
                             Sign up
                         </Button>
                     </div>
-                    {error && <h3 style={{ color: "red" }}>{error.message}</h3>}
+                    {error && <h3 style={{color: "red"}}>{error.message}</h3>}
                     {/* {err && <h3 style={{ color: "red" }}>{err.message}</h3>} */}
                     <div className={styles.termOfUse}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
