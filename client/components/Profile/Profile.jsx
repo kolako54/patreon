@@ -1,20 +1,20 @@
 import Image from 'next/image'
-import {useSession} from "next-auth/client";
 import styles from './Profile.module.scss'
 import Button from "$components/ui/Button";
 import {useEffect} from "react";
 import {useRouter} from 'next/router'
-import { GET_ME } from '../../pages/api/queries';
+import {GET_ME} from '../../pages/api/queries';
 import {useQuery} from '@apollo/client';
 
 export default function Profile() {
-    // const [session, loading] = useSession()
-    const {data, error, loading} = useQuery(GET_ME);
+
+    const {data, loading} = useQuery(GET_ME);
+
 
     const router = useRouter()
 
     useEffect(() => {
-        if (data === null) router.push('/login'); 
+        if (data === null) router.push('/login');
     }, [router, data])
 
 

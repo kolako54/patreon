@@ -3,14 +3,13 @@ import Button from "$ui/Button";
 import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
 import GoogleLoginButton from "$components/auth/GoogleLogin";
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import formStyles from '../form.module.scss'
 import styles from './SignUp.module.scss'
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { REGISTER } from "../../../pages/api/queries"
-import { useMutation } from '@apollo/client';
+import {useEffect} from "react";
+import {REGISTER} from "../../../pages/api/queries"
+import {useMutation} from '@apollo/client';
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -21,21 +20,18 @@ const schema = yup.object().shape({
     ).required(),
 });
 
-yup.mixed().test('match', 'passwords do not match', function (email) {
+yup.mixed().test('match', 'passwords do not match', function (password) {
     return password === this.options.context.confirmPassword
 })
 
 
-
 export default function SignUp() {
-    const router = useRouter()
-    const [session] = useSession();
-
-    const [registers, { data, error }] = useMutation(REGISTER, {
+    const [session] = useSession()
+    const [registers, { error}] = useMutation(REGISTER, {
         onCompleted: (d) => localStorage.setItem('token', 'Bearer ' + d.signUp.token)
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
     const onSubmit = async data => {
@@ -48,8 +44,9 @@ export default function SignUp() {
                     confirmPassword: data.confirmPassword,
                 }
             });
+        } catch (e) {
+            console.error(e.message)
         }
-        catch (e) { console.error(e.message) }
     }
 
 
@@ -65,12 +62,8 @@ export default function SignUp() {
                     confirmPassword: rndPass,
                 }
             });
-            router.push('/home')
         }
-    }, [session, router]);
-    useEffect(() => {
-        if (data) router.push('/home');
-    }, [data])
+    }, [session, registers]);
 
 
     return (
@@ -80,59 +73,60 @@ export default function SignUp() {
             </h2>
 
             <div className={formStyles.form}>
-                <GoogleLoginButton buttonText="Sign up with Google" />
+                <GoogleLoginButton buttonText="Sign up with Google"/>
                 <form onSubmit={handleSubmit(onSubmit)}>
-
-
 
                     <div>
                         <p>or</p>
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="name">Name</label>
-                        <input {...register(("name"))} name="name" type="text" />
+                        <input {...register(("name"))} name="name" type="text"/>
                         {errors.name && <p className={formStyles.error}>{errors.name.message} </p>}
                     </div>
 
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
-                        <input {...register("email")} name="email" type="text" />
-                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
+                        <input {...register("email")} name="email" type="text"/>
+                        {errors.email &&
+                        <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>
                         <input autoComplete="password" {...register("password")} name="password"
-                            type="password" />
+                               type="password"/>
                         {errors.password &&
-                            <p className={formStyles.error}>{errors.password.message} </p>}
+                        <p className={formStyles.error}>{errors.password.message} </p>}
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="confirmPassword">Confirm password</label>
-                        <input {...register("confirmPassword")} name="confirmPassword" type="password" />
+                        <input autoComplete="confirm-password" {...register("confirmPassword")}
+                               name="confirmPassword"
+                               type="password"/>
                         {errors.confirmPassword &&
-                            <p className={formStyles.error}>{errors.confirmPassword.message} </p>}
+                        <p className={formStyles.error}>{errors.confirmPassword.message} </p>}
                     </div>
 
                     <div className={styles.submit}>
                         <Button fullWidth
-                            disabled={errors.name || errors.email || errors.confirmPassword || errors.password}>
+                                disabled={errors.name || errors.email || errors.confirmPassword || errors.password}>
                             Sign up
                         </Button>
                     </div>
-                    {error && <h3 style={{ color: "red" }}>{error.message}</h3>}
+                    {error && <h3 style={{color: "red"}}>{error.message}</h3>}
                     {/* {err && <h3 style={{ color: "red" }}>{err.message}</h3>} */}
                     <div className={styles.termOfUse}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
                         By signing up, you agree to Patreon's {" "}
                         <Link href="/term">
-                            <a style={{ textDecoration: "underline" }}>
+                            <a style={{textDecoration: "underline"}}>
                                 Terms of Use,
                             </a>
                         </Link>
                         {" "}
                         <Link href="/term">
-                            <a style={{ textDecoration: "underline" }}>
+                            <a style={{textDecoration: "underline"}}>
                                 Privacy Policy
                             </a>
                         </Link>
@@ -140,7 +134,7 @@ export default function SignUp() {
                         and
                         {" "}
                         <Link href="/term">
-                            <a style={{ textDecoration: "underline" }}>
+                            <a style={{textDecoration: "underline"}}>
                                 Cookie Policy.
                             </a>
                         </Link>

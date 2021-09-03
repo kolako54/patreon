@@ -2,18 +2,15 @@ import Image from 'next/image'
 import Button from "$components/ui/Button";
 import googleLogo from 'public/google.png'
 import styles from './ProfileSetting.module.scss'
-import { useSession } from "next-auth/client";
 import { useForm } from "react-hook-form";
 import defaultUserPicture from '$assets/images/defaultUserPicture.png'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
 import { GET_ME, UPDATE_PASSWORD } from '../../../pages/api/queries'
 import { useQuery, useMutation } from '@apollo/client';
 
 import formStyles from "$components/auth/form.module.scss";
-import isLoggedInVar from '$apollo/cache';
 
 
 const passwordSchema = yup.object().shape({
@@ -34,7 +31,7 @@ const emailAndNameSchema = yup.object().shape({
 
 
 export default function ProfileSetting() {
-    // const [session, loading] = useSession()
+
     const { data, loading, error } = useQuery(GET_ME);
     const [updatepass, { data: d, error: err, loading: ld }] = useMutation(UPDATE_PASSWORD, {
         onCompleted: (ctx) => {
@@ -76,7 +73,7 @@ export default function ProfileSetting() {
         console.log(data)
 
     }
-    const router = useRouter()
+    // const router = useRouter()
 
     useEffect(() => {
         if (data) {
@@ -90,10 +87,8 @@ export default function ProfileSetting() {
             else if (profilePhoto.src)
                 reset({ ...nameAndEmail, picture: null })
 
-        } else if (data === null) {
-            router.push('/login')
         }
-    }, [data, reset, router, profilePhoto]);
+    }, [data, reset, profilePhoto]);
 
 
     const handlePicture = e => {

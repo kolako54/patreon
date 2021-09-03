@@ -200,7 +200,7 @@ export default function Landing() {
 
             <div className={styles.about}>
                 <h1>
-                    {/* eslint-disable-next-line react/no-unescaped-entities */}
+                     {/*eslint-disable-next-line react/no-unescaped-entities */}
                     What's Patreon?
                 </h1>
                 <p>

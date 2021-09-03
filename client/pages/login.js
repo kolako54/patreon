@@ -8,3 +8,8 @@ export default function LoginPage() {
         </Layout>
     )
 }
+
+LoginPage.authOptions = {
+    // auth: true,
+    redirect: '/home',
+}

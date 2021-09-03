@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/client'
-import { useState } from "react";
+import {signOut} from 'next-auth/client'
+import {useState} from "react";
 import Logo from "./Logo";
-import { motion, AnimatePresence } from "framer-motion"
+import {motion, AnimatePresence} from "framer-motion"
 import styles from './Header.module.scss'
-import { IoMenu, IoClose } from 'react-icons/io5'
+import {IoMenu, IoClose} from 'react-icons/io5'
 import DropDownMenu from "./DropDownMenu";
-import { GET_ME } from 'pages/api/queries';
-import { useQuery } from '@apollo/client';
+import {GET_ME} from 'pages/api/queries';
+import {useQuery} from '@apollo/client';
 
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
@@ -18,12 +18,12 @@ const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el =>
     </Link>
 ))
 const registeredLinks = [
-    { title: "My profile", href: "/profile" },
-    { title: "Setting", href: "/profile/setting" },
-    { title: "Explore creators", href: "/explore" },
-    { title: "Create on Patreon", href: "/create" },
-    { title: "Help center & FAQ", href: "/FAQ" },
-].map(({ title, href }) => (
+    {title: "My profile", href: "/profile"},
+    {title: "Setting", href: "/profile/setting"},
+    {title: "Explore creators", href: "/explore"},
+    {title: "Create on Patreon", href: "/create"},
+    {title: "Help center & FAQ", href: "/FAQ"},
+].map(({title, href}) => (
     <Link key={title} href={href}>{title}</Link>
 ))
 
@@ -47,14 +47,14 @@ export default function Header() {
         setOpen(!open)
     }
 
-    const { data, loading, error } = useQuery(GET_ME)
+    const {data, loading} = useQuery(GET_ME)
 
     const registerLinks = (
         data
             ?
-            <DropDownMenu registeredLinks={registeredLinks} />
+            <DropDownMenu registeredLinks={registeredLinks}/>
             :
-            loading ? <p style={{ color: 'white' }}>Loading...</p> :
+            loading ? <p style={{color: 'white'}}>Loading...</p> :
                 <div className={styles.navButtons}>
                     <Link href="/login">
                         <a className={styles.logIn}>
@@ -69,14 +69,15 @@ export default function Header() {
                 </div>
 
     )
+    console.log(data)
 
     return (
         <>
             <div className={styles.container}>
                 <div className={styles.navbar}>
                     <div className={styles.navLinks}>
-                        <div style={{ cursor: 'pointer' }}>
-                            <Logo />
+                        <div style={{cursor: 'pointer'}}>
+                            <Logo/>
                         </div>
                         <div>
                             {data ? null : links}
@@ -86,8 +87,8 @@ export default function Header() {
                 </div>
 
                 <div className={styles.buttons}>
-                    <div style={{ marginRight: 'auto' }}>
-                        <Logo />
+                    <div style={{marginRight: 'auto'}}>
+                        <Logo/>
                     </div>
                     {registerLinks}
                     {!open ?
@@ -96,7 +97,7 @@ export default function Header() {
                                 rotateZ: 0
                             }}
                             onClick={handleMenu}>
-                            <IoMenu color="#fff" size={40} />
+                            <IoMenu color="#fff" size={40}/>
                         </motion.button>
                         :
                         <motion.button
@@ -104,23 +105,23 @@ export default function Header() {
                                 rotateZ: '-90deg'
                             }}
                             onClick={handleMenu}>
-                            <IoClose color="#fff" size={40} />
+                            <IoClose color="#fff" size={40}/>
                         </motion.button>
                     }
                 </div>
             </div>
             <AnimatePresence>
                 {open &&
-                    <motion.div
-                        variants={subMenuVariants}
-                        exit="close"
-                        initial="close"
-                        animate="open"
-                        className={styles.subMenu}>
-                        {data ? registeredLinks : links}
-                        {data && <button className={styles.googleLogout}
-                            onClick={sign_out}>Logout</button>}
-                    </motion.div>
+                <motion.div
+                    variants={subMenuVariants}
+                    exit="close"
+                    initial="close"
+                    animate="open"
+                    className={styles.subMenu}>
+                    {data ? registeredLinks : links}
+                    {data && <button className={styles.googleLogout}
+                                     onClick={sign_out}>Logout</button>}
+                </motion.div>
                 }
             </AnimatePresence>
         </>

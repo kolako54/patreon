@@ -36,6 +36,16 @@ a {
 h1, h2, h3 {
     color: var(--secondary-main);
 }
-p{
+
+p {
     color: var(--primary-lightest);
+}
+
+.icon {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 25px;
+    color: var(--light);
+    cursor: pointer;
 }

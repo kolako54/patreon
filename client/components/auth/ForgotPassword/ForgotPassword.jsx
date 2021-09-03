@@ -1,12 +1,12 @@
 import Button from "$components/ui/Button";
-import {useEffect} from "react";
-import {useSession} from 'next-auth/client'
+// import {useEffect} from "react";
+// import {useSession} from 'next-auth/client'
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import formStyles from '../form.module.scss'
 import * as yup from "yup";
 
-import {useRouter} from "next/router";
+// import {useRouter} from "next/router";
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -19,19 +19,16 @@ export default function Login() {
     });
 
 
-    const onSubmit = data => {
-        console.log(data)
+    const onSubmit = data => console.log(data)
 
-    }
-
-    const [session] = useSession()
-
-    const router = useRouter()
-    useEffect(() => {
-        if (session) {
-            router.push('/home')
-        }
-    }, [router, session])
+    // const [session] = useSession()
+    //
+    // const router = useRouter()
+    // useEffect(() => {
+    //     if (session) {
+    //         router.push('/home')
+    //     }
+    // }, [router, session])
 
 
     return (
@@ -51,10 +48,11 @@ export default function Login() {
                         <label htmlFor="email">Email</label>
                         <input {...register("email")} name="email"
                                type="text"/>
-                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
+                        {errors.email &&
+                        <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
 
-                    <div  style={{marginTop: '1rem'}}>
+                    <div style={{marginTop: '1rem'}}>
                         <Button fullWidth disabled={errors.password || errors.email}>
                             Reset Password
                         </Button>

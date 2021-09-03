@@ -11,3 +11,8 @@ export default function ProfilePage() {
         </Layout>
     )
 }
+
+ProfilePage.authOptions = {
+    auth: true,
+    autoLogin: true
+}

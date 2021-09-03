@@ -1,0 +1,110 @@
+@use "styles/breakpoints" as bkp;
+
+.container {
+  @include bkp.for-tablet-landscape-up {
+    max-width: 60%;
+  }
+  @include bkp.for-desktop-up {
+    max-width: 50%;
+  }
+  max-width: 75%;
+  margin: auto;
+  //padding: 0 5rem;
+
+  img {
+    border-radius: 50%;
+  }
+
+  h3, .nameAndUserName p {
+    margin: 0.2rem 1rem 0;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .content {
+    font-size: 18px;
+  }
+
+  .date {
+    font-size: 14px;
+    color: #e5e5e5;
+  }
+
+  .image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .likes {
+    font-size: 14px;
+    color: #e7e7e7;
+  }
+
+  .nameAndUserName {
+    p {
+      font-size: 15px;
+    }
+  }
+
+  .inputContainer {
+    display: flex;
+    margin-top: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+    @include bkp.for-tablet-landscape-up {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    img {
+      margin-right: 1rem;
+    }
+
+    textarea {
+      width: 100% !important;
+      min-width: 100%;
+      max-width: 100%;
+      margin: .5rem 0 !important;
+
+      @include bkp.for-tablet-portrait-up {
+        width: 60%;
+        min-width: 60%;
+        margin: .5rem 1rem !important;
+        min-height: 3.2rem;
+      }
+      height: 3.2rem;
+      background: transparent;
+      color: white;
+      font-size: 18px;
+      outline: none;
+      border: none;
+      padding: .5rem;
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+
+  .tweet {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .back {
+    border: 1px solid var(--gray);
+    display: flex;
+    padding: 0.5rem 1rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    align-items: center;
+  }
+}

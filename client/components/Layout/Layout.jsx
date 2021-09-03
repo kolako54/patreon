@@ -26,3 +26,4 @@ Layout.defaultProps = {
     keywords: 'development,coding,programming',
     description: 'the best info and news in development'
 }
+// Layout.auth = true

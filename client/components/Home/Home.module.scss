@@ -7,15 +7,6 @@
     justify-content: space-around;
     flex-direction: row;
   }
-
-  button {
-    background: transparent;
-    outline: none;
-    border: none;
-    font-size: 25px;
-    color: var(--light);
-    cursor: pointer;
-  }
 }
 
 .profile {
@@ -48,6 +39,7 @@
 
   p {
     margin: 0.5rem;
+
   }
 }
 

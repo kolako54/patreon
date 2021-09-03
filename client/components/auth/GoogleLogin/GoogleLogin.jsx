@@ -7,7 +7,8 @@ import styles from "./Google.module.scss";
 export default function GoogleLoginButton({buttonText}) {
 
     return (
-        <button className={styles.google} type="button" onClick={() => signIn("google")}>
+        <button className={styles.google} type="button"
+                onClick={() => signIn("google", {callbackUrl: process.env.NEXTAUTH_URL + '/home'})}>
             <Image src={googleLogo} alt="google" width={25} height={25}/>
             <p>
                 {buttonText}
