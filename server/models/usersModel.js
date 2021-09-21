@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const validator = require('validatorjs');
-
 const { ApolloError } = require('apollo-server-express');
+const Post = require('./postModel');
+const Comment = require('./commentModel');
+
 const EmailValidator = require('../plugins/ValidationEmail');
 
 /* eslint-disable */
@@ -43,12 +45,20 @@ const UserSchema = mongoose.Schema({
     resetTokenExpires: Date,
     passwordChangeAt: Date,
     hashToken: String,
+    // likedPosts: {
+    //     ref: 'User',
+    //     type: mongoose.Schema.ObjectId,
+    // },
     role: {
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
-    }
-},{
+    },
+    // like: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Post'
+    // }
+}, {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
 } // eslint-disable-next-line no-use-before-define);
@@ -63,9 +73,14 @@ UserSchema.virtual('posts', {
     foreignField: 'user',
     localField: '_id',
 });
+UserSchema.virtual('likedPosts', {
+    ref: 'Rate',
+    foreignField: 'user',
+    localField: '_id',
+});
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    if(this.password !== this.confirmPassword) throw new ApolloError('Passwords are not same!', 400);
+    if (this.password !== this.confirmPassword) throw new ApolloError('Passwords are not same!', 400);
     this.password = await bcrypt.hash(this.password, 12);
     this.confirmPassword = undefined;
     next();
@@ -77,9 +92,14 @@ UserSchema.pre("save", function (next) {
     next();
 
 });
+UserSchema.pre(/^find/, function (next) {
+    this.populate('posts');
+    console.log(this.posts)
+    next();
+})
 
-UserSchema.methods.checkPasswordChangeAt = function (JWTTimeStamp){
-    if(passwordChangeAt){
+UserSchema.methods.checkPasswordChangeAt = function (JWTTimeStamp) {
+    if (passwordChangeAt) {
         const formatTimeChange = this.passwordChangeAt.getTime() / 1000;
         return formatTimeChange < JWTTimeStamp;
     }
@@ -93,19 +113,18 @@ UserSchema.methods.correctPassword = async function (candidatePassword, mainPass
 }
 UserSchema.methods.createDummyToken = function () {
 
-
     const resetToken = crypto.randomBytes(32).toString('hex');
     this.hashToken = crypto.createHash('sha256').update(resetToken).digest('hex')
     this.resetTokenExpires = Date.now() + (1000 * 60 * 10);
     return resetToken
 }
 
-UserSchema.methods.checkChangePassword = function(JWTTimestamp){
+UserSchema.methods.checkChangePassword = function (JWTTimestamp) {
     if (this.passwordChangedAt) {
         const timePassChange = this.passwordChangedAt.getTime() / 1000;
         return JWTTimestamp < timePassChange; //200 300
-      }
-      return false;
+    }
+    return false;
 }
 
 
