@@ -8,6 +8,7 @@ import {IoMenu, IoClose} from 'react-icons/io5'
 import DropDownMenu from "./DropDownMenu";
 import {GET_ME} from 'pages/api/queries';
 import {useQuery} from '@apollo/client';
+import ClipLoader from 'react-spinners/ClipLoader'
 
 
 const links = ['For creators', 'Pricing', 'Resources', 'Starter kits'].map(el => (
@@ -48,13 +49,14 @@ export default function Header() {
     }
 
     const {data, loading} = useQuery(GET_ME)
-
     const registerLinks = (
         data
             ?
             <DropDownMenu registeredLinks={registeredLinks}/>
             :
-            loading ? <p style={{color: 'white'}}>Loading...</p> :
+            loading ?
+                <ClipLoader size={35} css={{marginRight: '2rem'}} color={"#55e2d0"}/>
+                :
                 <div className={styles.navButtons}>
                     <Link href="/login">
                         <a className={styles.logIn}>
@@ -69,7 +71,6 @@ export default function Header() {
                 </div>
 
     )
-    console.log(data)
 
     return (
         <>

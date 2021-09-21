@@ -28,28 +28,6 @@ const createSendToken = (user, res) => {
 
 module.exports = {
     Query: {
-        loginUser: catchAsync(
-            async (_, { UserLoginInput }, { UserModel, res }) => {
-                console.log("I'm loginUser resolver");
-                const { email, password } = UserLoginInput;
-                if (!email || !password) {
-                    throw new ApolloError(
-                        "You didn't enter password or email",
-                        400
-                    );
-                }
-                const User = await UserModel.findOne({
-                    email,
-                }).select('+password');
-                // eslint-disable-next-line prettier/prettier
-                if (!User || !await User.correctPassword(password, User.password)) {
-                    throw new AuthenticationError(
-                        'ایمیل و یا پسورد اشتباه وارد شده است'
-                    );
-                }
-                return createSendToken(User, res);
-            }
-        ),
         // eslint-disable-next-line no-empty-pattern
         get_me: catchAsync(async (_, __, { UserModel, req }) => {
             console.log('im get me');
@@ -92,6 +70,28 @@ module.exports = {
         ),
     },
     Mutation: {
+        loginUser: catchAsync(
+            async (_, { UserLoginInput }, { UserModel, res }) => {
+                console.log("I'm loginUser resolver");
+                const { email, password } = UserLoginInput;
+                if (!email || !password) {
+                    throw new ApolloError(
+                        "You didn't enter password or email",
+                        400
+                    );
+                }
+                const User = await UserModel.findOne({
+                    email,
+                }).select('+password');
+                // eslint-disable-next-line prettier/prettier
+                if (!User || !await User.correctPassword(password, User.password)) {
+                    throw new AuthenticationError(
+                        'ایمیل و یا پسورد اشتباه وارد شده است'
+                    );
+                }
+                return createSendToken(User, res);
+            }
+        ),
         signUp: catchAsync(async (_, { UserInput }, { UserModel, res }) => {
             console.log("I'm signUp resolver");
             // eslint-disable-next-line node/no-unsupported-features/es-syntax

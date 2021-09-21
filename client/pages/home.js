@@ -9,10 +9,10 @@ export default function HomePage() {
     )
 }
 
-HomePage.authOptions = {
-    auth: true,
-    redirect: '/login'
-}
+// HomePage.authOptions = {
+//     auth: true,
+//     redirect: '/login'
+// }
 // HomePage.auth = {
 //     role: "admin",
 //     loading: <AdminLoadingSkeleton />,

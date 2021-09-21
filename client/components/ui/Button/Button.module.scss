@@ -28,8 +28,11 @@
 }
 
 .fullWidth {
-  display: block;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
   margin: auto;
 }
 

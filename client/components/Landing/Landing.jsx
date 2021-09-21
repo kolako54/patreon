@@ -17,13 +17,12 @@ import blog2 from '$assets/images/blogs/2.jpg'
 import blog3 from '$assets/images/blogs/3.jpg'
 import plans from '$assets/images/plans.png'
 import { IoSearchOutline } from 'react-icons/io5'
-import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import styles from './Landing.module.scss'
 import "swiper/components/pagination/pagination.min.css"
 import { useEffect } from "react";
 import { GET_ME } from '../../pages/api/queries';
-import {useQuery} from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 
 SwiperCore.use([Autoplay, Pagination]);
@@ -155,7 +154,7 @@ const blogs = [
 
 export default function Landing() {
     const router = useRouter()
-    const {data, error, loading} = useQuery(GET_ME);
+    const { data, error, loading } = useQuery(GET_ME);
     useEffect(() => {
         if (data) {
             router.push('/home')
@@ -200,7 +199,7 @@ export default function Landing() {
 
             <div className={styles.about}>
                 <h1>
-                     {/*eslint-disable-next-line react/no-unescaped-entities */}
+                    {/*eslint-disable-next-line react/no-unescaped-entities */}
                     What's Patreon?
                 </h1>
                 <p>
