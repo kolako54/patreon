@@ -9,7 +9,7 @@ import * as yup from "yup";
 
 import formStyles from '../form.module.scss'
 import styles from './Login.module.scss'
-import {useLazyQuery} from '@apollo/client';
+import {useLazyQuery, useMutation} from '@apollo/client';
 import {isLoggedInVar} from "$apollo/store";
 
 const schema = yup.object().shape({
@@ -24,8 +24,9 @@ export default function Login() {
     });
     const [get_user, {
         error,
-    }] = useLazyQuery(LOGIN_USER, {
+    }] = useMutation(LOGIN_USER, {
         onCompleted: (d) => {
+            console.log(d);
             localStorage.setItem('token', 'Bearer ' + d.loginUser.token);
             isLoggedInVar(true)
         }

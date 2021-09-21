@@ -52,9 +52,12 @@ module.exports = {
         ),
         // eslint-disable-next-line no-empty-pattern
         get_me: catchAsync(async (_, __, { UserModel, req }) => {
-            const User = await UserModel.findById(req.user.id)
+            console.log('im get me');
+            const User = await UserModel.findById(req.user._id)
                 .populate('comments')
-                .populate('posts');
+                .populate('posts')
+                .populate('likedPosts');
+            console.log(User);
             return User;
         }),
 
@@ -145,25 +148,3 @@ module.exports = {
         }),
     },
 };
-
-// catchAsync(async (_, ins, { UserModel, req }) => {
-//     // const ctx = { password, confirmPassword };
-//     // console.log('req.user', req)
-//     console.log('ctx', ins);
-//     console.log('req.user.id', req.user.id);
-//     const doc = await UserModel.findByIdAndUpdate(req.user.id, ins, {
-//         new: true,
-//         runValidators: true, // each time we update data, model schema run again.
-//     });
-//     console.log('doccccccccc', doc);
-//     if (!doc) {
-//         return {
-//             status: false,
-//             message: 'the password does not change',
-//         };
-//     }
-//     return {
-//         status: true,
-//         message: 'the password sucessfully changed!',
-//     };
-// }),

@@ -7,18 +7,25 @@ const Post = gql`
         getPost(id: ID!, showComments: Boolean): File!
     }
     extend type Mutation {
-        singleUpload(file: Upload!, text: String!, user: ID!): File! @isAuth
+        singleUpload(file: Upload, text: String!): File! @isAuth
         deletePost(id: ID!): File @isAuth
-        updatePost(id: ID!, text: String): File @isAuth
+        updatePost(id: ID!, text: String, likes: ObjectID): File @isAuth
     }
     type File {
         createdAt: Date
         id: ID!
-        text: String!
-        filename: String!
-        filelocation: String!
+        text: String
+        filename: String
+        filelocation: String
         comments: [comment]
         user: ObjectID
+        post: ObjectID
+        # likeNum: Int
+        # isLiked: Boolean
+        length: Int
+        numLikes: Int
+        likes: ObjectID
+        usersLikes: [ObjectID]
     }
 `;
 

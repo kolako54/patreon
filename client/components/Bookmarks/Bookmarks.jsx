@@ -1,12 +1,13 @@
 // import {useRouter} from "next/router";
 // import {useEffect} from "react";
-import {useSession} from "next-auth/client";
 import Post from '$ui/Post'
 import styles from './Bookmarks.module.scss'
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../../pages/api/queries';
 
 export default function Bookmarks() {
     // const router = useRouter()
-    const [session, loading] = useSession()
+    const { data, error, loading } = useQuery(GET_ME);
     //
     // useEffect(() => {
     //     if (session === null)
@@ -19,9 +20,9 @@ export default function Bookmarks() {
             <div className={styles.tabs}>
                 <div>
                     <h1>Bookmarks</h1>
-                    <Post image={session && session.user.image}/>
-                    <Post image={session && session.user.image}/>
-                    <Post image={session && session.user.image}/>
+                    <Post image={data && data.get_me.profile_pic}/>
+                    <Post image={data && data.get_me.profile_pic}/>
+                    <Post image={data && data.get_me.profile_pic}/>
                 </div>
             </div>
         </div>

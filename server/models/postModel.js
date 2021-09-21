@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = require('./usersModel');
+const Comment = require('./commentModel');
 
 const PostSchema = mongoose.Schema(
     {
@@ -19,6 +21,16 @@ const PostSchema = mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: 'User',
         },
+        likeCount: {
+            type: Number,
+            default: 0,
+        },
+        usersLikes: [
+            {
+                type: mongoose.Schema.ObjectId,
+                ref: 'Rate',
+            },
+        ],
     },
     {
         toJSON: { virtuals: true },
@@ -30,6 +42,40 @@ PostSchema.virtual('comments', {
     foreignField: 'post',
     localField: '_id',
 });
+PostSchema.pre('save', function(next){
+    console.log(this.text);
+    next();
+})
 
+
+PostSchema.virtual('numLikes').get(function () {
+    if (this.usersLikes) {
+        return this.usersLikes.length;
+    }
+});
+PostSchema.virtual('commentNums').get(function () {
+    if (this.comments) return this.comments.length;
+});
+
+PostSchema.methods.toPull = function (userId) {
+    console.log('toPull');
+    console.log(userId);
+};
+PostSchema.statics = {
+    incLike(userId) {
+        return this.findByIdAndUpdate(
+            userId,
+            { $inc: { numLikes: 1 } },
+            { new: true }
+        );
+    },
+    decLike(userId) {
+        return this.findByIdAndUpdate(
+            userId,
+            { $inc: { numLikes: -1 } },
+            { new: true }
+        );
+    },
+};
 const Post = mongoose.model('Post', PostSchema);
 module.exports = Post;
