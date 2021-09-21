@@ -1,67 +1,76 @@
-import Link from 'next/link'
-import Button from "$ui/Button";
-import GoogleLoginButton from "$components/auth/GoogleLogin";
-import {useForm} from "react-hook-form";
-import {yupResolver} from '@hookform/resolvers/yup';
-import {LOGIN_USER} from "../../../pages/api/queries"
-import * as yup from "yup";
-
-
-import formStyles from '../form.module.scss'
-import styles from './Login.module.scss'
-import {useLazyQuery} from '@apollo/client';
-import {isLoggedInVar} from "$apollo/store";
+import Link from "next/link"
+import Button from "$ui/Button"
+import GoogleLoginButton from "$components/auth/GoogleLogin"
+import {useForm} from "react-hook-form"
+import {yupResolver} from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import ClipLoader from "react-spinners/ClipLoader"
+import formStyles from "../form.module.scss"
+import styles from "./Login.module.scss"
+import {gql, useMutation} from "@apollo/client"
+import {useRouter} from 'next/router'
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(8).max(64).required(),
-});
+})
+
+
+const LOGIN = gql`
+    mutation LOGIN($email: String!, $password: String!) {
+        login : loginUser(UserLoginInput: {email: $email, password: $password}) {
+            user {
+                email
+                id
+                name
+                profile_pic
+            }
+            token
+        }
+    }`
 
 
 export default function Login() {
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
-    });
-    const [get_user, {
-        error,
-    }] = useLazyQuery(LOGIN_USER, {
-        onCompleted: (d) => {
-            localStorage.setItem('token', 'Bearer ' + d.loginUser.token);
-            isLoggedInVar(true)
-        }
-    });
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+    } = useForm({
+        resolver: yupResolver(schema),
+    })
 
-    const onSubmit = async data => {
-        try {
-            await get_user({variables: {email: data.email, password: data.password}});
-        } catch (err) {
-            console.error(err.message);
+    const router = useRouter()
+
+    const [postData, {loading, error}] = useMutation(LOGIN, {
+            onCompleted: data => {
+                console.log(data.token)
+                data.login.token && router.push('/home')
+                alert('ok')
+            },
+            onError: () => null,
+            fetchPolicy: 'no-cache'
         }
+    )
+    const onSubmit = ({email, password}) => {
+        postData({variables: {email, password}})
     }
-
 
     return (
         <div className={formStyles.container}>
-            <h2>
-                Log in
-            </h2>
+            <h2>Log in</h2>
 
             <div className={formStyles.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="email">Email</label>
-                        <input {...register("email")} name="email"
-                               type="text"/>
-                        {errors.email &&
-                        <p className={formStyles.error}>{errors.email.message} </p>}
+                        <input {...register("email")} name="email" type="text"/>
+                        {errors.email && <p className={formStyles.error}>{errors.email.message} </p>}
                     </div>
                     <div className={formStyles.inputDiv}>
                         <label htmlFor="password">Password</label>
-                        <input autoComplete="password" {...register("password", {min: 8, max: 64})}
-                               name="password"
+                        <input autoComplete="password" {...register("password", {min: 8, max: 64})} name="password"
                                type="password"/>
-                        {errors.password &&
-                        <p className={formStyles.error}>{errors.password.message} </p>}
+                        {errors.password && <p className={formStyles.error}>{errors.password.message} </p>}
                     </div>
                     <div className={styles.forgetPassword}>
                         <Link href="/forgot-password">
@@ -69,23 +78,23 @@ export default function Login() {
                         </Link>
                     </div>
                     <div>
-                        <Button fullWidth disabled={errors.password || errors.email}>
-                            Log in
+                        <Button fullWidth disabled={errors.password || errors.email || loading}>
+                            {loading ?
+                                <ClipLoader color={"white"} size={25}/>
+                                :
+                                'Log in'}
                         </Button>
                     </div>
                     <div>
                         <p>or</p>
                     </div>
                     <GoogleLoginButton buttonText="Continue with Google"/>
-
                 </form>
                 <h4 style={{color: "red"}}>{error?.message}</h4>
             </div>
             <div className={styles.cta}>
                 <p>New to Patreon?</p>
-                <Link href="/signup">
-                    Sign up
-                </Link>
+                <Link href="/signup">Sign up</Link>
             </div>
         </div>
     )

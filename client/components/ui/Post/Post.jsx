@@ -37,7 +37,7 @@ export default function Post({image, comment, info}) {
     const bottom = comment ? '-4px' : '2px'
     const left = comment ? '45px' : '35px'
     const dummyData = useReactiveVar(dummyDataVar)
-    console.log(dummyData)
+    // console.log(dummyData)
 
     return (
         <div className={styles.post}>
@@ -117,7 +117,7 @@ export default function Post({image, comment, info}) {
     )
 }
 
-Post.defaults = {
+Post.defaultProps = {
     info: {
         name: 'name',
         username: 'username',
