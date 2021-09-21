@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ApolloClient, createHttpLink, InMemoryCache , gql } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
+import { includes } from "lodash";
 
 
 export const typeDefs = gql`

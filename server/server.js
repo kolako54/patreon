@@ -9,6 +9,7 @@ const { typeDefs, resolvers } = require('./graphql');
 const formatError = require('./utilities/formatError');
 const { schemaDirectives } = require('./graphql/directive');
 
+
 dotenv.config({ path: './config.env' });
 
 process.on('uncaughtException', (err) => {
@@ -16,12 +17,7 @@ process.on('uncaughtException', (err) => {
     console.log(err.name, ': ', err.message);
     process.exit(1);
 });
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-};
 
-app.use(cors(corsOptions));
 const server = new ApolloServer({
     cors: false,
     typeDefs,
@@ -76,3 +72,17 @@ const server = new ApolloServer({
         });
     }
 })();
+// app.all(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
+
+// app.use(
+//     cors({
+//         credentials: true,
+//         origin: 'http://localhost:3000',
+//         allowedHeaders: ['Content-Type', 'Authorization'],
+//         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//         // preflightContinue: false,
+//         optionsSuccessStatus: 200,
+//     })
+// );

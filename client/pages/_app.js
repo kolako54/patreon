@@ -7,6 +7,8 @@ import Layout from "$components/Layout";
 import PulseLoader from 'react-spinners/PulseLoader'
 import NProgress from 'nprogress'
 import Router, {useRouter} from "next/router";
+import { useQuery } from "@apollo/client";
+import { GET_ME } from 'pages/api/queries';
 import '$styles/globals.css'
 import 'swiper/swiper.scss'
 import '$styles/nprogress.css'
@@ -39,9 +41,10 @@ export default function MyApp({Component, pageProps}) {
 
 
 function Auth({children}) {
-    const [session, loading] = useSession()
+    const { data, error, loading } = useQuery(GET_ME);
+    // const [session, loading] = useSession()
     const router = useRouter()
-    const isUser = !!session?.user
+    const isUser = !!data
     const {redirect, autoLogin} = children.type.authOptions
     useEffect(() => {
         if (loading) return <h1 style={{const: 'purple'}}>Auth Loading...</h1>// Do nothing while
@@ -49,11 +52,12 @@ function Auth({children}) {
         if (redirect && !isUser) {
             return router.push(redirect)
         }
-        if (!isUser && autoLogin) {
-            signIn("google", {callbackUrl: process.env.NEXTAUTH_URL + '/home'}) // If not
-            // authenticated, force log in
-        }
-    }, [isUser, loading, redirect, router, autoLogin, session])
+        // if (!isUser && autoLogin) {
+        //     signIn("google", {callbackUrl: process.env.NEXTAUTH_URL + '/home'}) // If not
+        //     // authenticated, force log in
+        //     // return router.push('/home')
+        // }
+    }, [isUser, loading, redirect, router, data])
 
     if (isUser) {
         return children
@@ -74,3 +78,4 @@ function Auth({children}) {
         </Layout>
     )
 }
+// SignUpPage.authOptions= {auth:true, redirect :'/home'}

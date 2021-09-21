@@ -30,14 +30,21 @@ const transition = {
 }
 
 export default function Post({image, comment, info}) {
+    console.log('info', info)
+    console.log('comment: ', comment)
+    if(info){
+        var {name, username, time, content} = info
+    }
+    // const {name, username, time, content} = info
 
-    const {name, username, time, content} = info
+   
     const router = useRouter()
     const [isBookmarked, setIsBookmarked] = useState(false)
     const bottom = comment ? '-4px' : '2px'
     const left = comment ? '45px' : '35px'
     const dummyData = useReactiveVar(dummyDataVar)
-    console.log(dummyData)
+    console.log('dummyData', dummyData)
+    console.log('name', name);
 
     return (
         <div className={styles.post}>
@@ -45,7 +52,7 @@ export default function Post({image, comment, info}) {
                  style={{justifyContent: comment ? 'space-between' : 'space-around'}}>
                 <div>
                     {image && <Image src={image} width={45} height={45} alt="user image"/>}
-                    <h4>{name}</h4>
+                    {/* <h4>{info && name}</h4> */}
                     <div className={styles.usernameAndTime}>
                         <p style={{margin: '.4rem 0'}}>{username}</p>
                         <p style={{margin: '0 .4rem 0 1rem'}}>{time}</p>

@@ -4,7 +4,7 @@ import {signOut} from "next-auth/client";
 import {useSession} from "next-auth/client";
 import styles from './DropDownMenu.module.scss'
 import {useState} from "react";
-import { GET_ME } from "pages/api/queries";
+import { GET_ME } from "../../../pages/api/queries";
 import { useQuery } from "@apollo/client";
 
 // const links = [

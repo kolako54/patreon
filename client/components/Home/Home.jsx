@@ -38,7 +38,7 @@ export default function Home() {
                 <div>
                     <h1>All Posts</h1>
                     <Post
-                        image={session && session.user.image}
+                        image={data && data.get_me.profile_pic}
                         info={{
                             name: 'Erfan Ansari',
                             username: 'erfanhimself',

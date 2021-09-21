@@ -36,6 +36,7 @@ module.exports = gql`
         name: String!
         profile_pic: String
         confirmPassword: String!
+        likedPosts: [File]
         comments: [comment]
         posts: [File]
     }

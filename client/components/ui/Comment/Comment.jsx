@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from 'next/link'
 import styles from './Comment.module.scss'
-import {useSession} from "next-auth/client";
+// import {useSession} from "next-auth/client";
 import {useForm} from "react-hook-form";
 import {dummyDataVar} from "$apollo/store";
 import {useReactiveVar} from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../../../pages/api/queries';
 import Post from "$ui/Post"
 import {
     IoArrowBack,
@@ -39,7 +41,8 @@ const transition = {
 export default function Comment() {
     const [isBookmarked, setIsBookmarked] = useState(false)
     const {register, handleSubmit} = useForm()
-    const [session, loading] = useSession()
+    // const [session, loading] = useSession()
+    const { data, error, loading } = useQuery(GET_ME);
 
     const dummyData = useReactiveVar(dummyDataVar)
     const onSubmit = data => console.log(data)
@@ -61,7 +64,7 @@ export default function Comment() {
             <div className={styles.tweet}>
                 <div className={styles.image}>
                     <div className={styles.info}>
-                        <Image src={session && session.user.image} width={50} height={50}
+                        <Image src={data && data.get_me.profile_pic} width={50} height={50}
                                alt="user image"/>
                         <div className={styles.nameAndUserName}>
                             <h3>TOBTC</h3>
@@ -123,7 +126,7 @@ export default function Comment() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.inputContainer}>
                         <div style={{minWidth: '3rem', alignSelf: 'baseline'}}>
-                            <Image src={session && session.user.image} width={50} height={50}
+                            <Image src={data && data.get_me.profile_pic} width={50} height={50}
                                    alt="user image"/>
                         </div>
                         {/*<input type="text" placeholder="Type your reply"/>*/}
