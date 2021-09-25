@@ -10,6 +10,7 @@ module.exports = gql`
         loginUser(UserLoginInput: UserLoginInput!): AuthUser!
         forgotPassword(email: String!): Notification!
         signUp(UserInput: UserInput!): AuthUser!
+        loginUser(UserLoginInput: UserLoginInput!): AuthUser!
         resetPassword(password: String!, confirmPassword: String!): AuthUser!
         updatePassword(
             currentPassword: String!
