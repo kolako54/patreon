@@ -5,10 +5,10 @@
             "$components/*": ["components/*"],
             "$styles/*": ["styles/*"],
             "$assets/*": ["assets/*"],
-            "$hooks/*": ["utility/hooks/*"],
+            "$utils/*": ["utils/*"],
             "$apollo/*": ["apollo-client/*"],
-            "$ui/*": ["components/ui/*"]
+            "$ui/*": ["components/ui/*"],
+            "$api/*": ["pages/api/*"]
         }
     }
 }
-
