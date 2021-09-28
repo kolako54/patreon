@@ -1,18 +1,18 @@
-import { ApolloProvider } from "@apollo/client"
-import { useApollo } from "$apollo/apolloClient"
-import { useSession, signIn } from "next-auth/client"
-import { useEffect } from "react"
-import { Provider } from "next-auth/client"
-import Layout from "$components/Layout"
-import PulseLoader from "react-spinners/PulseLoader"
-import NProgress from "nprogress"
-import Router, { useRouter } from "next/router"
-import "$styles/globals.css"
-import "swiper/swiper.scss"
-import "$styles/nprogress.css"
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from '$apollo/apolloClient'
+// import { useSession, signIn } from 'next-auth/client'
+// import { useEffect } from 'react'
+import { Provider } from 'next-auth/client'
+// import Layout from '$components/Layout'
+// import PulseLoader from 'react-spinners/PulseLoader'
+import NProgress from 'nprogress'
+import Router, { useRouter } from 'next/router'
+import '$styles/globals.css'
+import 'swiper/swiper.scss'
+import '$styles/nprogress.css'
 
-Router.onRouteChangeStart = url => {
-  NProgress.start()
+Router.onRouteChangeStart = (url) => {
+    NProgress.start()
 }
 
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -20,21 +20,20 @@ Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
 export default function MyApp({ Component, pageProps }) {
-  const client = useApollo(pageProps.initialApolloState)
-  return (
-    <Provider session={pageProps.session}>
-      <ApolloProvider client={client}>
-        {/*{Component.authOptions?.auth ?*/}
-        {/*    <Auth>*/}
-        {/*        <Component {...pageProps} />*/}
-        {/*    </Auth>*/}
-        {/*    :*/}
-        {/*    <Component {...pageProps} />*/}
-        {/*}*/}
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </Provider>
-  )
+    const client = useApollo(pageProps.initialApolloState)
+    return (
+        <Provider session={pageProps.session}>
+            <ApolloProvider client={client}>
+                {/*{Component.authOptions?.auth ?*/}
+                {/*    <Auth>*/}
+                {/*        <Component {...pageProps} />*/}
+                {/*    </Auth>*/}
+                {/*    :*/}
+                <Component {...pageProps} />
+                {/*}*/}
+            </ApolloProvider>
+        </Provider>
+    )
 }
 
 // function Auth({children}) {

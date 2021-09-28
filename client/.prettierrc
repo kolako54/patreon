@@ -1,0 +1,16 @@
+{
+    "arrowParens": "always",
+    "printWidth": 220,
+    "semi": false,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "prettier.arrowParens": "always",
+    "useEditorConfig": false,
+    "requireConfig": true,
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "htmlWhitespaceSensitivity": "css",
+    "proseWrap": "always",
+    "quoteProps": "as-needed",
+    "trailingComma": "all"
+}

@@ -53,3 +53,8 @@ export const REFRESH = gql`
         refresh(id: $id)
     }
 `
+export const LOGOUT = gql`
+    mutation LOGOUT {
+        logout
+    }
+`
