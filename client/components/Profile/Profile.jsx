@@ -7,7 +7,7 @@ import { GET_ME } from '../../pages/api/queries'
 import { useQuery } from '@apollo/client'
 
 export default function Profile() {
-    // const {data, loading} = useQuery(GET_ME);
+    const { data, loading } = useQuery(GET_ME)
 
     const router = useRouter()
 

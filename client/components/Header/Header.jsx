@@ -64,58 +64,72 @@ export default function Header() {
         </div>
     )
 
-    if (loading)
-        return (
-            <PulseLoader
-                color={'#55e2d0'}
-                css={{
-                    position: 'absolute',
-                    left: '50%',
-                    top: '47%',
-                    transform: 'translate(-50%,-50%)',
-                }}
-            />
-        )
+    // if (loading)
+    // return (
+    //     <div style={{}}>
+    //         <PulseLoader
+    //             color={'#55e2d0'}
+    //             css={{
+    //                 position: 'absolute',
+    //                 top: '1rem',
+    //                 left: '45%',
+    //             }}
+    //         />
+    //     </div>
+    // )
     // if (error) return <p>Error... HEADEr {error.message}</p>
 
     return (
         <>
             <div className={styles.container}>
-                <div className={styles.navbar}>
-                    <div className={styles.navLinks}>
-                        <div style={{ cursor: 'pointer' }}>
-                            <Logo />
+                {!loading ? (
+                    <>
+                        <div className={styles.navbar}>
+                            <div className={styles.navLinks}>
+                                <div style={{ cursor: 'pointer' }}>
+                                    <Logo />
+                                </div>
+                                <div>{isAuth ? null : links}</div>
+                            </div>
+                            {registerLinks}
                         </div>
-                        <div>{isAuth ? null : links}</div>
-                    </div>
-                    {registerLinks}
-                </div>
 
-                <div className={styles.buttons}>
-                    <div style={{ marginRight: 'auto' }}>
-                        <Logo />
-                    </div>
-                    {registerLinks}
-                    {!open ? (
-                        <motion.button
-                            animate={{
-                                rotateZ: 0,
-                            }}
-                            onClick={handleMenu}
-                        >
-                            <IoMenu color="#fff" size={40} />
-                        </motion.button>
-                    ) : (
-                        <motion.button
-                            animate={{
-                                rotateZ: '-90deg',
-                            }}
-                            onClick={handleMenu}
-                        >
-                            <IoClose color="#fff" size={40} />
-                        </motion.button>
-                    )}
-                </div>
+                        <div className={styles.buttons}>
+                            <div style={{ marginRight: 'auto' }}>
+                                <Logo />
+                            </div>
+                            {registerLinks}
+                            {!open ? (
+                                <motion.button
+                                    animate={{
+                                        rotateZ: 0,
+                                    }}
+                                    onClick={handleMenu}
+                                >
+                                    <IoMenu color="#fff" size={40} />
+                                </motion.button>
+                            ) : (
+                                <motion.button
+                                    animate={{
+                                        rotateZ: '-90deg',
+                                    }}
+                                    onClick={handleMenu}
+                                >
+                                    <IoClose color="#fff" size={40} />
+                                </motion.button>
+                            )}
+                        </div>
+                    </>
+                ) : (
+                    <PulseLoader
+                        color={'#55e2d0'}
+                        css={{
+                            position: 'absolute',
+                            top: '30%',
+                            left: '45%',
+                        }}
+                    />
+                )}
             </div>
             <AnimatePresence>
                 {open && (

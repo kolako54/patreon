@@ -31,11 +31,11 @@ const emailAndNameSchema = yup.object().shape({
 })
 
 export default function ProfileSetting() {
-    // const { data, loading, error } = useQuery(GET_ME);
+    const { data, loading } = useQuery(GET_ME)
     const [updatepass, { data: d, error: err, loading: ld }] = useMutation(UPDATE_PASSWORD, {
         onCompleted: (ctx) => {
-            localStorage.removeItem('token')
-            localStorage.setItem('token', 'Bearer ' + ctx.updatePassword.token)
+            // localStorage.removeItem('token')
+            // localStorage.setItem('token', 'Bearer ' + ctx.updatePassword.token)
         },
         onError(errs) {
             console.error(errs)
