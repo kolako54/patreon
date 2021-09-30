@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Post from '$ui/Post'
 import styles from './Home.module.scss'
-import { useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { GET_ME } from 'pages/api/queries'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
@@ -10,15 +10,12 @@ import { useEffect } from 'react'
 export default function Home() {
     const router = useRouter()
 
-    const [getData, { data, loading, error }] = useLazyQuery(GET_ME)
+    const { data, loading, error } = useQuery(GET_ME)
 
     const goToProfile = () => router.push('/profile')
 
-    const isAuth = Cookies.get('isAuth')
-    if (isAuth) getData()
-
     if (loading) return <p>Loading...</p>
-    if (loading) return <p>Loading...</p>
+    if (error) return <p>console.error();...</p>
     return (
         <div className={styles.container}>
             <div onClick={goToProfile} className={styles.profile}>
