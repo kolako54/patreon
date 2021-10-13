@@ -32,7 +32,7 @@ export default function DropDownMenu({ registeredLinks }) {
 
     return (
         <div onMouseOver={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} className={styles.container}>
-            {isAuth && <Image src={data.get_me.profile_pic} alt="user" width={45} height={45} />}
+            {data && isAuth && <Image src={data.get_me.profile_pic} alt="user" width={45} height={45} />}
             {isHover && (
                 <div className={styles.dropdown}>
                     {registeredLinks}
