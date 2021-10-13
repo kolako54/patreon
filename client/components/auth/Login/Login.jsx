@@ -10,7 +10,7 @@ import styles from './Login.module.scss'
 import { gql, useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useEffectf, useEffect } from 'react'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 const schema = yup.object().shape({
@@ -47,6 +47,13 @@ export default function Login() {
     const [postData, { loading, error }] = useMutation(LOGIN, {
         onError: () => null,
         fetchPolicy: 'no-cache',
+        // onCompleted: (data) => {
+        //     if (data && data.logIn.token) {
+        //         sessionStorage.setItem('token', data.logIn.token)
+        //     } else {
+        //         sessionStorage.removeItem('token')
+        //     }
+        // },
     })
     const onSubmit = ({ email, password }) => {
         postData({ variables: { email, password } })
@@ -56,6 +63,9 @@ export default function Login() {
         if (isAuth) router.push('/home')
     })
 
+    useEffect(() => {
+        postData()
+    }, [postData])
     return (
         <>
             {!isAuth ? (
